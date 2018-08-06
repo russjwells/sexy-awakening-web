@@ -9,10 +9,23 @@ import {FaBeer} from 'react-icons/fa'
 export default class NavBar extends Component {
     render(){
         return(
-            <header className={css(styles.nav)}>
-                <img src={phoenixred} className="App-logo" alt="logo" />
-                <div className={css(styles.title)}>Sexy Awakening</div>
-            </header>
+            <div className={css(styles.nav)}>
+                <div className={css(styles.left)}>
+                    <div>sup</div>
+                </div>
+                <div className={css(styles.center)}>
+                    <div className={css(styles.titleHolder)}>
+                        <div className={css(styles.flex)}>
+                        <img src={phoenixred} className="App-logo" alt="logo" />
+                        </div>
+                        <div className={css(styles.title)}>Sexy Awakening</div>
+                    </div>
+                </div>
+                <div className={css(styles.right)}>
+                    <div>sup</div>
+                </div>
+                
+            </div>
         )
     }
 }
@@ -21,28 +34,61 @@ export default class NavBar extends Component {
 
 
 const styles = StyleSheet.create({
+    flex:{
+        display: 'flex',
+        flex: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
     nav:{
         display: 'flex',
         flex:1,
         backgroundColor: '#fff',
         height: 100,
-        padding: 20,
+        //padding: 20,
         color: '#e54560',
         flexDirection: 'row',
         justifContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'skyblue'
+    },
+    left:{
+        flex: 1,
+        display: 'flex',
+        backgroundColor: 'lightblue',
+    },
+    center:{
+        flex: 7,
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: 'blue',
+        flexDirection: 'row',
+    },
+    right:{
+        flex: 1,
+        display: 'flex',
+        backgroundColor: 'darkblue',
+    },
+    titleHolder:{
+        display: 'flex',
+        flex:0,
+        flexDirection: 'row',
     },
     title:{
         display: 'flex',
-        flex:1,
-        backgroundColor: '#fff',
+        
+        //backgroundColor: '#fff',
         height: 100,
-        padding: 20,
+        
         color: '#e54560',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 10
+        marginLeft: 10,
+        fontSize: 36,
+        fontWeight: 'bold',
     },
     button: {
         display: 'flex',
