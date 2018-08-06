@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
+import { StyleSheet, css } from 'aphrodite';
 
-import phoenixred from './phoenix_red.svg';
+
+import FacebookButton from './components/facebookButton'
+import Home from './screens/home'
+import Login from './screens/login'
+
+
 import './App.css';
 
 class App extends Component {
 
   state = {
     loggedIn:false,
+    user:data,
+  }
+  login = () => {
+    this.setState({loggedIn:true})
+    //console.log('wwaaahhahaha')
+    //alert('wwaaahhahaha')
+  }
+  clicked() {
+    console.log('clicked')
   }
   
   render() {
@@ -14,33 +29,28 @@ class App extends Component {
     return (
           <div className="App">
           {loggedIn ? (
-            <div>
-              <header className="App-header">
-              <img src={phoenixred} className="App-logo" alt="logo" />
-                <h1 className="App-title">Sexy Awakening</h1>
-              </header>
-              <p className="App-intro">
-                Web App {loggedIn && (
-                  <div>holla</div>
-                )}
-              </p>
-            </div>
+            <Home user={this.state.user}/>
           ):(
-            <div>
-              <header className="App-header">
-              <img src={phoenixred} className="App-logo" alt="logo" />
-                <h1 className="App-title">Sexy Awakening</h1>
-              </header>
-              <p className="App-intro">
-                Web App {loggedIn && (
-                  <div>holla</div>
-                )}
-              </p>
-            </div>
+            <Login login={this.login}/>
           )}
           </div>
         )
   }
 }
+
+const data = {
+  first_name: 'bob',
+  last_name: 'johnson',
+  email: 'wahoo@gmail.com'
+}
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'space-around'
+  },
+});
+
 
 export default App;
