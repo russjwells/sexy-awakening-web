@@ -12,8 +12,11 @@ class Login extends Component {
     render(){
         return (
             <div style={styles.container}>
-              {<NavBar />}
-              <p className="App-intro">
+            <header className="App-header">
+                    <img src={phoenixred} className="App-logo" alt="logo" />
+                    <h1 className="App-title">Sexy Awakening</h1>
+                </header>
+              <p>
                 Welcome, please login: {this.props.userData && (
                   <div>holla</div>
                 )}

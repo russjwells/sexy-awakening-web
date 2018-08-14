@@ -6,24 +6,10 @@ import {FaBeer} from 'react-icons/fa'
 
 //import Icon from '@expo/vector-icons/FontAwesome'
 
-export default class NavBar extends Component {
+export default class Footer extends Component {
     render(){
         return(
-            <div className={css(styles.nav)}>
-                <div className={css(styles.left)}>
-                    <div>sup</div>
-                </div>
-                <div className={css(styles.center)}>
-                    <div className={css(styles.titleHolder)}>
-                        <div className={css(styles.flex)}>
-                            <img src={phoenixred} className="App-logo" alt="logo" />
-                        </div>
-                        <div className={css(styles.title)}>Sexy Awakening</div>
-                    </div>
-                </div>
-                <div className={css(styles.right)}>
-                    <div>sup</div>
-                </div>
+            <div className={css(styles.footer)}>
                 
             </div>
         )
@@ -34,6 +20,13 @@ export default class NavBar extends Component {
 
 
 const styles = StyleSheet.create({
+    footer:{
+        display:'flex',
+        flex:-1,
+        backgroundColor:'black',
+        height: 100,
+
+    },
     flex:{
         display: 'flex',
         flex: 0,
@@ -43,15 +36,15 @@ const styles = StyleSheet.create({
     },
     nav:{
         display: 'flex',
-        flex:-1,
+        flex:1,
         backgroundColor: '#fff',
-        height: '100px',
+        height: 100,
         //padding: 20,
         color: '#e54560',
         flexDirection: 'row',
         justifContent: 'center',
         alignItems: 'center',
-        //backgroundColor: 'skyblue'
+        backgroundColor: 'skyblue'
     },
     left:{
         flex: 1,
@@ -63,7 +56,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'center',
-        //backgroundColor: 'blue',
+        backgroundColor: 'blue',
         flexDirection: 'row',
     },
     right:{
