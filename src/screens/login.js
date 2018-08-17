@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import phoenixred from '../phoenix_red.svg';
+import phoenixred from '../components/phoenix_red.svg';
 import FacebookButton from '../components/facebookButton'
 import NavBar from '../components/navBar'
 

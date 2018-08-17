@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
 
-import FacebookButton from './components/facebookButton'
-import Home from './screens/home'
-import Login from './screens/login'
+import FacebookButton from './facebookButton'
+import Home from '.././screens/home'
+import Login from '.././screens/login'
 
 
 import './App.css';

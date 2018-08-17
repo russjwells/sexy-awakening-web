@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { StyleSheet, css } from 'aphrodite';
-import phoenixred from '../phoenix_red.svg';
+import phoenixred from './phoenix_red.svg';
 
 import {FaBeer} from 'react-icons/fa'
 

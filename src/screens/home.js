@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import phoenixred from '../phoenix_red.svg';
+import phoenixred from '../components/phoenix_red.svg';
 import NavBar from '../components/navBar';
 import Footer from '../components/footer'
 import WebScroller from '../components/webScroller'
