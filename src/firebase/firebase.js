@@ -9,7 +9,13 @@ const config = {
     messagingSenderId: "1014804828452",
   };
 
-//init if not already
-  if (!firebase.apps.length) {
+//init firebase if not already
+if (!firebase.apps.length) {
     firebase.initializeApp(config);
-  }
+}
+
+const auth = firebase.auth();
+
+export {
+  auth,
+};
