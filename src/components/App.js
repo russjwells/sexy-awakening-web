@@ -1,56 +1,51 @@
-import React, { Component } from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import React from 'react';
+import { 
+  BrowserRouter as Router,
+  Route,
+} from 'react-router-dom';
 
+import Navigation from './Navigation';
+import LandingPage from './Landing';
+import SignUpPage from './SignUp';
+import SignInPage from './SignIn';
+import PasswordForgetPage from './PasswordForget';
+import HomePage from './Home';
+import AccountPage from './Account';
 
-import FacebookButton from './facebookButton'
-import Home from '.././screens/home'
-import Login from '.././screens/login'
+import * as routes from '../constants/routes';
 
+const App = () =>
+  <Router>
+    <div>
+      <Navigation />
+      <hr/>
 
-import './App.css';
-
-class App extends Component {
-
-  state = {
-    loggedIn:false,
-    user:data,
-  }
-  login = () => {
-    this.setState({loggedIn:true})
-    //console.log('wwaaahhahaha')
-    //alert('wwaaahhahaha')
-  }
-  clicked() {
-    console.log('clicked')
-  }
-  
-  render() {
-    const loggedIn = this.state.loggedIn
-    return (
-          <div className="App">
-          {loggedIn ? (
-            <Home user={this.state.user}/>
-          ):(
-            <Login login={this.login}/>
-          )}
-          </div>
-        )
-  }
-}
-
-const data = {
-  first_name: 'bob',
-  last_name: 'johnson',
-  email: 'wahoo@gmail.com'
-}
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'space-around'
-  },
-});
-
+      <Route
+        exact path={routes.LANDING}
+        component={() => <LandingPage />}
+      />
+      <Route
+        exact path={routes.SIGN_UP}
+        component={() => <SignUpPage />}
+      />
+      <Route
+        exact path={routes.SIGN_IN}
+        component={() => <SignInPage />}
+      />
+      <Route
+        exact path={routes.PASSWORD_FORGET}
+        component={() => <PasswordForgetPage />}
+      />
+      <Route
+        exact path={routes.HOME}
+        component={() => <HomePage />}
+      />
+      <Route
+        exact path={routes.ACCOUNT}
+        component={() => <AccountPage />}
+      />
+    </div>
+    
+  </Router>
 
 export default App;
