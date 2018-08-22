@@ -4,6 +4,8 @@ import {
   Route,
 } from 'react-router-dom';
 
+import { StyleSheet, css } from 'aphrodite';
+
 import Navigation from './Navigation';
 import LandingPage from './Landing';
 import SignUpPage from './SignUp';
@@ -14,30 +16,12 @@ import AccountPage from './Account';
 
 import * as routes from '../constants/routes';
 import { firebase } from '../firebase';
+import withAuthentication from './withAuthentication';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      authUser: null,
-    };
-  }
-
-  componentDidMount() {
-    firebase.auth.onAuthStateChanged(authUser => {
-      authUser
-        ? this.setState({ authUser })
-        : this.setState({ authUser: null });
-    });
-  }
-
-  render(){
-    return(
+const App = () =>
     <Router>
-      <div>
-        <Navigation authUser={this.state.authUser}/>
-        <hr/>
+      <div className={css(styles.container)}>
+        <Navigation />
         <Route
           exact path={routes.LANDING}
           component={() => <LandingPage />}
@@ -64,9 +48,15 @@ class App extends Component {
         />
       </div>
   </Router>
-    )
-  }
-}
-  
 
-export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'flex-start',
+    flexDirection:'column',
+  },
+});
+  
+export default withAuthentication(App);
