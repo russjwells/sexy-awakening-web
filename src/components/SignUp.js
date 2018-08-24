@@ -4,9 +4,12 @@ import { Link, withRouter } from 'react-router-dom';
 import * as routes from '../constants/routes';
 
 import { auth } from '../firebase';
+import Navigation from './Navigation';
+
 
 const SignUpPage = ({history}) =>
   <div>
+    <Navigation />
     <h1>Sign Up</h1>
     <SignUpForm history={history} />
   </div>

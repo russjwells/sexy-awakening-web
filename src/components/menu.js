@@ -11,6 +11,7 @@ const Menu = () =>
         <img src={phoenixred} className={css(styles.logo)} alt="logo" />
         <p>Sexy Awakeing Beta</p>
         <ul>
+            <li><Link to={routes.ACCOUNT}>Account</Link></li>
             <li><SignOutButton /></li>
         </ul>
     </div>
@@ -22,6 +23,10 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       flexDirection:'column',
       backgroundColor: '#fff'
+    },
+    logo:{
+        width: 80,
+        height: 80,
     },
   });
 

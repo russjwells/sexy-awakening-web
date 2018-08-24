@@ -22,7 +22,6 @@ import withAuthentication from './withAuthentication';
 const App = () =>
     <Router>
       <div className={css(styles.container)}>
-        <Navigation />
         <Route
           exact path={routes.LANDING}
           component={() => <LandingPage />}

@@ -11,18 +11,17 @@ export default class NavBar extends Component {
         return(
             <div className={css(styles.nav)}>
                 <div className={css(styles.left)}>
-                    <div>sup</div>
+                    <div>menu</div>
                 </div>
                 <div className={css(styles.center)}>
                     <div className={css(styles.titleHolder)}>
                         <div className={css(styles.flex)}>
                             <img src={phoenixred} className={css(styles.logo)} alt="logo" />
                         </div>
-                        <div className={css(styles.title)}>Sexy Awakening</div>
                     </div>
                 </div>
                 <div className={css(styles.right)}>
-                    <div>sup</div>
+                    <div>matches</div>
                 </div>
                 
             </div>
@@ -72,8 +71,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'darkblue',
     },
     logo:{
-        width: 100,
-        height: 100,
+        width: 60,
+        height: 60,
     },
     titleHolder:{
         display: 'flex',
