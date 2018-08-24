@@ -4,6 +4,8 @@ import phoenixred from '../components/phoenix_red.svg';
 import NavBar from '../components/navBar';
 import Footer from '../components/footer'
 import WebScroller from '../components/webScroller'
+import Drawer from 'react-motion-drawer';
+import Menu from '../components/menu'
 
 class Home extends Component {
     constructor(props) {
@@ -12,7 +14,15 @@ class Home extends Component {
 
     render(){
         return (
+            
             <div className={css(styles.container)}>
+                <Drawer 
+                    open={true}
+                    zIndex={10000}
+                    //onChange={onChange}
+                >
+                    <Menu />
+                </Drawer>
                 {<NavBar />}
                 {<WebScroller 
                     //screens={[
