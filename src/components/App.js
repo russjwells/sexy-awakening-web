@@ -7,11 +7,12 @@ import {
 import { StyleSheet, css } from 'aphrodite';
 
 import Navigation from './Navigation';
+import NavBar from './navBar';
 import LandingPage from './Landing';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
 import PasswordForgetPage from './PasswordForget';
-import HomePage from './Home';
+import HomePage from '../screens/home';
 import AccountPage from './Account';
 
 import * as routes from '../constants/routes';

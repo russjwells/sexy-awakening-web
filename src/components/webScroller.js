@@ -11,7 +11,7 @@ class WebScroller extends Component {
         return (
             <div className={css(styles.content)}>
                 <div className={css(styles.flex)}>
-                    Welcome home, {this.props.user.first_name}!
+                    Welcome home, ~!
                 </div>
             </div>
         )

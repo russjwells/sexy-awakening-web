@@ -16,7 +16,7 @@ export default class NavBar extends Component {
                 <div className={css(styles.center)}>
                     <div className={css(styles.titleHolder)}>
                         <div className={css(styles.flex)}>
-                            <img src={phoenixred} className="App-logo" alt="logo" />
+                            <img src={phoenixred} className={css(styles.logo)} alt="logo" />
                         </div>
                         <div className={css(styles.title)}>Sexy Awakening</div>
                     </div>
@@ -70,6 +70,10 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         backgroundColor: 'darkblue',
+    },
+    logo:{
+        width: 100,
+        height: 100,
     },
     titleHolder:{
         display: 'flex',
