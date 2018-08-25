@@ -3,7 +3,7 @@ import { db } from './firebase';
 // User api
 
 export const doCreateUser = (id, username, email) =>
-    db.ref('users/${id}').set({
+    db.ref(`users/${id}`).set({
         username,
         email,
     });
