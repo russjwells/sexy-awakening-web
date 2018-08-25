@@ -14,7 +14,7 @@ const SignUpPage = ({history}) =>
     <div className={css(styles.content)}>
         <h1>Sign Up</h1>
         <SignUpForm history={history} />
-        <p><Link to={routes.SIGN_IN}>Sign In</Link></p>
+        <p>Already have an account? <Link to={routes.SIGN_IN}>Sign In</Link></p>
     </div>
   </div>
 
