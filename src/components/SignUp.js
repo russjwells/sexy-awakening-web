@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 import * as routes from '../constants/routes';
-
+import { StyleSheet, css } from 'aphrodite';
 import { auth } from '../firebase';
 import Navigation from './Navigation';
+import Header from './header'
 
 
 const SignUpPage = ({history}) =>
-  <div>
-    <Navigation />
-    <h1>Sign Up</h1>
-    <SignUpForm history={history} />
+  <div className={css(styles.container)}>
+    <Header />
+    <div className={css(styles.content)}>
+        <h1>Sign Up</h1>
+        <SignUpForm history={history} />
+        <p><Link to={routes.SIGN_IN}>Sign In</Link></p>
+    </div>
   </div>
 
 const INITIAL_STATE = {
@@ -113,6 +117,29 @@ const SignUpLink = () =>
     {' '}
     <Link to={routes.SIGN_UP}>Sign Up</Link>
   </p>
+
+const styles = StyleSheet.create({
+    container: {
+      display: 'flex',
+      flex: 1,
+      justifyContent: 'center',
+      //alignItems: 'center',
+      flexDirection:'column',
+      backgroundColor: '#fff'
+    },
+    content: {
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection:'column',
+        backgroundColor: '#fff'
+      },
+    logo:{
+        width: 80,
+        height: 80,
+    },
+  });
 
 export default withRouter(SignUpPage);
 

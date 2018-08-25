@@ -7,12 +7,12 @@ import { auth } from '../firebase';
 import * as routes from '../constants/routes';
 import { StyleSheet, css } from 'aphrodite';
 import Navigation from './Navigation';
+import Header from './header'
 
 const SignInPage = ({ history }) =>
 <div className={css(styles.container)}>
-    <Navigation />
-    <div className={css(styles.container)}>
-        
+    <Header />
+    <div className={css(styles.content)}>
         <h1>Sign In</h1>
         <SignInForm history={history} />
         <SignUpLink />
@@ -99,10 +99,18 @@ const styles = StyleSheet.create({
       display: 'flex',
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      //alignItems: 'center',
       flexDirection:'column',
       backgroundColor: '#fff'
     },
+    content: {
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection:'column',
+        backgroundColor: '#fff'
+      },
     logo:{
         width: 80,
         height: 80,
