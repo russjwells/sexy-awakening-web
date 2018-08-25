@@ -6,6 +6,7 @@ import Footer from '../components/footer'
 import WebScroller from '../components/webScroller'
 import Drawer from 'react-motion-drawer';
 import Menu from '../components/menu'
+import withAuthorization from '../components/withAuthorization';
 
 class Home extends Component {
     constructor(props) {
@@ -47,5 +48,5 @@ const styles = StyleSheet.create({
     },
   });
   
-  
-  export default Home;
+  const authCondition = (authUser) => !!authUser;
+  export default withAuthorization(authCondition)(Home);
