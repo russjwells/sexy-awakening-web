@@ -15,7 +15,7 @@ const LandingPage = () =>
 </AuthUserContext.Consumer>
 
 const LandingAuth = () =>
-<div>
+<div className={css(styles.container)}>
   <h1>Sexy Awakening</h1>
   <p>Swipe with intention</p>
   <ul>
@@ -26,21 +26,25 @@ const LandingAuth = () =>
 </div>
 
 const LandingNonAuth = () =>
-<div>
+<div className={css(styles.container)}>
   <img src={phoenixred} className={css(styles.logo)} alt="logo" />
-  <h1>Sexy Awakening</h1>
-  <p>Swipe with intention</p>
-  <ul>
-    <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
-    <li><Link to={routes.SIGN_UP}>Sign Up</Link></li>
-  </ul>
+  <h1 className={css(styles.text)}>Sexy Awakening</h1>
+  <p className={css(styles.text)}>SWIPE WITH INTENTION</p>
+  <p >
+    <Link to={routes.SIGN_IN}>Sign In</Link>
+    &nbsp;|&nbsp; 
+    <Link to={routes.SIGN_UP}>Sign Up</Link>
+  </p>
+    
+  
 </div>
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     flexDirection:'column',
     backgroundColor: '#fff'
   },
@@ -48,6 +52,8 @@ const styles = StyleSheet.create({
       width: 80,
       height: 80,
   },
+  text:{
+    color: '#e54560',
+  },
 });
-
 export default LandingPage;

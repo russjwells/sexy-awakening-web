@@ -5,17 +5,20 @@ import { SignUpLink } from './SignUp';
 import { PasswordForgetLink } from './PasswordForget';
 import { auth } from '../firebase';
 import * as routes from '../constants/routes';
-
+import { StyleSheet, css } from 'aphrodite';
 import Navigation from './Navigation';
 
 const SignInPage = ({ history }) =>
-  <div>
+<div className={css(styles.container)}>
     <Navigation />
-    <h1>Sign In</h1>
-    <SignInForm history={history} />
-    <SignUpLink />
-    <PasswordForgetLink />
-  </div>
+    <div className={css(styles.container)}>
+        
+        <h1>Sign In</h1>
+        <SignInForm history={history} />
+        <SignUpLink />
+        <PasswordForgetLink />
+    </div>
+</div>
 
 const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -90,6 +93,21 @@ class SignInForm extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      display: 'flex',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection:'column',
+      backgroundColor: '#fff'
+    },
+    logo:{
+        width: 80,
+        height: 80,
+    },
+  });
 
 export default withRouter(SignInPage);
 
