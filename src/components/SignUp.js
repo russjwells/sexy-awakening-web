@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
+import { auth, db } from '../firebase';
 import * as routes from '../constants/routes';
 import { StyleSheet, css } from 'aphrodite';
-import { auth } from '../firebase';
-import Navigation from './Navigation';
 import Header from './header'
 
 
@@ -14,7 +13,7 @@ const SignUpPage = ({history}) =>
     <div className={css(styles.content)}>
         <h1>Sign Up</h1>
         <SignUpForm history={history} />
-        <p><Link to={routes.SIGN_IN}>Sign In</Link></p>
+        <p>Already have an account? <Link to={routes.SIGN_IN}>Sign In</Link></p>
     </div>
   </div>
 
@@ -50,8 +49,15 @@ class SignUpForm extends Component {
 
       auth.doCreateUserWithEmailAndPassword(email, passwordOne)
         .then(authUser => {
-          this.setState({ ...INITIAL_STATE });
-          history.push(routes.HOME);
+        
+        db.doCreateUser(authUser.user.uid, username, email)
+          .then(() => {
+            this.setState({ ...INITIAL_STATE });
+            history.push(routes.HOME);
+          })
+          .catch(error => {
+            this.setState(byPropKey('error', error));
+          });
         })
         .catch(error => {
           this.setState(byPropKey('error', error));
