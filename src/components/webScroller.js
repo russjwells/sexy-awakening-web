@@ -22,7 +22,9 @@ class WebScroller extends Component {
         return (
             <div className={css(styles.content)}>
                 <div className={css(styles.flex)}>
-                { !!users && <UserList users={users} /> }
+                {// !!users && <UserList users={users} /> 
+                }
+                <p>Welcome to the Sexy Awakening web app... you are logged in.</p>
                 </div>
             </div>
         )
