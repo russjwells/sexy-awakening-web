@@ -25,6 +25,10 @@ class WebScroller extends Component {
                 {// !!users && <UserList users={users} /> 
                 }
                 <p>Welcome to the Sexy Awakening web app... you are logged in.</p>
+                <br/>
+                <p>Pic</p>
+                <br/>
+                <p>membership: </p>
                 </div>
             </div>
         )
@@ -49,6 +53,8 @@ const styles = StyleSheet.create({
     flex: {
         display: 'flex',
         flex: 1,
+        justifyContent: 'space-around',
+        flexDiretion: 'column'
     }
   });
   
