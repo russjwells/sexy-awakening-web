@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase';
+import AuthUserContext from './AuthUserContext';
 
 class WebScroller extends Component {
     constructor(props) {
@@ -8,6 +9,7 @@ class WebScroller extends Component {
 
         this.state = {
             users: null,
+            user: this.props.user
           };
     }
 
@@ -19,18 +21,22 @@ class WebScroller extends Component {
 
     render(){
         const {users} = this.state;
+        const user = this.state.user;
         return (
+          <AuthUserContext.Consumer>
             <div className={css(styles.content)}>
                 <div className={css(styles.flex)}>
                 {// !!users && <UserList users={users} /> 
                 }
                 <p>Welcome to the Sexy Awakening web app... you are logged in.</p>
+                <p><b>name</b></p>
                 <br/>
                 <p>Pic</p>
                 <br/>
-                <p>membership: </p>
+                <p>membership level: </p>
                 </div>
             </div>
+          </AuthUserContext.Consumer>
         )
     }
 }
@@ -48,7 +54,8 @@ const styles = StyleSheet.create({
     content: {
       display: 'flex',
       flex: 1,
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
+      flexDiretion: 'column'
     },
     flex: {
         display: 'flex',

@@ -11,6 +11,10 @@ import withAuthorization from '../components/withAuthorization';
 class Home extends Component {
     constructor(props) {
         super(props);
+        //console.log('infoooos: ')
+        this.state = {
+            //user: authUser
+        }
     }
 
     render(){
