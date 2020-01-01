@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase';
-import AuthUserContext from './AuthUserContext';
 
 class WebScroller extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             users: null,
             user: this.props.user
@@ -20,10 +18,9 @@ class WebScroller extends Component {
       }
 
     render(){
-        const {users} = this.state;
-        const user = this.state.user;
+        //const {users} = this.state;
+        //const user = this.state.user;
         return (
-          
             <div className={css(styles.content)}>
                 <div className={css(styles.flex)}>
                 {// !!users && <UserList users={users} /> 
@@ -31,11 +28,10 @@ class WebScroller extends Component {
                 <p>Welcome to the Sexy Awakening web app!</p>
                 </div>
             </div>
-          
         )
     }
 }
-
+/*
 const UserList = ({ users }) =>
   <div>
     <h2>List of First Names of Users</h2>
@@ -44,7 +40,7 @@ const UserList = ({ users }) =>
       <div key={key}>{users[key].first_name}</div>
     )}
   </div>
-
+*/
 const styles = StyleSheet.create({
     content: {
       display: 'flex',
