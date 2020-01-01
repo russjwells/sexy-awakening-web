@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 import { StyleSheet, css } from 'aphrodite';
 import phoenixred from './phoenix_red.svg';
-
-import {FaBeer} from 'react-icons/fa'
-
 //import Icon from '@expo/vector-icons/FontAwesome'
 
 export default class NavBar extends Component {
@@ -11,7 +8,7 @@ export default class NavBar extends Component {
         return(
             <div className={css(styles.nav)}>
                 <div className={css(styles.left)}>
-                    <div>menu</div>
+                    <div>Menu</div>
                 </div>
                 <div className={css(styles.center)}>
                     <div className={css(styles.titleHolder)}>
@@ -21,16 +18,13 @@ export default class NavBar extends Component {
                     </div>
                 </div>
                 <div className={css(styles.right)}>
-                    <div>matches</div>
+                    <div>Matches</div>
                 </div>
                 
             </div>
         )
     }
 }
-
-//export default NavBar;
-
 
 const styles = StyleSheet.create({
     flex:{
@@ -55,7 +49,8 @@ const styles = StyleSheet.create({
     left:{
         flex: 1,
         display: 'flex',
-        backgroundColor: 'lightblue',
+        alignItems: 'center',
+        justifyContent: 'space-around'
     },
     center:{
         flex: 7,
@@ -68,7 +63,8 @@ const styles = StyleSheet.create({
     right:{
         flex: 1,
         display: 'flex',
-        backgroundColor: 'darkblue',
+        alignItems: 'center',
+        justifyContent: 'space-around'
     },
     logo:{
         width: 60,
@@ -94,23 +90,4 @@ const styles = StyleSheet.create({
         fontSize: 36,
         fontWeight: 'bold',
     },
-    button: {
-        display: 'flex',
-        flexDirection: 'row',
-        height: 40,
-        width: 220,
-        backgroundColor: '#3b5998',
-        borderRadius: 50
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 15,
-        marginLeft: 15,
-    }
 })

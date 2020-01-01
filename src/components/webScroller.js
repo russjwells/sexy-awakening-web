@@ -28,12 +28,7 @@ class WebScroller extends Component {
                 <div className={css(styles.flex)}>
                 {// !!users && <UserList users={users} /> 
                 }
-                <p>Welcome to the Sexy Awakening web app... you are logged in.</p>
-                <p><b>name</b></p>
-                <br/>
-                <p>Pic</p>
-                <br/>
-                <p>membership level: </p>
+                <p>Welcome to the Sexy Awakening web app!</p>
                 </div>
             </div>
           </AuthUserContext.Consumer>

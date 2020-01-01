@@ -4,8 +4,6 @@ import phoenixred from './phoenix_red.svg';
 import { Link } from 'react-router-dom';
 import * as routes from '../constants/routes';
 
-import {FaBeer} from 'react-icons/fa'
-
 //import Icon from '@expo/vector-icons/FontAwesome'
 
 export default class Header extends Component {

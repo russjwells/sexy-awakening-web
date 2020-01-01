@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { 
   BrowserRouter as Router,
   Route,
@@ -6,8 +6,6 @@ import {
 
 import { StyleSheet, css } from 'aphrodite';
 
-import Navigation from './Navigation';
-import NavBar from './navBar';
 import LandingPage from './Landing';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
@@ -16,7 +14,6 @@ import HomePage from '../screens/home';
 import AccountPage from './Account';
 
 import * as routes from '../constants/routes';
-import { firebase } from '../firebase';
 import withAuthentication from './withAuthentication';
 
 const App = () =>
