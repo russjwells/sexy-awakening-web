@@ -21,7 +21,7 @@ const App = () =>
       <div className={css(styles.container)}>
         <Route
           exact path={routes.LANDING}
-          component={() => <LandingPage />}
+          component={() => <HomePage />}
         />
         <Route
           exact path={routes.SIGN_UP}
