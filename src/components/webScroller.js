@@ -23,7 +23,7 @@ class WebScroller extends Component {
         const {users} = this.state;
         const user = this.state.user;
         return (
-          <AuthUserContext.Consumer>
+          
             <div className={css(styles.content)}>
                 <div className={css(styles.flex)}>
                 {// !!users && <UserList users={users} /> 
@@ -31,7 +31,7 @@ class WebScroller extends Component {
                 <p>Welcome to the Sexy Awakening web app!</p>
                 </div>
             </div>
-          </AuthUserContext.Consumer>
+          
         )
     }
 }
