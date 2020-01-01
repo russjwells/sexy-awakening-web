@@ -10,7 +10,7 @@ export default class Footer extends Component {
     render(){
         return(
             <div className={css(styles.footer)}>
-                
+                <p>Sexy Awakening 2020</p>
             </div>
         )
     }
@@ -21,11 +21,13 @@ export default class Footer extends Component {
 
 const styles = StyleSheet.create({
     footer:{
-        display:'flex',
-        flex:-1,
-        backgroundColor:'black',
-        height: 100,
-
+        display: 'flex',
+        flex: -1,
+        backgroundColor: '#e54560',
+        height: 30,
+        color: 'white',
+        alignItems: 'center',
+        justifyContent: 'space-around'
     },
     flex:{
         display: 'flex',
@@ -34,73 +36,4 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
     },
-    nav:{
-        display: 'flex',
-        flex:1,
-        backgroundColor: '#fff',
-        height: 100,
-        //padding: 20,
-        color: '#e54560',
-        flexDirection: 'row',
-        justifContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'skyblue'
-    },
-    left:{
-        flex: 1,
-        display: 'flex',
-        backgroundColor: 'lightblue',
-    },
-    center:{
-        flex: 7,
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: 'blue',
-        flexDirection: 'row',
-    },
-    right:{
-        flex: 1,
-        display: 'flex',
-        backgroundColor: 'darkblue',
-    },
-    titleHolder:{
-        display: 'flex',
-        flex:0,
-        flexDirection: 'row',
-    },
-    title:{
-        display: 'flex',
-        
-        //backgroundColor: '#fff',
-        height: 100,
-        minWidth: 300, 
-        
-        color: '#e54560',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginLeft: 10,
-        fontSize: 36,
-        fontWeight: 'bold',
-    },
-    button: {
-        display: 'flex',
-        flexDirection: 'row',
-        height: 40,
-        width: 220,
-        backgroundColor: '#3b5998',
-        borderRadius: 50
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 15,
-        marginLeft: 15,
-    }
 })
