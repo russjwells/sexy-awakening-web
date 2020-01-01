@@ -25,7 +25,7 @@ class WebScroller extends Component {
                 <div className={css(styles.flex)}>
                 {// !!users && <UserList users={users} /> 
                 }
-                <p>Welcome to the Sexy Awakening web app!</p>
+                <p>Welcome to Sexy Awakening!</p>
                 </div>
             </div>
         )
