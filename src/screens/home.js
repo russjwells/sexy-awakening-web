@@ -22,16 +22,16 @@ class Home extends Component {
                 >
                     <Menu />
                 </Drawer>
-                {<NavBar />}
-                {<WebScroller 
+                <NavBar />
+                <WebScroller 
                     //screens={[
                     //    <Profile />,
                     //    this.cardStack(),
                     //    <Matches />
                     //]}
                     user={this.props.user}
-                />}
-                {<Footer />}
+                />
+                <Footer />
             </div>
         )
     }

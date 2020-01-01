@@ -19,13 +19,15 @@ class WebScroller extends Component {
 
     render(){
         //const {users} = this.state;
-        //const user = this.state.user;
+        const user = this.state.user;
         return (
             <div className={css(styles.content)}>
                 <div className={css(styles.flex)}>
                 {// !!users && <UserList users={users} /> 
                 }
                 <p>Welcome to Sexy Awakening!</p>
+                {//<p>{user.email}</p>
+                }
                 </div>
             </div>
         )
