@@ -11,11 +11,10 @@ import withAuthorization from '../components/withAuthorization';
 class Home extends Component {
     constructor(props) {
         super(props);
+        console.log('app on')
     }
-
     render(){
         return (
-            
             <div className={css(styles.container)}>
                 <Drawer 
                     open={true}
@@ -48,5 +47,5 @@ const styles = StyleSheet.create({
     },
   });
   
-  const authCondition = (authUser) => !!authUser;
-  export default withAuthorization(authCondition)(Home);
+const authCondition = (authUser) => !!authUser;
+export default withAuthorization(authCondition)(Home);

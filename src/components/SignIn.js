@@ -6,7 +6,7 @@ import { PasswordForgetLink } from './PasswordForget';
 import { auth } from '../firebase';
 import * as routes from '../constants/routes';
 import { StyleSheet, css } from 'aphrodite';
-import Navigation from './Navigation';
+
 import Header from './header'
 
 const SignInPage = ({ history }) =>

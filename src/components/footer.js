@@ -1,10 +1,5 @@
 import React, {Component} from 'react'
 import { StyleSheet, css } from 'aphrodite';
-import phoenixred from './phoenix_red.svg';
-
-import {FaBeer} from 'react-icons/fa'
-
-//import Icon from '@expo/vector-icons/FontAwesome'
 
 export default class Footer extends Component {
     render(){
@@ -15,9 +10,6 @@ export default class Footer extends Component {
         )
     }
 }
-
-//export default NavBar;
-
 
 const styles = StyleSheet.create({
     footer:{
