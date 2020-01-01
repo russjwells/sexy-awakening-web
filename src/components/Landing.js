@@ -35,8 +35,6 @@ const LandingNonAuth = () =>
     &nbsp;|&nbsp; 
     <Link to={routes.SIGN_UP}>Sign Up</Link>
   </p>
-    
-  
 </div>
 
 const styles = StyleSheet.create({
