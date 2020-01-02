@@ -7,7 +7,8 @@ class WebScroller extends Component {
         super(props);
         this.state = {
             users: null,
-            user: this.props.user
+            user: this.props.user,
+            activeScreen: this.props.activeScreen
           };
     }
 
@@ -20,12 +21,14 @@ class WebScroller extends Component {
     render(){
         //const {users} = this.state;
         const user = this.state.user;
+        const view = this.state.activeScreen;
         return (
             <div className={css(styles.content)}>
                 <div className={css(styles.flex)}>
                 {// !!users && <UserList users={users} /> 
                 }
                 <p>Welcome to Sexy Awakening!</p>
+                <p>View:{this.state.activeScreen}</p>
                 {//<p>{user.email}</p>
                 }
                 </div>

@@ -5,6 +5,9 @@ import Footer from '../components/footer'
 import WebScroller from '../components/webScroller'
 import Drawer from 'react-motion-drawer';
 import Menu from '../components/menu'
+import Profile from './profile'
+import Swipes from './swipes'
+import Matches from './matches'
 import withAuthorization from '../components/withAuthorization';
 
 class Home extends Component {
@@ -13,7 +16,11 @@ class Home extends Component {
         console.log('app on')
     }
     state = {
-        drawer: false
+        activeScreen: "profile",
+        profileIndex: 0,
+        profiles: [],
+        drawer: false,
+        //user: this.props.navigation.state.params.user,
     }
     toggleDrawer = () => {
         const bool = this.state.drawer ? false : true
@@ -36,15 +43,19 @@ class Home extends Component {
       }  
     menuPress = () => {
         console.log('menu pressed home')
+        this.setState({activeScreen:"menu"})
     }
     profilePress = () => {
         console.log('profile pressed home')
+        this.setState({activeScreen:"profile"})
     }
     swipesPress = () => {
         console.log('swipes pressed home')
+        this.setState({activeScreen:"swipes"})
     }
     matchesPress = () => {
         console.log('matches pressed home')
+        this.setState({activeScreen:"matches"})
     }
     render(){
         return (
@@ -63,12 +74,13 @@ class Home extends Component {
                     matchesPress={this.matchesPress}
                 />
                 <WebScroller 
-                    //screens={[
-                    //    <Profile />,
-                    //    this.cardStack(),
-                    //    <Matches />
-                    //]}
+                    screens={[
+                        <Profile />,
+                        <Swipes />,
+                        <Matches />,
+                    ]}
                     user={this.props.user}
+                    screen={this.state.activeScreen}
                 />
                 <Footer />
             </div>
