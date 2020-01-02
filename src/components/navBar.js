@@ -21,6 +21,18 @@ export default class NavBar extends Component {
         console.log("open drawer")
         this.props.menuPress()
     }
+    profileClick = () => {
+        this.props.profilePress()
+        this.setState({activeScreen:"profile"})
+    }
+    swipesClick = () => {
+        this.props.swipesPress()
+        this.setState({activeScreen:"swipes"})
+    }
+    matchesClick = () => {
+        this.props.matchesPress()
+        this.setState({activeScreen:"matches"})
+    }
 
     render(){
         return(
@@ -36,7 +48,7 @@ export default class NavBar extends Component {
                     {
                         this.state.activeScreen!="profile" && (
                             <div className={css(styles.clickable)}>
-                                <FontAwesomeIcon icon={faUserCircle} size="2x" color="#000000" onClick={() => this.clicked('profile')} />
+                                <FontAwesomeIcon icon={faUserCircle} size="2x" color="#000000" onClick={() => this.profileClick()} />
                             </div>
                         )
                     }
@@ -54,7 +66,7 @@ export default class NavBar extends Component {
                             {
                                 this.state.activeScreen!="swipes" && (
                                     <div className={css(styles.clickable)}>
-                                        <img src={phoenix} onClick={() => this.clicked('swipes')} className={css(styles.logo)} alt="logo" width="70%" height="70%" />
+                                        <img src={phoenix} onClick={() => this.swipesClick()} className={css(styles.logo)} alt="logo" width="70%" height="70%" />
                                     </div>
                                 )
                             }
@@ -72,7 +84,7 @@ export default class NavBar extends Component {
                     {
                         this.state.activeScreen!="matches" && (
                             <div className={css(styles.clickable)}>
-                                <Users color="#000000" size={36} onClick={() => this.clicked('matches')} />
+                                <Users color="#000000" size={36} onClick={() => this.matchesClick()} />
                             </div>
                         )
                     }

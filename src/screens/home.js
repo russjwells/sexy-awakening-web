@@ -26,9 +26,9 @@ class Home extends Component {
         console.log('drawerChanged')
     }
     drawerChange = (isOpen) => {
-    
+        console.log('drawer changed: its '+isOpen)
         //if (isOpen==false) {
-        this.setState({drawer:isOpen})
+        //this.setState({drawer:isOpen})
         //}
         //console.log('drawer changed, now:', this.state.drawer)
         //alert(isOpen)
@@ -37,18 +37,30 @@ class Home extends Component {
     menuPress = () => {
         console.log('menu pressed home')
     }
+    profilePress = () => {
+        console.log('profile pressed home')
+    }
+    swipesPress = () => {
+        console.log('swipes pressed home')
+    }
+    matchesPress = () => {
+        console.log('matches pressed home')
+    }
     render(){
         return (
             <div className={css(styles.container)}>
                 <Drawer 
-                    open={this.state.drawer}
+                    //open={}
                     zIndex={10000}
-                    onChange={this.drawerChanged(this.state.drawer)}
+                    //onChange={this.drawerChanged(this.state.drawer)}
                 >
                     <Menu />
                 </Drawer>
                 <NavBar 
                     menuPress={this.menuPress}
+                    profilePress={this.profilePress}
+                    swipesPress={this.swipesPress}
+                    matchesPress={this.matchesPress}
                 />
                 <WebScroller 
                     //screens={[
