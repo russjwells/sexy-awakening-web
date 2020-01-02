@@ -42,14 +42,14 @@ export default class NavBar extends Component {
                             {
                                 this.state.activeScreen=="swipes" && (
                                     <div className={css(styles.clickable)}>
-                                        <img src={redphoenix} onClick={() => this.clicked('swipes')} className={css(styles.logo)} alt="logo" />
+                                        <img src={redphoenix} onClick={() => this.clicked('swipes')} className={css(styles.logo)} alt="logo" width="100%" height="100%" />
                                     </div>
                                 )
                             }
                             {
                                 this.state.activeScreen!="swipes" && (
                                     <div className={css(styles.clickable)}>
-                                        <img src={phoenix} onClick={() => this.clicked('swipes')} className={css(styles.logo)} alt="logo" />
+                                        <img src={phoenix} onClick={() => this.clicked('swipes')} className={css(styles.logo)} alt="logo" width="70%" height="70%" />
                                     </div>
                                 )
                             }

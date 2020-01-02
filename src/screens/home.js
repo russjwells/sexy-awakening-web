@@ -8,17 +8,25 @@ import Menu from '../components/menu'
 import withAuthorization from '../components/withAuthorization';
 
 class Home extends Component {
+    state = {
+        drawer: false
+    }
     constructor(props) {
         super(props);
         console.log('app on')
     }
+    toggleDrawer = () => {
+        const bool = this.state.drawer ? false : true
+        this.setState({drawer:bool})
+        console.log('drawer toggle:', this.state.drawer)
+      }
     render(){
         return (
             <div className={css(styles.container)}>
                 <Drawer 
                     open={true}
                     zIndex={10000}
-                    //onChange={onChange}
+                    onChange={toggleDrawer()}
                 >
                     <Menu />
                 </Drawer>
