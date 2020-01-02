@@ -1,28 +1,76 @@
 import React, {Component} from 'react'
 import { StyleSheet, css } from 'aphrodite';
-import phoenixred from './phoenix_red.svg';
+import { View, Text, Image, Touchable } from "react-primitives";
+import redphoenix from './phoenix_red.svg';
+import phoenix from '../svg/phoenix.svg';
 import { Menu, Users } from 'react-feather';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 export default class NavBar extends Component {
+    state = {
+        activeScreen:"profile"
+    }
+    clicked = (which) => {
+        console.log(which)
+        this.setState({activeScreen:which})
+    
+    }
     render(){
         return(
             <div className={css(styles.nav)}>
                 <div className={css(styles.left)}>
-                    <div><Menu color="#e54560" size={36} /></div>
-                    <FontAwesomeIcon icon={faUserCircle} size="2x" />
+                    {
+                        this.state.activeScreen=="profile" && (
+                            <div className={css(styles.clickable)}>
+                                <Menu color="#000000" size={36} onClick={() => this.clicked('menu')} />
+                            </div>
+                        )
+                    }
+                    {
+                        this.state.activeScreen!="profile" && (
+                            <div className={css(styles.clickable)}>
+                                <FontAwesomeIcon icon={faUserCircle} size="2x" color="#000000" onClick={() => this.clicked('profile')} />
+                            </div>
+                        )
+                    }
                 </div>
                 <div className={css(styles.center)}>
                     <div className={css(styles.titleHolder)}>
                         <div className={css(styles.flex)}>
-                            <img src={phoenixred} className={css(styles.logo)} alt="logo" />
+                            {
+                                this.state.activeScreen=="swipes" && (
+                                    <div className={css(styles.clickable)}>
+                                        <img src={redphoenix} onClick={() => this.clicked('swipes')} className={css(styles.logo)} alt="logo" />
+                                    </div>
+                                )
+                            }
+                            {
+                                this.state.activeScreen!="swipes" && (
+                                    <div className={css(styles.clickable)}>
+                                        <img src={phoenix} onClick={() => this.clicked('swipes')} className={css(styles.logo)} alt="logo" />
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
                 <div className={css(styles.right)}>
-                    <div><Users color="#e54560" size={36} /></div>
+                    {
+                        this.state.activeScreen=="matches" && (
+                            <div className={css(styles.clickable)}>
+                                <Users color="#e54560" size={36} onClick={() => this.clicked('matches')} />
+                            </div>
+                        )
+                    }
+                    {
+                        this.state.activeScreen!="matches" && (
+                            <div className={css(styles.clickable)}>
+                                <Users color="#000000" size={36} onClick={() => this.clicked('matches')} />
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         )
@@ -53,7 +101,7 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
     },
     center:{
         flex: 7,
@@ -67,7 +115,7 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
     },
     logo:{
         width: 60,
@@ -93,4 +141,7 @@ const styles = StyleSheet.create({
         fontSize: 36,
         fontWeight: 'bold',
     },
+    clickable:{
+        cursor: 'pointer'
+    }
 })

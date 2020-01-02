@@ -13,10 +13,12 @@
     "feather-icons": "^4.25.0",
     "firebase": "^5.4.0",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react-art": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-feather": "^2.0.3",
     "react-icons": "^3.0.4",
     "react-motion-drawer": "^3.1.0",
+    "react-native-web": "^0.12.0-rc.1",
     "react-primitives": "^0.8.0",
     "react-router-dom": "^4.3.1"
   },
