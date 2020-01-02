@@ -1,14 +1,18 @@
 import React, {Component} from 'react'
 import { StyleSheet, css } from 'aphrodite';
 import phoenixred from './phoenix_red.svg';
-//import Icon from '@expo/vector-icons/FontAwesome'
+import { Menu, Users } from 'react-feather';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
+
 
 export default class NavBar extends Component {
     render(){
         return(
             <div className={css(styles.nav)}>
                 <div className={css(styles.left)}>
-                    <div>Menu</div>
+                    <div><Menu color="#e54560" size={36} /></div>
+                    <FontAwesomeIcon icon={faUserCircle} size="2x" />
                 </div>
                 <div className={css(styles.center)}>
                     <div className={css(styles.titleHolder)}>
@@ -18,9 +22,8 @@ export default class NavBar extends Component {
                     </div>
                 </div>
                 <div className={css(styles.right)}>
-                    <div>Matches</div>
+                    <div><Users color="#e54560" size={36} /></div>
                 </div>
-                
             </div>
         )
     }
