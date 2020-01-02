@@ -17,6 +17,11 @@ export default class NavBar extends Component {
         this.setState({activeScreen:which})
     
     }
+    menuClick = () => {
+        console.log("open drawer")
+        this.props.menuPress()
+    }
+
     render(){
         return(
             <div className={css(styles.nav)}>
@@ -24,7 +29,7 @@ export default class NavBar extends Component {
                     {
                         this.state.activeScreen=="profile" && (
                             <div className={css(styles.clickable)}>
-                                <Menu color="#000000" size={36} onClick={() => this.clicked('menu')} />
+                                <Menu color="#000000" size={36} onClick={() => this.menuClick()} />
                             </div>
                         )
                     }

@@ -8,29 +8,48 @@ import Menu from '../components/menu'
 import withAuthorization from '../components/withAuthorization';
 
 class Home extends Component {
-    state = {
-        drawer: false
-    }
     constructor(props) {
         super(props);
         console.log('app on')
+    }
+    state = {
+        drawer: false
     }
     toggleDrawer = () => {
         const bool = this.state.drawer ? false : true
         this.setState({drawer:bool})
         console.log('drawer toggle:', this.state.drawer)
       }
+    drawerChanged = () => {
+        //const bool = !this.state.drawer
+        //this.setState({drawer:bool})
+        console.log('drawerChanged')
+    }
+    drawerChange = (isOpen) => {
+    
+        //if (isOpen==false) {
+        this.setState({drawer:isOpen})
+        //}
+        //console.log('drawer changed, now:', this.state.drawer)
+        //alert(isOpen)
+        //console.log('drawer change', isOpen)
+      }  
+    menuPress = () => {
+        console.log('menu pressed home')
+    }
     render(){
         return (
             <div className={css(styles.container)}>
                 <Drawer 
-                    open={true}
+                    open={this.state.drawer}
                     zIndex={10000}
-                    onChange={toggleDrawer()}
+                    onChange={this.drawerChanged(this.state.drawer)}
                 >
                     <Menu />
                 </Drawer>
-                <NavBar />
+                <NavBar 
+                    menuPress={this.menuPress}
+                />
                 <WebScroller 
                     //screens={[
                     //    <Profile />,
