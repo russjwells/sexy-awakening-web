@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, css } from 'aphrodite';
+//import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase';
-import {Dimensions, Animated, View}  from 'react-primitives'
+import {Dimensions, Animated, View, Text, StyleSheet}  from 'react-primitives'
 
 const {width, height} = Dimensions.get('window')
 
@@ -34,17 +34,16 @@ class WebScroller extends Component {
         const {width, height} = Dimensions.get('window')
         const view = this.state.activeScreen;
         return (
-            <div className={css(styles.content)}>
-                <div className={css(styles.flex)}>
+            <View style={styles.content}>
+                <View style={styles.flex}>
                   
                   {// !!users && <UserList users={users} /> 
                   }
-                  <p>Welcome to Sexy Awakening!</p>
-                  <p>View: {width, height}</p>
+                  <Text>Welcome to Sexy Awakening!</Text>
                   {//<p>{user.email}</p>
                   }
-                </div>
-            </div>
+                </View>
+            </View>
         )
     }
 }
