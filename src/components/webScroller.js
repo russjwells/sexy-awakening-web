@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase';
+import {Dimensions, Animated, View}  from 'react-primitives'
+
+const {width, height} = Dimensions.get('window')
 
 class WebScroller extends Component {
+
+    state = {
+      numScreens: this.props.screens.length,
+      currentScreen: 0,
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -23,14 +31,16 @@ class WebScroller extends Component {
     render(){
         //const {users} = this.state;
         //const user = this.state.user;
+        const {width, height} = Dimensions.get('window')
         const view = this.state.activeScreen;
         return (
             <div className={css(styles.content)}>
                 <div className={css(styles.flex)}>
+                  
                   {// !!users && <UserList users={users} /> 
                   }
                   <p>Welcome to Sexy Awakening!</p>
-                  <p>View: {this.state.activeScreen}</p>
+                  <p>View: {width, height}</p>
                   {//<p>{user.email}</p>
                   }
                 </div>
