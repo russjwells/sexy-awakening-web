@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 //import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase';
 import {Dimensions, Animated, View, Text, StyleSheet}  from 'react-primitives'
+import Profile from '../screens/profile'
+import Matches from '../screens/matches'
+import Swipes from '../screens/swipes'
 
 const {width, height} = Dimensions.get('window')
 
@@ -36,12 +39,9 @@ class WebScroller extends Component {
         return (
             <View style={styles.content}>
                 <View style={styles.flex}>
-                  
-                  {// !!users && <UserList users={users} /> 
-                  }
-                  <Text>Welcome to Sexy Awakening!</Text>
-                  {//<p>{user.email}</p>
-                  }
+                  <Profile />
+                  <Swipes />
+                  <Matches />
                 </View>
             </View>
         )
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flex: 1,
         justifyContent: 'space-around',
-        flexDiretion: 'column'
+        flexDiretion: 'row'
     }
 });
   
