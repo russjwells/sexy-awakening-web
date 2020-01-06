@@ -39,9 +39,17 @@ class WebScroller extends Component {
         return (
             <View style={styles.content}>
                 <View style={styles.flex}>
-                  <Profile />
-                  <Swipes />
-                  <Matches />
+                  {this.props.screen=="profile" && (
+                    <Profile />
+                  )}
+                  {this.props.screen=="swipes" && (
+                    <Swipes />
+                  )}
+                  {this.props.screen=="matches" && (
+                    <Matches />
+                  )}
+                  
+                
                 </View>
             </View>
         )
