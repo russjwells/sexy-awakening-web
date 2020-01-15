@@ -7,7 +7,7 @@ render(){
     return(
         <View style={styles.matches}>
             <Text style={styles.text}>
-                Matches
+                Match Lists
             </Text>
         </View>
     );
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     text: {
         display: 'flex',
         flex: 1,
-        color: 'black',
+        color: 'grey',
         alignSelf: 'center'
     }
 });

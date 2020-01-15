@@ -8,6 +8,7 @@ import Menu from '../components/menu'
 import Profile from './profile'
 import Swipes from './swipes'
 import Matches from './matches'
+import AuthUserContext from '../components/AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
 
 class Home extends Component {
@@ -59,31 +60,37 @@ class Home extends Component {
     }
     render(){
         return (
-            <div className={css(styles.container)}>
-                <Drawer 
-                    //open={}
-                    zIndex={10000}
-                    //onChange={this.drawerChanged(this.state.drawer)}
-                >
-                    <Menu />
-                </Drawer>
-                <NavBar 
-                    menuPress={this.menuPress}
-                    profilePress={this.profilePress}
-                    swipesPress={this.swipesPress}
-                    matchesPress={this.matchesPress}
-                />
-                <WebScroller 
-                    screens={[
-                        <Profile />,
-                        <Swipes />,
-                        <Matches />,
-                    ]}
-                    user={this.props.user}
-                    screen={this.state.activeScreen}
-                />
-                <Footer />
-            </div>
+            <AuthUserContext.Consumer>
+            {authUser =>
+                <div className={css(styles.container)}>
+                    <Drawer 
+                        //open={}
+                        zIndex={10000}
+                        //onChange={this.drawerChanged(this.state.drawer)}
+                    >
+                        <Menu />
+                    </Drawer>
+                    <NavBar 
+                        menuPress={this.menuPress}
+                        profilePress={this.profilePress}
+                        swipesPress={this.swipesPress}
+                        matchesPress={this.matchesPress}
+                    />
+                    <WebScroller 
+                        screens={[
+                            <Profile 
+                            //user={this.props.user}
+                            />,
+                            <Swipes />,
+                            <Matches />,
+                        ]}
+                        user={authUser}
+                        screen={this.state.activeScreen}
+                    />
+                    <Footer />
+                </div>
+            }
+            </AuthUserContext.Consumer>
         )
     }
 }

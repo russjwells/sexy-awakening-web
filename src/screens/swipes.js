@@ -7,7 +7,7 @@ render(){
     return(
         <View style={styles.swipes}>
             <Text style={styles.text}>
-                Swipes
+                There's no one here (o:)
             </Text>
         </View>
     );
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     text: {
         display: 'flex',
         flex: 1,
-        color: 'white',
+        color: 'grey',
         alignSelf: 'center'
     }
 });
