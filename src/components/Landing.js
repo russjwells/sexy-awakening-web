@@ -20,7 +20,6 @@ const LandingAuth = () =>
   <p>Swipe with intention</p>
   <ul>
     <li><Link to={routes.HOME}>Home</Link></li>
-    <li><Link to={routes.ACCOUNT}>Account</Link></li>
     <li><SignOutButton /></li>
   </ul>
 </div>
