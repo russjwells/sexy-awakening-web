@@ -21,8 +21,28 @@ class Home extends Component {
         profileIndex: 0,
         profiles: [],
         drawer: false,
-        //user: this.props.navigation.state.params.user,
+        authUser: this.props.authUser,
     }
+    
+    componentWillMount() {
+        //alert(this.state.user.toString())
+        //const {uid} = this.state.user
+        console.log(authUser.uid)
+        console.log('ahola')
+        //this.updateUserLocation(uid)
+        //firebase.database().ref('users').child(uid).on('value', snap => {
+        //  const user = snap.val()
+        //  this.setState({
+        //    user,
+        //    profiles:[],
+        //    profileIndex:0,
+        //  })
+        //  this.getProfiles(user.uid, user.distance)
+        //})
+        //console.log('drawer state b4 mount:', this.state.drawer)
+        
+      }
+
     toggleDrawer = () => {
         const bool = this.state.drawer ? false : true
         this.setState({drawer:bool})
@@ -68,21 +88,28 @@ class Home extends Component {
                         zIndex={10000}
                         //onChange={this.drawerChanged(this.state.drawer)}
                     >
-                        <Menu />
+                        <Menu 
+                            auth={authUser}
+                        />
                     </Drawer>
                     <NavBar 
                         menuPress={this.menuPress}
                         profilePress={this.profilePress}
                         swipesPress={this.swipesPress}
                         matchesPress={this.matchesPress}
+                        auth={authUser}
                     />
                     <WebScroller 
                         screens={[
                             <Profile 
-                            //user={this.props.user}
+                                auth={authUser}
                             />,
-                            <Swipes />,
-                            <Matches />,
+                            <Swipes 
+                                auth={authUser}
+                            />,
+                            <Matches 
+                                auth={authUser}
+                            />,
                         ]}
                         user={authUser}
                         screen={this.state.activeScreen}

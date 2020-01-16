@@ -12,19 +12,19 @@ render(){
     //const {email} = this.props.user
     return(
         <AuthUserContext.Consumer>
-    {authUser =>
-        <View style={styles.profile}>
-            {
-                //<CircleAvatar uid={uid} pic={picture} size={120} />
-            }
-            <Text style={styles.text}>
+        {authUser =>
+            <View style={styles.profile}>
                 {
-                    authUser.email
+                    //<CircleAvatar uid={uid} pic={picture} size={120} />
                 }
-            </Text>
-        </View>
-    }
-  </AuthUserContext.Consumer>
+                <Text style={styles.text}>
+                    {
+                        authUser.display_name+ ", "+ authUser.uid
+                    }
+                </Text>
+            </View>
+        }
+        </AuthUserContext.Consumer>
     );
 }}
 
