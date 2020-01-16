@@ -27,7 +27,7 @@ class Home extends Component {
     componentWillMount() {
         //alert(this.state.user.toString())
         //const {uid} = this.state.user
-        console.log(authUser.uid)
+        //console.log(authUser.uid)
         console.log('ahola')
         //this.updateUserLocation(uid)
         //firebase.database().ref('users').child(uid).on('value', snap => {
