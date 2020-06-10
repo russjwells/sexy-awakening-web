@@ -11,7 +11,7 @@ const SignUpPage = ({history}) =>
   <div className={css(styles.container)}>
     <Header />
     <div className={css(styles.content)}>
-        <h1>Sign Up</h1>
+        <h1>Create your account...</h1>
         <SignUpForm history={history} />
         <p>Already have an account? <Link to={routes.SIGN_IN}>Sign In</Link></p>
     </div>
@@ -89,26 +89,30 @@ class SignUpForm extends Component {
           type="text"
           placeholder="Full Name"
         />
+        <br />
         <input
           value={email}
           onChange={event => this.setState(byPropKey('email', event.target.value))}
           type="text"
           placeholder="Email Address"
         />
+        <br />
         <input
           value={passwordOne}
           onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
           type="password"
           placeholder="Password"
         />
+        <br />
         <input
           value={passwordTwo}
           onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
           type="password"
           placeholder="Confirm Password"
         />
+        <br />
         <button disabled={isInvalid} type="submit">
-          Sign Up
+          I'm ready to begin...
         </button>
 
         { error && <p>{error.message}</p> }
@@ -119,9 +123,9 @@ class SignUpForm extends Component {
 
 const SignUpLink = () =>
   <p>
-    Don't have an account?
+    Are you new?
     {' '}
-    <Link to={routes.SIGN_UP}>Sign Up</Link>
+    <Link to={routes.SIGN_UP}>Join here</Link>
   </p>
 
 const styles = StyleSheet.create({

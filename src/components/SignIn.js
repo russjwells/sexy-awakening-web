@@ -13,7 +13,8 @@ const SignInPage = ({ history }) =>
 <div className={css(styles.container)}>
     <Header />
     <div className={css(styles.content)}>
-        <h1>Sign In</h1>
+        <h1>Sexy Awakening</h1>
+        <p>the best place to meet people online... for friends lovers and romances.</p>
         <SignInForm history={history} />
         <SignUpLink />
         <PasswordForgetLink />
@@ -78,14 +79,16 @@ class SignInForm extends Component {
           type="text"
           placeholder="Email Address"
         />
+        <br />
         <input
           value={password}
           onChange={event => this.setState(byPropKey('password', event.target.value))}
           type="password"
           placeholder="Password"
         />
+        <br />
         <button disabled={isInvalid} type="submit">
-          Sign In
+          Enter
         </button>
 
         { error && <p>{error.message}</p> }
