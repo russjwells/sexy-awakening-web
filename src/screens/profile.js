@@ -15,11 +15,21 @@ render(){
         {authUser =>
             <View style={styles.profile}>
                 {
-                    //<CircleAvatar uid={uid} pic={picture} size={120} />
+                    <CircleAvatar uid={authUser.uid} pic={authUser.photo_url} size={120} />
                 }
                 <Text style={styles.text}>
                     {
-                        authUser.display_name+ ", "+ authUser.uid
+                        ""+authUser.display_name
+                    }
+                </Text>
+                <Text style={styles.text}>
+                    {
+                        authUser.uid
+                    }
+                </Text>
+                <Text style={styles.text}>
+                    {
+                        authUser.email
                     }
                 </Text>
             </View>
