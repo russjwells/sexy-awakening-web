@@ -25,10 +25,13 @@ class Home extends Component {
     }
     
     componentWillMount() {
+        let authUser = this.context
+        let uid = authUser.uid
         //alert(this.state.user.toString())
         //const {uid} = this.state.user
         //console.log(authUser.uid)
-        console.log('ahola')
+        alert('current uid: ' + uid)
+        console.log('current uid: ' + uid)
         //this.updateUserLocation(uid)
         //firebase.database().ref('users').child(uid).on('value', snap => {
         //  const user = snap.val()
@@ -121,6 +124,7 @@ class Home extends Component {
         )
     }
 }
+Home.contextType = AuthUserContext
 
 const styles = StyleSheet.create({
     container: {
