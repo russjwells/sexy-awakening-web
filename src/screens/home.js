@@ -20,13 +20,30 @@ import GeoFire from 'geofire'
 class Home extends Component {
     constructor(props) {
         super(props)
+        const defaultData = {
+          ageRange: [18,60],
+          distance: [200],
+          immediacy: 0,
+          sexuality: 0,
+          romance: 0,
+          friendship: 0,
+          approachable: false,
+          visible: true,
+          showMen: true,
+          showWomen: true,
+          showNonbinary: true,
+          showTransmen: true,
+          showTranswomen: true,
+          showGroups: true,
+          bio: "You must be new...",
+        }
         this.state = {
           profileIndex: 0,
           profiles: [],
           drawer: false,
           activeScreen: "profile",
           authUser: this.props.authUser,
-          userData: null,
+          userData: [defaultData],
       }
       console.log('home constructor state defaults')
     }
@@ -66,8 +83,9 @@ class Home extends Component {
         console.log('matches pressed home')
         this.setState({activeScreen:"matches"})
     }
-      
+    /*  
     componentWillMount() {
+        //get and set userData
         let authUser = this.context
         const uid = authUser.uid
         //alert('current uid: ' + uid)
@@ -86,13 +104,23 @@ class Home extends Component {
             console.log("user data present in state:")
             console.log(this.state.userData)
           })
-          //this.getProfiles(user.uid, user.distance)
-          console.log('home mounted')
-
         })
     }
+    */
     componentDidMount() {
-
+      //get and set userData
+      let authUser = this.context
+      const uid = authUser.uid
+      firebase.database().ref('users').child(uid).on('value', snap => {
+        const user = snap.val()
+        this.setState({
+          userData: user,
+          profiles: [],
+          profileIndex: 0,
+        }, ()=>{
+          console.log("data for "+this.state.userData.first_name + " is set in state")
+        })
+      })
     }
     /*
     static getDerivedStateFromProps(props, state) {
@@ -191,6 +219,7 @@ class Home extends Component {
     
     render(){
         const userData = this.state.userData
+        console.log(userData)
         return (
                 <div className={css(styles.container)}>
                     <Drawer 

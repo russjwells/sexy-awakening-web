@@ -25,7 +25,7 @@ export default class CircleAvatar extends Component {
 
 
     render() {
-        const {size, uid} = this.props
+        const {size} = this.props
         //console.log('uid '+uid)
         if (this.state.picture!=null){
         return(
