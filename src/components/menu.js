@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as routes from '../constants/routes';
 import SignOutButton from './SignOut';
-import {Text} from 'react-primitives'
+//import {Text} from 'react-primitives'
 
 import phoenixred from './phoenix_red.svg';
 import { StyleSheet, css } from 'aphrodite';
@@ -55,10 +55,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         flexDirection: 'column',
         paddingTop: '10'
-    },
-    menu:{
-        flex:3,
-        backgroundColor: 'white',
     },
     menuItem:{
         height:100,

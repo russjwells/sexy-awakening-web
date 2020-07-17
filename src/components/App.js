@@ -6,7 +6,7 @@ import {
 
 import { StyleSheet, css } from 'aphrodite';
 
-import LandingPage from './Landing';
+//import LandingPage from './Landing';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
 import PasswordForgetPage from './PasswordForget';

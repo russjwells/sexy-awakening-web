@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 //import * as firebase from 'firebase'
 import {View, Text, StyleSheet} from 'react-primitives'
 import CircleAvatar from '../components/circleAvatar'
-import AuthUserContext from '../components/AuthUserContext';
+//import AuthUserContext from '../components/AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
 
 class Profile extends Component {

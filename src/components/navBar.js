@@ -75,14 +75,14 @@ export default class NavBar extends Component {
                 </div>
                 <div className={css(styles.right)}>
                     {
-                        this.state.activeScreen=="matches" && (
+                        this.state.activeScreen==="matches" && (
                             <div className={css(styles.clickable)}>
                                 <Users color="#e54560" size={36} onClick={() => this.clicked('matches')} />
                             </div>
                         )
                     }
                     {
-                        this.state.activeScreen!="matches" && (
+                        this.state.activeScreen!=="matches" && (
                             <div className={css(styles.clickable)}>
                                 <Users color="#000000" size={36} onClick={() => this.matchesClick()} />
                             </div>
