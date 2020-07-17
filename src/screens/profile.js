@@ -6,36 +6,57 @@ import AuthUserContext from '../components/AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
 
 class Profile extends Component {
+constructor(props) {
+    super(props)
+    this.state = {
+        userData: this.props.userData
+    }
+}
 
+componentWillReceiveProps(){
+    //alert('props in')
+}
 render(){
-    //const {first_name, uid, picture} = this.props.user
-    //const {email} = this.props.user
-    return(
-        <AuthUserContext.Consumer>
-        {authUser =>
-            <View style={styles.profile}>
-                {
-                    <CircleAvatar uid={authUser.uid} pic={authUser.photo_url} size={120} />
-                }
-                <Text style={styles.text}>
+    if (this.state.userData != null){
+            const {first_name, uid, picture} = this.state.userData
+            console.log(this.state.userData)
+            return(
+                <View style={styles.profile}>
                     {
-                        ""+authUser.display_name
+                        <CircleAvatar uid={uid} pic={picture} size={120} />
                     }
-                </Text>
-                <Text style={styles.text}>
-                    {
-                        authUser.uid
-                    }
-                </Text>
-                <Text style={styles.text}>
-                    {
-                        authUser.email
-                    }
-                </Text>
-            </View>
+                    <Text style={styles.text}>
+                        {first_name}
+                    </Text>
+                    <View style={styles.menuOptions}>
+                        <View>
+                            <Text>Edit Profile</Text>
+                        </View>
+                        <View>
+                            <Text>Settings</Text>
+                        </View>
+                    </View>
+                </View>
+            )
+        } else {
+            return(
+                <View style={styles.profile}>
+                    <View style={styles.userAvatar}>
+                        <CircleAvatar size={120} />
+                        <Text style={styles.text}>loading data...</Text>
+                    </View>
+                    <View style={styles.menuOptions}>
+                        <View>
+                            <Text>Edit Profile</Text>
+                        </View>
+                        <View>
+                            <Text>Settings</Text>
+                        </View>
+                    </View>
+                </View>
+        )
         }
-        </AuthUserContext.Consumer>
-    );
+    //const {email} = this.props.user
 }}
 
 const styles = StyleSheet.create({
@@ -52,6 +73,11 @@ const styles = StyleSheet.create({
         flex: 1,
         color: 'black',
         alignSelf: 'center'
+    },
+    menuOptions: {
+        display: 'flex',
+        flexDirection: 'row', 
+        justifyContent: 'space-between'
     }
 });
 
