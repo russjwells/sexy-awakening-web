@@ -36,6 +36,9 @@ class Home extends Component {
           showTranswomen: true,
           showGroups: true,
           bio: "You must be new...",
+          first_name: "new",
+          uid: "new",
+          picture: "new"
         }
         this.state = {
           profileIndex: 0,
@@ -218,8 +221,9 @@ class Home extends Component {
 */
     
     render(){
+        console.log('aloha')
         const userData = this.state.userData
-        console.log(userData)
+        //console.log(userData)
         return (
                 <div className={css(styles.container)}>
                     <Drawer 

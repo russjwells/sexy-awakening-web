@@ -10,6 +10,10 @@ export default class CircleAvatar extends Component {
         picture: null
     }
 
+    constructor(props) {
+        super(props)
+    }
+
     componentDidMount() {
         this.getPic() 
     }

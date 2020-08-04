@@ -23,14 +23,6 @@ class WebScroller extends Component {
           };
     }
 
-    componentDidMount() {
-      /*
-        db.onceGetUsers().then(snapshot =>
-          this.setState({ users: snapshot.val() })
-        );
-        */
-    }
-
     render(){
         //const {users} = this.state;
         //const user = this.state.user;
