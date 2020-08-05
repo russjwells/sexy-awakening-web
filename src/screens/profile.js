@@ -51,34 +51,35 @@ render(){
         } else {
             */
             return(
-                <View style={styles.profile}>
-                    <View style={styles.userAvatar}>
-                        <CircleAvatar size={120} />
-                        <Text style={styles.text}>loading data...</Text>
+                <View style={styles.container}>
+                    <View style={styles.profileDisplay}>
+                        <View style={styles.userAvatar}>
+                            <CircleAvatar size={120} onClick={() => console.log('view profile')}/>
+                            <Text style={styles.text}>User Data: {this.state.userData}</Text>
+                        </View>
                     </View>
                     <View style={styles.menuOptions}>
-                        <View style={styles.button}>
-                            <FontAwesomeIcon icon={faEdit} size="2x" color="#000000" onClick={() => this.profileClick()} />
+                        <View style={styles.button} onClick={() => console.log('edit profile')}>
+                            <FontAwesomeIcon icon={faEdit} size="2x" color="#000000" />
                             <Text>Edit Profile</Text>
                         </View>
-                        <View style={styles.button}>
+                        <View style={styles.button} onClick={() => console.log('setting')}>
                             <Image source={chemistryIcon} style={{width:40, height:40}} />
                             <Text>Settings</Text>
                         </View>
                     </View>
                 </View>
-        )
+            )
         }
     //const {email} = this.props.user
 }
 
 const styles = StyleSheet.create({
-    profile: {
+    container: {
       display: 'flex',
       flex: 1,
       flexDirection: 'column',
-      justifyContent: 'space-around',
-      alignItems: 'center',
+      justifyContent: 'space-between',
       backgroundColor: 'white'
     },
     text: {
@@ -87,16 +88,36 @@ const styles = StyleSheet.create({
         color: 'black',
         alignSelf: 'center'
     },
+    profileDisplay: {
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column', 
+        //justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    userAvatar: {
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column', 
+        //justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: 'green',
+    },
     menuOptions: {
         display: 'flex',
+        flex: 1,
         flexDirection: 'row', 
-        justifyContent: 'space-between'
+        justifyContent: 'space-around',
+        backgroundColor: 'white'
     },
     button: {
         display: 'flex',
+        flex: 1,
         flexDirection: 'row', 
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        cursor: 'pointer'
+        
     },
     btntxt: {
         textAlignVertical: 'center'
