@@ -57,11 +57,11 @@ render(){
                         <Text style={styles.text}>loading data...</Text>
                     </View>
                     <View style={styles.menuOptions}>
-                        <View>
+                        <View style={styles.button}>
                             <FontAwesomeIcon icon={faEdit} size="2x" color="#000000" onClick={() => this.profileClick()} />
                             <Text>Edit Profile</Text>
                         </View>
-                        <View>
+                        <View style={styles.button}>
                             <Image source={chemistryIcon} style={{width:40, height:40}} />
                             <Text>Settings</Text>
                         </View>
@@ -91,6 +91,15 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row', 
         justifyContent: 'space-between'
+    },
+    button: {
+        display: 'flex',
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    btntxt: {
+        textAlignVertical: 'center'
     }
 });
 
