@@ -92,22 +92,22 @@ class Matches extends Component {
             <View style={styles.relationshipFilter}>
                 <View style={styles.filterButton} onClick={() => this.filterList('sex')}>
                     <View style={[styles.filterButton, styles.sexFilter]}>
-                        <Image source={this.state.matchType == 'sex' ? sexSymbolRed : sexSymbol} style={{width:70, height:70}} />
+                        <Image source={this.state.matchType === 'sex' ? sexSymbolRed : sexSymbol} style={{width:70, height:70}} />
                     </View>
                 </View>
                 <View style={styles.filterButton} onClick={() => this.filterList('romance')}>
                     <View style={styles.filterButton}>
-                        <Image source={this.state.matchType == 'romance' ? romanceSymbolRed : romanceSymbol} style={{width:40, height:40}} />
+                        <Image source={this.state.matchType === 'romance' ? romanceSymbolRed : romanceSymbol} style={{width:40, height:40}} />
                     </View>
                 </View>
                 <View style={styles.filterButton} onClick={() => this.filterList('friendship')}>
                     <View style={styles.filterButton}>
-                        <Image source={this.state.matchType == 'friendship' ? friendshipSymbolRed : friendshipSymbol} style={{width:40, height:40}} />
+                        <Image source={this.state.matchType === 'friendship' ? friendshipSymbolRed : friendshipSymbol} style={{width:40, height:40}} />
                     </View>
                 </View>
                 <View style={styles.filterButton} onClick={() => this.filterList('pass')}>
                     <View style={styles.filterButton}>
-                        <Image source={this.state.matchType == 'pass' ? passSymbolRed : passSymbol} style={{width:40, height:40}} />
+                        <Image source={this.state.matchType === 'pass' ? passSymbolRed : passSymbol} style={{width:40, height:40}} />
                     </View>
                 </View>
             </View>

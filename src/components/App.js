@@ -12,6 +12,7 @@ import SignInPage from './SignIn';
 import PasswordForgetPage from './PasswordForget';
 import HomePage from '../screens/home';
 import AccountPage from './Account';
+import AboutPage from './About';
 
 import * as routes from '../constants/routes';
 import withAuthentication from './withAuthentication';
@@ -42,6 +43,10 @@ const App = () =>
         <Route
           exact path={routes.ACCOUNT}
           component={() => <AccountPage />}
+        />
+        <Route
+          exact path={routes.ABOUT}
+          component={() => <AboutPage />}
         />
       </div>
   </Router>
