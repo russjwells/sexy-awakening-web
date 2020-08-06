@@ -55,7 +55,7 @@ render(){
                     <View style={styles.profileDisplay}>
                         <View style={styles.userAvatar}>
                             <CircleAvatar size={120} onClick={() => console.log('view profile')}/>
-                            <Text style={styles.text}>User Data: {this.state.userData}</Text>
+                            <Text style={styles.text}>Username {this.state.userData}</Text>
                         </View>
                     </View>
                     <View style={styles.menuOptions}>
@@ -92,16 +92,19 @@ const styles = StyleSheet.create({
         display: 'flex',
         flex: 1,
         flexDirection: 'column', 
-        //justifyContent: 'space-around',
+        justifyContent: 'space-around',
         alignItems: 'center',
+        backgroundColor: 'white'
     },
     userAvatar: {
         display: 'flex',
-        flex: 1,
+        flex: -1,
         flexDirection: 'column', 
         //justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: 'green',
+        backgroundColor: 'white',
+        alignSelf: 'center',
+        cursor: 'pointer'
     },
     menuOptions: {
         display: 'flex',

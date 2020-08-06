@@ -79,7 +79,7 @@ const demoProfiles = [
 class Matches extends Component {
 
     state = {
-        accounts: [],
+        accounts: demoProfiles,
         matchType: 'sex'
     };
 
@@ -90,22 +90,22 @@ class Matches extends Component {
     renderHeader = () => {
         return(
             <View style={styles.relationshipFilter}>
-                <View style={styles.filterButton} onPress={() => this.filterList('sex')}>
+                <View style={styles.filterButton} onClick={() => this.filterList('sex')}>
                     <View style={[styles.filterButton, styles.sexFilter]}>
                         <Image source={this.state.matchType == 'sex' ? sexSymbolRed : sexSymbol} style={{width:70, height:70}} />
                     </View>
                 </View>
-                <View style={styles.filterButton} onPress={() => this.filterList('romance')}>
+                <View style={styles.filterButton} onClick={() => this.filterList('romance')}>
                     <View style={styles.filterButton}>
                         <Image source={this.state.matchType == 'romance' ? romanceSymbolRed : romanceSymbol} style={{width:40, height:40}} />
                     </View>
                 </View>
-                <View style={styles.filterButton} onPress={() => this.filterList('friendship')}>
+                <View style={styles.filterButton} onClick={() => this.filterList('friendship')}>
                     <View style={styles.filterButton}>
                         <Image source={this.state.matchType == 'friendship' ? friendshipSymbolRed : friendshipSymbol} style={{width:40, height:40}} />
                     </View>
                 </View>
-                <View style={styles.filterButton} onPress={() => this.filterList('pass')}>
+                <View style={styles.filterButton} onClick={() => this.filterList('pass')}>
                     <View style={styles.filterButton}>
                         <Image source={this.state.matchType == 'pass' ? passSymbolRed : passSymbol} style={{width:40, height:40}} />
                     </View>
@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-around',
+        pointer:'cursor',
     },
     sexFilter:{
         flex:1,
