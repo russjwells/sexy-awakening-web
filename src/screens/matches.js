@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     relationtypefilter:{
-        flex: 1,
+        flex: -1,
         alignContent: 'space-between',
         flexDirection: 'row',
     },
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         flex: 9,
     },
     list: {
-        flex: 1,
+        flex: 2,
         backgroundColor: 'white',
         flexDirection: 'column'
     },
