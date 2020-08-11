@@ -6,23 +6,25 @@ import {
 
 import { StyleSheet, css } from 'aphrodite';
 
-//import LandingPage from './Landing';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
 import PasswordForgetPage from './PasswordForget';
-import HomePage from '../screens/home';
-import AccountPage from './Account';
-import AboutPage from './About';
+import Home from '../screens/home';
+import Account from './Account';
+import About from './About';
 
 import * as routes from '../constants/routes';
+
 import withAuthentication from './withAuthentication';
+//version upgrade needed
+//import withUserData from './withUserData'
 
 const App = () =>
     <Router>
       <div className={css(styles.container)}>
         <Route
           exact path={routes.LANDING}
-          component={() => <HomePage />}
+          component={() => <Home />}
         />
         <Route
           exact path={routes.SIGN_UP}
@@ -37,16 +39,12 @@ const App = () =>
           component={() => <PasswordForgetPage />}
         />
         <Route
-          exact path={routes.HOME}
-          component={() => <HomePage />}
-        />
-        <Route
           exact path={routes.ACCOUNT}
-          component={() => <AccountPage />}
+          component={() => <Account />}
         />
         <Route
           exact path={routes.ABOUT}
-          component={() => <AboutPage />}
+          component={() => <About />}
         />
       </div>
   </Router>
