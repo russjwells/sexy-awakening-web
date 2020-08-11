@@ -10,7 +10,7 @@ const About = () =>
   <AuthUserContext.Consumer>
     {authUser =>
       <View style={styles.contain}>
-        <Text style={{fontSize:20, margin:20}}>We're so glad you're here, {authUser.email}.</Text>
+        <Text style={{fontSize:20, margin:20}}>We're so glad you're here, {authUser.email}</Text>
         <Text style={{fontSize:20, margin:20, fontWeight:'bold', color:'#e54560'}}>Welcome to Sexy Awakening</Text>
         <Text style={{fontSize:15, color: 'black', margin:20}}>This is a transformational space. </Text>
         <Text style={{fontSize:15, color: 'black', margin:20}}>Sexy Awakening is creating a culture of consent and sex positivity, and promotes clear healthy boundaries so that all beings feel may safe to explore, express, and be received in compassion.</Text>
