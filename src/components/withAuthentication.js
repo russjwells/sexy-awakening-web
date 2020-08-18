@@ -1,7 +1,6 @@
-import React from 'react';
-
-import AuthUserContext from './AuthUserContext';
-import { firebase } from '../firebase';
+import React from 'react'
+import AuthUserContext from './AuthUserContext'
+import { firebase } from '../firebase'
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
@@ -29,7 +28,7 @@ const withAuthentication = (Component) => {
     }
   }
 
-  return WithAuthentication;
+  return WithAuthentication
 }
 
-export default withAuthentication;
+export default withAuthentication

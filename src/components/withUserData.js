@@ -1,10 +1,10 @@
-import React {useState} from 'react';
-import UserDataContext from './UserDataContext';
-import { firebase } from '../firebase';
-
-getUser = (uid) => {
-  return firebase.database().ref('users').child(uid).once('value')
-}
+import React, {useState} from 'react'
+import UserDataContext from './UserDataContext'
+import { firebase } from '../firebase'
+import withAuthentication from './withAuthentication'
+//getUser = (uid) => {
+//  return firebase.database().ref('users').child(uid).once('value')
+//}
 
 const withUserData = (Component) => {
   class WithUserData extends React.Component {
@@ -17,18 +17,21 @@ const withUserData = (Component) => {
       }
     
       componentDidMount() {
-        const authUser this.state.authUser
-        const user = getUser(authUser.uid)
-        this.setState({userData: getUser(user)})
-        //QUURY DATABASE FOR USER DATA AND SET LOCAL STATE 
-        //
-        //
-        //REPLACEBELOW  
-        //firebase.auth.onAuthStateChanged(authUser => {
-        //  authUser
-        //    ? this.setState({ authUser })
-        //    : this.setState({ authUser: null });
-        //});
+        const authUser = this.state.authUser
+        //const user = getUser(authUser.uid)
+        //this.setState({userData: getUser(user)})
+
+        const uid = authUser.uid
+        firebase.database().ref('users').child(uid).on('value', snap => {
+        const user = snap.val()
+        this.setState({
+          userData: user,
+          profiles: [],
+          profileIndex: 0,
+        }, ()=>{
+          console.log("data for "+this.state.userData.first_name + " is set in state in User Data context")
+         })
+        })
       }
     render() {
       const { userData } = this.state;  
@@ -39,8 +42,7 @@ const withUserData = (Component) => {
       );
     }
   }
-
-  return WithUserData;
+  return WithUserData
 }
 
-export default withUserData;
+export default withUserData

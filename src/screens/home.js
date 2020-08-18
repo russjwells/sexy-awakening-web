@@ -10,6 +10,8 @@ import Swipes from './swipes'
 import Matches from './matches'
 import AuthUserContext from '../components/AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
+import UserDataContext from '../components/UserDataContext';
+import withUserData from '../components/withUserData';
 
 //import filter from '../modules/filter'
 
@@ -112,6 +114,7 @@ class Home extends Component {
     */
     componentDidMount() {
       //get and set userData
+      /*
       let authUser = this.context
       const uid = authUser.uid
       firebase.database().ref('users').child(uid).on('value', snap => {
@@ -124,6 +127,7 @@ class Home extends Component {
           console.log("data for "+this.state.userData.first_name + " is set in state")
         })
       })
+      */
     }
     /*
     static getDerivedStateFromProps(props, state) {
@@ -221,11 +225,10 @@ class Home extends Component {
 */
     
     render(){
-        console.log('aloha')
-        const userData = this.state.userData
-        //console.log(userData)
         return (
-                <div className={css(styles.container)}>
+              <UserDataContext.Consumer>
+                {userData => (
+                  <div className={css(styles.container)}>
                     <Drawer 
                         //open={}
                         zIndex={10000}
@@ -259,6 +262,8 @@ class Home extends Component {
                     />
                     <Footer />
                 </div>
+                )}
+              </UserDataContext.Consumer>
         )
     }
 }

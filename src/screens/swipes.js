@@ -1,17 +1,15 @@
 import React, {Component} from 'react'
 import {View, Text, StyleSheet} from 'react-primitives'
 
-class Swipes extends Component {
-
-render(){
+function Swipes (props) {
     return(
         <View style={styles.swipes}>
             <Text style={styles.text}>
                 There's no one here (o:)
             </Text>
         </View>
-    );
-}}
+    )
+}
 
 const styles = StyleSheet.create({
     swipes: {

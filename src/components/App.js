@@ -15,38 +15,40 @@ import About from './About';
 
 import * as routes from '../constants/routes';
 
-import withAuthentication from './withAuthentication';
-//version upgrade needed
-//import withUserData from './withUserData'
+import withAuthentication from './withAuthentication'
+import withUserData from './withUserData'
+import UserDataContext from './UserDataContext';
 
 const App = () =>
     <Router>
-      <div className={css(styles.container)}>
-        <Route
-          exact path={routes.LANDING}
-          component={() => <Home />}
-        />
-        <Route
-          exact path={routes.SIGN_UP}
-          component={() => <SignUpPage />}
-        />
-        <Route
-          exact path={routes.SIGN_IN}
-          component={() => <SignInPage />}
-        />
-        <Route
-          exact path={routes.PASSWORD_FORGET}
-          component={() => <PasswordForgetPage />}
-        />
-        <Route
-          exact path={routes.ACCOUNT}
-          component={() => <Account />}
-        />
-        <Route
-          exact path={routes.ABOUT}
-          component={() => <About />}
-        />
-      </div>
+        <div className={css(styles.container)}>
+          <UserDataContext.Provider>
+            <Route
+              exact path={routes.LANDING}
+              component={() => <Home />}
+            />
+            <Route
+              exact path={routes.SIGN_UP}
+              component={() => <SignUpPage />}
+            />
+            <Route
+              exact path={routes.SIGN_IN}
+              component={() => <SignInPage />}
+            />
+            <Route
+              exact path={routes.PASSWORD_FORGET}
+              component={() => <PasswordForgetPage />}
+            />
+            <Route
+              exact path={routes.ACCOUNT}
+              component={() => <Account />}
+            />
+            <Route
+              exact path={routes.ABOUT}
+              component={() => <About />}
+            />
+          </UserDataContext.Provider>
+        </div>
   </Router>
 
 
