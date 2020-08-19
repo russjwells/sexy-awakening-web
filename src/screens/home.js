@@ -22,35 +22,15 @@ import GeoFire from 'geofire'
 class Home extends Component {
     constructor(props) {
         super(props)
-        const defaultData = {
-          ageRange: [18,60],
-          distance: [200],
-          immediacy: 0,
-          sexuality: 0,
-          romance: 0,
-          friendship: 0,
-          approachable: false,
-          visible: true,
-          showMen: true,
-          showWomen: true,
-          showNonbinary: true,
-          showTransmen: true,
-          showTranswomen: true,
-          showGroups: true,
-          bio: "You must be new...",
-          first_name: "new",
-          uid: "new",
-          picture: "new"
-        }
+        
         this.state = {
           profileIndex: 0,
           profiles: [],
           drawer: false,
           activeScreen: "profile",
           authUser: this.props.authUser,
-          userData: [defaultData],
+          userData: null,
       }
-      console.log('home constructor state defaults')
     }
 
     toggleDrawer = () => {

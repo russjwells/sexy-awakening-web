@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { 
   BrowserRouter as Router,
   Route,
@@ -19,10 +19,12 @@ import withAuthentication from './withAuthentication'
 import withUserData from './withUserData'
 import UserDataContext from './UserDataContext';
 
-const App = () =>
+const App = () => {
+    const [value, setValue] = useState('hello from context')
+    return (
     <Router>
         <div className={css(styles.container)}>
-          <UserDataContext.Provider>
+          <UserDataContext.Provider value={{value, setValue}}>
             <Route
               exact path={routes.LANDING}
               component={() => <Home />}
@@ -49,7 +51,9 @@ const App = () =>
             />
           </UserDataContext.Provider>
         </div>
-  </Router>
+    </Router>
+    )
+}
 
 
 const styles = StyleSheet.create({

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useContext} from 'react'
 //import * as firebase from 'firebase'
 import {View, Text, StyleSheet, Image} from 'react-primitives'
 
@@ -9,14 +9,16 @@ import chemistryIcon from '../img/chemistry.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import UserDataContext from '../components/UserDataContext';
 
 function Profile (props) {
+    const {value, setValue} = useContext(UserDataContext)
     return(
         <View style={styles.container}>
             <View style={styles.profileDisplay}>
                 <View style={styles.userAvatar}>
                     <CircleAvatar size={120} onClick={() => console.log('view profile')}/>
-                    <Text style={styles.text}>Username</Text>
+                    <Text style={styles.text}>{value}</Text>
                 </View>
             </View>
             <View style={styles.menuOptions}>
