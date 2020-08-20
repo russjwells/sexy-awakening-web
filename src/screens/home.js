@@ -11,7 +11,6 @@ import Matches from './matches'
 import AuthUserContext from '../components/AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
 import UserDataContext from '../components/UserDataContext';
-import withUserData from '../components/withUserData';
 
 //import filter from '../modules/filter'
 
@@ -30,6 +29,7 @@ class Home extends Component {
           activeScreen: "profile",
           authUser: this.props.authUser,
           userData: null,
+          authUser: this.props.authUser
       }
     }
 
@@ -206,44 +206,50 @@ class Home extends Component {
     
     render(){
         return (
-              <UserDataContext.Consumer>
-                {userData => (
-                  <div className={css(styles.container)}>
-                    <Drawer 
-                        //open={}
-                        zIndex={10000}
-                        //onChange={this.drawerChanged(this.state.drawer)}
-                    >
-                        <Menu 
-                          userData={userData}
-                        />
-                    </Drawer>
-                    <NavBar 
-                        menuPress={this.menuPress}
-                        profilePress={this.profilePress}
-                        swipesPress={this.swipesPress}
-                        matchesPress={this.matchesPress}
+            <AuthUserContext.Consumer>
+              {authUser => (
+                <UserDataContext.Consumer>
+                  {userData => (
+                    <div className={css(styles.container)}>
+                      <Drawer 
+                          //open={}
+                          zIndex={10000}
+                          //onChange={this.drawerChanged(this.state.drawer)}
+                      >
+                          <Menu 
+                            userData={userData}
+                          />
+                      </Drawer>
+                      <NavBar 
+                          menuPress={this.menuPress}
+                          profilePress={this.profilePress}
+                          swipesPress={this.swipesPress}
+                          matchesPress={this.matchesPress}
 
-                        userData={userData}
-                    />
-                    <WebScroller 
-                        screens={[
-                            <Profile 
-                                userData={userData}
-                            />,
-                            <Swipes 
-                                userData={userData}
-                            />,
-                            <Matches 
-                                userData={userData}
-                            />,
-                        ]}
-                        screen={this.state.activeScreen}
-                    />
-                    <Footer />
-                </div>
-                )}
-              </UserDataContext.Consumer>
+                          userData={userData}
+                          authUser={authUser}
+                      />
+                      <WebScroller 
+                          screens={[
+                              <Profile 
+                                  userData={userData}
+                                  authUser={authUser}
+                              />,
+                              <Swipes 
+                                  userData={userData}
+                              />,
+                              <Matches 
+                                  userData={userData}
+                              />,
+                          ]}
+                          screen={this.state.activeScreen}
+                      />
+                      <Footer />
+                  </div>
+                  )}
+                </UserDataContext.Consumer>
+              )}
+            </AuthUserContext.Consumer>
         )
     }
 }

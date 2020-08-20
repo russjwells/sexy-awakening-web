@@ -1,29 +1,38 @@
 import React, {Component, useContext} from 'react'
-//import * as firebase from 'firebase'
+import * as firebase from 'firebase'
 import {View, Text, StyleSheet, Image} from 'react-primitives'
 
 import CircleAvatar from '../components/circleAvatar'
-//import AuthUserContext from '../components/AuthUserContext';
+import AuthUserContext from '../components/AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
 import chemistryIcon from '../img/chemistry.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import UserDataContext from '../components/UserDataContext';
+import UserDataHelpers from '../utils/UserDataHelpers'
+import {db} from '../firebase'
 
 function Profile (props) {
     const {user, setUser} = useContext(UserDataContext)
+    //const {auth} = useContext(AuthUserContext)
+    //console.log(props.auth)
     return(
         <View style={styles.container}>
             <View style={styles.profileDisplay}>
                 <View style={styles.userAvatar}>
                     <CircleAvatar size={120} onClick={() => console.log('view profile')}/>
                     <Text style={styles.text}>
-                        {user}
+                        {props.authUser.uid}
+                        <br /><br />
+                        {JSON.stringify(user)}
+                        
                     </Text>
                     <button
                         onClick={() => {
-                            setUser("NAME")
+                            const usr = db.onceGetUserData(props.authUser.uid)
+                            console.log(usr)
+                            setUser({usr})
                         }}
                     >fill data</button>
                 </View>
@@ -40,6 +49,14 @@ function Profile (props) {
             </View>
         </View>
     )
+}
+
+const fillData = async(uid) => {
+    console.log(uid)
+    //firebase.database().ref('users').child(uid).on('value', snap => {
+    //    return user = snap.val()
+   // }
+   return {name: "easy"}
 }
 
 const styles = StyleSheet.create({

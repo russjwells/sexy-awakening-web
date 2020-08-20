@@ -17,14 +17,16 @@ import * as routes from '../constants/routes';
 
 import withAuthentication from './withAuthentication'
 import UserDataContext from './UserDataContext'
+import userDataDefaults from '../constants/defaults'
 
 const App = () => {
-    const [user, setUser] = useState("name")
-    const value = useMemo(() => ({ user, setUser }), [user, setUser])
+    //console.log("beg "+authUser)
+    const [user, setUser] = useState(userDataDefaults)
+    const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
     return (
     <Router>
         <div className={css(styles.container)}>
-          <UserDataContext.Provider value={value}>
+          <UserDataContext.Provider value={providerValue}>
             <Route
               exact path={routes.LANDING}
               component={() => <Home />}
