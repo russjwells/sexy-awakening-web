@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flex: 1,
         color: 'grey',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        justifyContent: 'space-around',
     }
 });
 

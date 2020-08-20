@@ -29,7 +29,6 @@ class Home extends Component {
           activeScreen: "profile",
           authUser: this.props.authUser,
           userData: null,
-          authUser: this.props.authUser
       }
     }
 
@@ -217,6 +216,7 @@ class Home extends Component {
                           //onChange={this.drawerChanged(this.state.drawer)}
                       >
                           <Menu 
+                            authUser={authUser}
                             userData={userData}
                           />
                       </Drawer>
@@ -226,19 +226,21 @@ class Home extends Component {
                           swipesPress={this.swipesPress}
                           matchesPress={this.matchesPress}
 
-                          userData={userData}
                           authUser={authUser}
+                          userData={userData}
                       />
                       <WebScroller 
                           screens={[
                               <Profile 
-                                  userData={userData}
                                   authUser={authUser}
+                                  userData={userData}
                               />,
                               <Swipes 
+                                  authUser={authUser}
                                   userData={userData}
                               />,
                               <Matches 
+                                  authUser={authUser}
                                   userData={userData}
                               />,
                           ]}

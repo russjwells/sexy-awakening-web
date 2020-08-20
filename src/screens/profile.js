@@ -30,10 +30,12 @@ function Profile (props) {
                     </Text>
                     <button
                         onClick={() => {
-                            const usr = db.onceGetUserData(props.authUser.uid)
-                            console.log(usr)
-                            setUser({usr})
-                        }}
+                            //const usr = db.onceGetUserData(props.authUser.uid)
+                            //setUser(usr)
+                            }
+                            //console.log(usr)
+                            //setUser({usr})
+                        }
                     >fill data</button>
                 </View>
             </View>
