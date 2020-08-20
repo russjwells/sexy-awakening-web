@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import { StyleSheet, css } from 'aphrodite';
-import { db } from '../firebase';
+//import { db } from '../firebase';
 import {Dimensions, Animated, View, Text, StyleSheet}  from 'react-primitives'
 //import Profile from '../screens/profile'
 //import Matches from '../screens/matches'
@@ -17,8 +17,8 @@ class WebScroller extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: null,
-            user: this.props.user,
+            //users: null,
+            //user: this.props.user,
             activeScreen: this.props.activeScreen
           };
     }
