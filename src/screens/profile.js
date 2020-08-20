@@ -12,13 +12,20 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import UserDataContext from '../components/UserDataContext';
 
 function Profile (props) {
-    const {value, setValue} = useContext(UserDataContext)
+    const {user, setUser} = useContext(UserDataContext)
     return(
         <View style={styles.container}>
             <View style={styles.profileDisplay}>
                 <View style={styles.userAvatar}>
                     <CircleAvatar size={120} onClick={() => console.log('view profile')}/>
-                    <Text style={styles.text}>{value}</Text>
+                    <Text style={styles.text}>
+                        {user}
+                    </Text>
+                    <button
+                        onClick={() => {
+                            setUser("NAME")
+                        }}
+                    >fill data</button>
                 </View>
             </View>
             <View style={styles.menuOptions}>

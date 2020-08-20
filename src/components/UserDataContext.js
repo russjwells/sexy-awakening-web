@@ -1,5 +1,5 @@
 import React from 'react'
-const UserDataContext = React.createContext(null)
+const UserDataContext = React.createContext(defaultData)
 export default UserDataContext
 
 const defaultData = {
@@ -17,7 +17,7 @@ const defaultData = {
     showTransmen: true,
     showTranswomen: true,
     showGroups: true,
-    bio: "You must be new...",
+    bio: "This is a new profile...",
     first_name: "new",
     uid: "new",
     picture: "new"

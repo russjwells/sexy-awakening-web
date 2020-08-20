@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import { 
   BrowserRouter as Router,
   Route,
@@ -16,15 +16,15 @@ import About from './About';
 import * as routes from '../constants/routes';
 
 import withAuthentication from './withAuthentication'
-import withUserData from './withUserData'
-import UserDataContext from './UserDataContext';
+import UserDataContext from './UserDataContext'
 
 const App = () => {
-    const [value, setValue] = useState('hello from context')
+    const [user, setUser] = useState("name")
+    const value = useMemo(() => ({ user, setUser }), [user, setUser])
     return (
     <Router>
         <div className={css(styles.container)}>
-          <UserDataContext.Provider value={{value, setValue}}>
+          <UserDataContext.Provider value={value}>
             <Route
               exact path={routes.LANDING}
               component={() => <Home />}

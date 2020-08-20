@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 //import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase';
 import {Dimensions, Animated, View, Text, StyleSheet}  from 'react-primitives'
-import Profile from '../screens/profile'
-import Matches from '../screens/matches'
-import Swipes from '../screens/swipes'
+//import Profile from '../screens/profile'
+//import Matches from '../screens/matches'
+//import Swipes from '../screens/swipes'
 
 const {width, height} = Dimensions.get('window')
 
@@ -32,16 +32,14 @@ class WebScroller extends Component {
             <View style={styles.content}>
                 <View style={styles.flex}>
                   {this.props.screen==="profile" && (
-                    <Profile />
+                    this.props.screens[0]
                   )}
                   {this.props.screen==="swipes" && (
-                    <Swipes />
+                    this.props.screens[1]
                   )}
                   {this.props.screen==="matches" && (
-                    <Matches />
+                    this.props.screens[2]
                   )}
-                  
-                
                 </View>
             </View>
         )
