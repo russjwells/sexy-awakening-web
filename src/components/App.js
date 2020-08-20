@@ -20,8 +20,10 @@ import UserDataContext from './UserDataContext'
 import userDataDefaults from '../constants/defaults'
 
 const App = () => {
-    //console.log("beg "+authUser)
+    //console.log(authUser)
     const [user, setUser] = useState(userDataDefaults)
+    //query database for userData
+    //set user data in context
     const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
     return (
     <Router>

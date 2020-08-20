@@ -21,7 +21,11 @@ function Profile (props) {
         <View style={styles.container}>
             <View style={styles.profileDisplay}>
                 <View style={styles.userAvatar}>
-                    <CircleAvatar size={120} onClick={() => console.log('view profile')}/>
+                    <CircleAvatar size={120} 
+                        uid={props.authUser.uid} 
+                        //pic={props.userData.picture} 
+                        onClick={() => console.log('view profile')}
+                    />
                     <Text style={styles.text}>
                         {props.authUser.uid}
                         <br /><br />
