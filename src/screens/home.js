@@ -14,9 +14,9 @@ import UserDataContext from '../components/UserDataContext';
 
 //import filter from '../modules/filter'
 
-import _ from 'lodash'
+//import _ from 'lodash'
 import * as firebase from 'firebase'
-import GeoFire from 'geofire'
+//import GeoFire from 'geofire'
 
 class Home extends Component {
     constructor(props) {
@@ -93,7 +93,7 @@ class Home extends Component {
     */
     componentDidMount() {
       //get and set userData
-      /*
+      
       let authUser = this.context
       const uid = authUser.uid
       firebase.database().ref('users').child(uid).on('value', snap => {
@@ -104,9 +104,10 @@ class Home extends Component {
           profileIndex: 0,
         }, ()=>{
           console.log("data for "+this.state.userData.first_name + " is set in state")
+          console.log(this.state.userData)
         })
       })
-      */
+      
     }
     /*
     static getDerivedStateFromProps(props, state) {
