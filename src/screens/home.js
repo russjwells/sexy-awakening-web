@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import NavBar from '../components/navBar';
 import Footer from '../components/footer'
@@ -18,10 +18,9 @@ import UserDataContext from '../components/UserDataContext';
 import * as firebase from 'firebase'
 //import GeoFire from 'geofire'
 
-class Home extends Component {
-    constructor(props) {
-        super(props)
-        
+function Home (props) {
+    
+     /*   
         this.state = {
           profileIndex: 0,
           profiles: [],
@@ -30,19 +29,27 @@ class Home extends Component {
           authUser: this.props.authUser,
           userData: null,
       }
-    }
+      */
 
-    toggleDrawer = () => {
-      const bool = this.state.drawer ? false : true
-      this.setState({drawer:bool})
-      console.log('drawer toggle:', this.state.drawer)
+      const [profileIndex, setProfileIndex] = useState(0)
+      const [profiles, setProfiles] = useState([])
+      const [drawer, setDrawer] = useState(false)
+      const [activeScreen, setActiveScreen] = useState("profile")
+      const [authUser, setAuthUser] = useState(props.authUser)
+    
+
+    const toggleDrawer = () => {
+      const bool = {drawer} ? false : true
+      //this.setState({drawer:bool})
+      setDrawer(bool)
+      console.log('drawer toggle:', {drawer})
     }
-    drawerChanged = () => {
+    const drawerChanged = () => {
         //const bool = !this.state.drawer
         //this.setState({drawer:bool})
         console.log('drawerChanged')
     }
-    drawerChange = (isOpen) => {
+    const drawerChange = (isOpen) => {
         console.log('drawer changed: its '+isOpen)
         //if (isOpen==false) {
         //this.setState({drawer:isOpen})
@@ -51,21 +58,25 @@ class Home extends Component {
         //alert(isOpen)
         //console.log('drawer change', isOpen)
     }  
-    menuPress = () => {
+    const menuPress = () => {
         console.log('menu pressed home')
-        this.setState({activeScreen:"menu"})
+        //this.setState({activeScreen:"menu"})
+        setActiveScreen("profile")
     }
-    profilePress = () => {
+    const profilePress = () => {
         console.log('profile pressed home')
-        this.setState({activeScreen:"profile"})
+        //this.setState({activeScreen:"profile"})
+        setActiveScreen("profile")
     }
-    swipesPress = () => {
+    const swipesPress = () => {
         console.log('swipes pressed home')
-        this.setState({activeScreen:"swipes"})
+        //this.setState({activeScreen:"swipes"})
+        setActiveScreen("swipes")
     }
-    matchesPress = () => {
+    const matchesPress = () => {
         console.log('matches pressed home')
-        this.setState({activeScreen:"matches"})
+        //this.setState({activeScreen:"matches"})
+        setActiveScreen("matches")
     }
     /*  
     componentWillMount() {
@@ -91,6 +102,7 @@ class Home extends Component {
         })
     }
     */
+   /*
     componentDidMount() {
       //get and set userData
       
@@ -109,6 +121,7 @@ class Home extends Component {
       })
       
     }
+    */
     /*
     static getDerivedStateFromProps(props, state) {
         return {
@@ -204,7 +217,7 @@ class Home extends Component {
       }
 */
     
-    render(){
+    
         return (
             <AuthUserContext.Consumer>
               {authUser => (
@@ -222,10 +235,10 @@ class Home extends Component {
                           />
                       </Drawer>
                       <NavBar 
-                          menuPress={this.menuPress}
-                          profilePress={this.profilePress}
-                          swipesPress={this.swipesPress}
-                          matchesPress={this.matchesPress}
+                          menuPress={menuPress}
+                          profilePress={profilePress}
+                          swipesPress={swipesPress}
+                          matchesPress={matchesPress}
 
                           authUser={authUser}
                           userData={userData}
@@ -245,7 +258,7 @@ class Home extends Component {
                                   userData={userData}
                               />,
                           ]}
-                          screen={this.state.activeScreen}
+                          screen={activeScreen}
                       />
                       <Footer />
                   </div>
@@ -254,9 +267,9 @@ class Home extends Component {
               )}
             </AuthUserContext.Consumer>
         )
-    }
+    
 }
-Home.contextType = AuthUserContext
+//Home.contextType = AuthUserContext
 const styles = StyleSheet.create({
     container: {
       display: 'flex',
