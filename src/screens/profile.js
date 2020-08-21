@@ -15,6 +15,7 @@ import {db} from '../firebase'
 
 function Profile (props) {
     const {user, setUser} = useContext(UserDataContext)
+    const {auth, setAuth} = useContext(AuthUserContext)
     //const {auth} = useContext(AuthUserContext)
     //console.log(props.auth)
     return(
@@ -23,23 +24,25 @@ function Profile (props) {
                 <View style={styles.userAvatar}>
                     <CircleAvatar size={120} 
                         uid={props.authUser.uid} 
-                        //pic={props.userData.picture} 
+                        pic={user.picture} 
                         onClick={() => console.log('view profile')}
                     />
                     <Text style={styles.text}>
                         {props.authUser.uid}
                         <br /><br />
-                        {JSON.stringify(user)}
+                        {user.first_name}
                         
                     </Text>
                     <button
-                        onClick={() => {
-                            //const usr = db.onceGetUserData(props.authUser.uid)
-                            //setUser(usr)
-                            }
+                        onClick={async () => {
+                            const snap = await db.onceGetUserData(props.authUser.uid)
+                            const usr = snap.val()
+                            setUser(usr)
+                            console.log(usr)
+                            
                             //console.log(usr)
                             //setUser({usr})
-                        }
+                        }}
                     >fill data</button>
                 </View>
             </View>

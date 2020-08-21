@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useContext } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import NavBar from '../components/navBar';
 import Footer from '../components/footer'
@@ -19,23 +19,15 @@ import * as firebase from 'firebase'
 //import GeoFire from 'geofire'
 
 function Home (props) {
+    const {user, setUser} = useContext(UserDataContext)
     
-     /*   
-        this.state = {
-          profileIndex: 0,
-          profiles: [],
-          drawer: false,
-          activeScreen: "profile",
-          authUser: this.props.authUser,
-          userData: null,
-      }
-      */
-
-      const [profileIndex, setProfileIndex] = useState(0)
-      const [profiles, setProfiles] = useState([])
-      const [drawer, setDrawer] = useState(false)
-      const [activeScreen, setActiveScreen] = useState("profile")
-      const [authUser, setAuthUser] = useState(props.authUser)
+    //const UserData = UserDataContext
+    const [profileIndex, setProfileIndex] = useState(0)
+    const [profiles, setProfiles] = useState([])
+    const [drawer, setDrawer] = useState(false)
+    const [activeScreen, setActiveScreen] = useState("profile")
+    const [authUser, setAuthUser] = useState(props.authUser)
+    //const [userData, setUserData] = useState(UserData)
     
 
     const toggleDrawer = () => {
@@ -216,7 +208,14 @@ function Home (props) {
     
       }
 */
-    
+    const getUserData = async (uid) => {
+      firebase.database().ref('users').child(uid).on('value', snap => {
+        const user = snap.val()
+        console.log("clicked")
+        console.log(user)
+        return user
+      })
+    }
     
         return (
             <AuthUserContext.Consumer>
