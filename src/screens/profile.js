@@ -28,11 +28,12 @@ function Profile (props) {
                         onClick={() => console.log('view profile')}
                     />
                     <Text style={styles.text}>
-                        {props.authUser.uid}
+                        
                         <br /><br />
                         {user.first_name}
                         
                     </Text>
+                
                     <button
                         onClick={async () => {
                             const snap = await db.onceGetUserData(props.authUser.uid)

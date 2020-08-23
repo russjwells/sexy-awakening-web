@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useContext, useMemo} from 'react';
 import { 
   BrowserRouter as Router,
   Route,
@@ -16,14 +16,20 @@ import About from './About';
 import * as routes from '../constants/routes';
 
 import withAuthentication from './withAuthentication'
+import AuthUserContext from './AuthUserContext'
+
+import {db} from '../firebase'
 import UserDataContext from './UserDataContext'
 import userDataDefaults from '../constants/defaults'
+//import AuthUserContext from './AuthUserContext';
 
 const App = () => {
-    //console.log(authUser)
-    const [user, setUser] = useState(userDataDefaults)
+    //console.log("found secret auth: " + props.authUser.uid)
+    
     //query database for userData
+    //const [auth, setAuth] = useContext(AuthUserContext)
     //set user data in context
+    const [user, setUser] = useState(userDataDefaults)
     const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
     return (
     <Router>

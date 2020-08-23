@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext } from 'react';
+import React, { Component, useState, useContext, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import NavBar from '../components/navBar';
 import Footer from '../components/footer'
@@ -11,16 +11,25 @@ import Matches from './matches'
 import AuthUserContext from '../components/AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
 import UserDataContext from '../components/UserDataContext';
+import {db} from '../firebase'
 
 //import filter from '../modules/filter'
 
 //import _ from 'lodash'
-import * as firebase from 'firebase'
+//import * as firebase from 'firebase'
 //import GeoFire from 'geofire'
 
 function Home (props) {
     const {user, setUser} = useContext(UserDataContext)
-    
+    /*
+    async () => {
+      const snap = await db.onceGetUserData(props.authUser.uid)
+      const usr = snap.val()
+      setUser(usr)
+    }
+    */
+    //() => getUserData(props.authUser.uid).then(data=>setUser(data))
+    //setUser(userData)
     //const UserData = UserDataContext
     const [profileIndex, setProfileIndex] = useState(0)
     const [profiles, setProfiles] = useState([])
@@ -70,6 +79,23 @@ function Home (props) {
         //this.setState({activeScreen:"matches"})
         setActiveScreen("matches")
     }
+
+    const getUserData = async (uid) => {
+      const snap = await db.onceGetUserData(uid)
+      const user = snap.val()
+      //console.log("getUserData()")
+      //console.log(user)
+      return user
+    }
+
+    //run did mount
+    useEffect(() => {
+      //console.log("useEffect")
+      //getUserData(props.authUser.uid).then((data)=>{
+      //setUser(data)
+      //})
+    }, [props.authUser.uid, setUser])
+
     /*  
     componentWillMount() {
         //get and set userData
@@ -208,64 +234,59 @@ function Home (props) {
     
       }
 */
-    const getUserData = async (uid) => {
-      firebase.database().ref('users').child(uid).on('value', snap => {
-        const user = snap.val()
-        console.log("clicked")
-        console.log(user)
-        return user
-      })
-    }
     
-        return (
-            <AuthUserContext.Consumer>
-              {authUser => (
-                <UserDataContext.Consumer>
-                  {userData => (
-                    <div className={css(styles.container)}>
-                      <Drawer 
-                          //open={}
-                          zIndex={10000}
-                          //onChange={this.drawerChanged(this.state.drawer)}
-                      >
-                          <Menu 
-                            authUser={authUser}
-                            userData={userData}
-                          />
-                      </Drawer>
-                      <NavBar 
-                          menuPress={menuPress}
-                          profilePress={profilePress}
-                          swipesPress={swipesPress}
-                          matchesPress={matchesPress}
+    
+    return (
+        <AuthUserContext.Consumer>
+          {authUser => (
+            <UserDataContext.Consumer>
+              {userData => (
+                <div className={css(styles.container)}>
+                  <Drawer 
+                      //open={}
+                      zIndex={10000}
+                      //onChange={this.drawerChanged(this.state.drawer)}
+                      authUser={authUser}
+                      userData={userData}
+                  >
+                      <Menu 
+                        authUser={authUser}
+                        userData={userData}
+                      />
+                  </Drawer>
+                  <NavBar 
+                      menuPress={menuPress}
+                      profilePress={profilePress}
+                      swipesPress={swipesPress}
+                      matchesPress={matchesPress}
 
-                          authUser={authUser}
-                          userData={userData}
-                      />
-                      <WebScroller 
-                          screens={[
-                              <Profile 
-                                  authUser={authUser}
-                                  userData={userData}
-                              />,
-                              <Swipes 
-                                  authUser={authUser}
-                                  userData={userData}
-                              />,
-                              <Matches 
-                                  authUser={authUser}
-                                  userData={userData}
-                              />,
-                          ]}
-                          screen={activeScreen}
-                      />
-                      <Footer />
-                  </div>
-                  )}
-                </UserDataContext.Consumer>
+                      authUser={authUser}
+                      userData={userData}
+                  />
+                  <WebScroller 
+                      screens={[
+                          <Profile 
+                              authUser={authUser}
+                              userData={userData}
+                          />,
+                          <Swipes 
+                              authUser={authUser}
+                              userData={userData}
+                          />,
+                          <Matches 
+                              authUser={authUser}
+                              userData={userData}
+                          />,
+                      ]}
+                      screen={activeScreen}
+                  />
+                  <Footer />
+              </div>
               )}
-            </AuthUserContext.Consumer>
-        )
+            </UserDataContext.Consumer>
+          )}
+        </AuthUserContext.Consumer>
+    )
     
 }
 //Home.contextType = AuthUserContext
