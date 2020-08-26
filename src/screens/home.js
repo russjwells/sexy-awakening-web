@@ -20,7 +20,8 @@ import {db} from '../firebase'
 //import GeoFire from 'geofire'
 
 function Home (props) {
-    const {user, setUser} = useContext(UserDataContext)
+    const {userData, setUserData} = useContext(UserDataContext)
+    const [user, setUser] = useState(null)
     /*
     async () => {
       const snap = await db.onceGetUserData(props.authUser.uid)
@@ -28,7 +29,7 @@ function Home (props) {
       setUser(usr)
     }
     */
-    //() => getUserData(props.authUser.uid).then(data=>setUser(data))
+    //getUserData(props.authUser.uid).then(data=>setUser(data))
     //setUser(userData)
     //const UserData = UserDataContext
     const [profileIndex, setProfileIndex] = useState(0)
@@ -37,46 +38,35 @@ function Home (props) {
     const [activeScreen, setActiveScreen] = useState("profile")
     const [authUser, setAuthUser] = useState(props.authUser)
     //const [userData, setUserData] = useState(UserData)
+    console.log("home auth: " + props.authUser.uid)
     
 
     const toggleDrawer = () => {
       const bool = {drawer} ? false : true
-      //this.setState({drawer:bool})
       setDrawer(bool)
       console.log('drawer toggle:', {drawer})
     }
     const drawerChanged = () => {
         //const bool = !this.state.drawer
-        //this.setState({drawer:bool})
         console.log('drawerChanged')
     }
     const drawerChange = (isOpen) => {
         console.log('drawer changed: its '+isOpen)
-        //if (isOpen==false) {
-        //this.setState({drawer:isOpen})
-        //}
-        //console.log('drawer changed, now:', this.state.drawer)
-        //alert(isOpen)
-        //console.log('drawer change', isOpen)
     }  
     const menuPress = () => {
         console.log('menu pressed home')
-        //this.setState({activeScreen:"menu"})
         setActiveScreen("profile")
     }
     const profilePress = () => {
         console.log('profile pressed home')
-        //this.setState({activeScreen:"profile"})
         setActiveScreen("profile")
     }
     const swipesPress = () => {
         console.log('swipes pressed home')
-        //this.setState({activeScreen:"swipes"})
         setActiveScreen("swipes")
     }
     const matchesPress = () => {
         console.log('matches pressed home')
-        //this.setState({activeScreen:"matches"})
         setActiveScreen("matches")
     }
 
@@ -89,12 +79,16 @@ function Home (props) {
     }
 
     //run did mount
-    useEffect(() => {
-      //console.log("useEffect")
-      //getUserData(props.authUser.uid).then((data)=>{
-      //setUser(data)
-      //})
-    }, [props.authUser.uid, setUser])
+    //useEffect(
+      //async function fetchData(){
+      //  console.log("useEffect")
+      //  getUserData(props.authUser.uid).then((data)=>{
+      //    console.log(data)
+      //    //setUserData(data)
+      //    console.log(data.first_name)
+      //  })
+      //}, []
+    //)
 
     /*  
     componentWillMount() {

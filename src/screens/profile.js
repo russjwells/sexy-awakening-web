@@ -14,37 +14,32 @@ import UserDataHelpers from '../utils/UserDataHelpers'
 import {db} from '../firebase'
 
 function Profile (props) {
-    const {user, setUser} = useContext(UserDataContext)
-    const {auth, setAuth} = useContext(AuthUserContext)
-    //const {auth} = useContext(AuthUserContext)
-    //console.log(props.auth)
+    const {userData, setUserData} = useContext(UserDataContext)
+    console.log("profile auth: " + props.authUser.uid)
     return(
         <View style={styles.container}>
             <View style={styles.profileDisplay}>
                 <View style={styles.userAvatar}>
                     <CircleAvatar size={120} 
                         uid={props.authUser.uid} 
-                        pic={user.picture} 
+                        pic={userData.picture} 
                         onClick={() => console.log('view profile')}
                     />
                     <Text style={styles.text}>
-                        
-                        <br /><br />
-                        {user.first_name}
-                        
+                        {userData.first_name}
                     </Text>
-                
-                    <button
+                    { userData.first_name=="new" ? <button
                         onClick={async () => {
-                            const snap = await db.onceGetUserData(props.authUser.uid)
-                            const usr = snap.val()
-                            setUser(usr)
-                            console.log(usr)
-                            
-                            //console.log(usr)
-                            //setUser({usr})
+                                const snap = await db.onceGetUserData(props.authUser.uid).then((snap) => {
+                                console.log(data)
+                                const data = snap.val()
+                                setUserData(data)
+                            })
                         }}
-                    >fill data</button>
+                    >
+                    Get Data
+                    </button> : null
+                    }
                 </View>
             </View>
             <View style={styles.menuOptions}>
