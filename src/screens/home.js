@@ -71,24 +71,25 @@ function Home (props) {
     }
 
     const getUserData = async (uid) => {
-      const snap = await db.onceGetUserData(uid)
-      const user = snap.val()
-      //console.log("getUserData()")
-      //console.log(user)
-      return user
+        const snap = await db.onceGetUserData(uid).then((snap) => {
+        
+        const data = snap.val()
+        //console.log(data)
+        //setUserData(data)
+        return data
+        })
     }
-
+    
     //run did mount
-    //useEffect(
-      //async function fetchData(){
-      //  console.log("useEffect")
-      //  getUserData(props.authUser.uid).then((data)=>{
-      //    console.log(data)
-      //    //setUserData(data)
-      //    console.log(data.first_name)
-      //  })
-      //}, []
-    //)
+    useEffect(() => {
+      console.log("use effect: " + props.authUser.uid)
+      //const usr = getUserData(props.authUser.uid).then(data => )
+      //console.log(usr)
+      //setUserData(usr)
+      },[userData])
+      
+      
+    
 
     /*  
     componentWillMount() {
