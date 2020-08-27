@@ -31,8 +31,8 @@ function Profile (props) {
                     { userData.first_name=="new" ? <button
                         onClick={async () => {
                                 const snap = await db.onceGetUserData(props.authUser.uid).then((snap) => {
-                                console.log(data)
                                 const data = snap.val()
+                                console.log(data)
                                 setUserData(data)
                             })
                         }}

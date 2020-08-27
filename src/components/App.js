@@ -1,4 +1,4 @@
-import React, {useState, useContext, useMemo} from 'react';
+import React, {useState, useEffect, useContext, useMemo} from 'react';
 import { 
   BrowserRouter as Router,
   Route,
@@ -20,10 +20,14 @@ import withAuthentication from './withAuthentication'
 import UserDataContext from './UserDataContext'
 import userDataDefaults from '../constants/defaults'
 
-const App = () => {
+function App (props) {
     console.log("app begin")
     const [userData, setUserData] = useState(userDataDefaults)
     const providerValue = useMemo(() => ({ userData, setUserData }), [userData, setUserData])
+    useEffect(()=>{
+      console.log("use effect app level " + JSON.stringify(props))
+    },[])
+
     return (
       <Router>
           <div className={css(styles.container)}>

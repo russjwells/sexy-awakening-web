@@ -71,22 +71,27 @@ function Home (props) {
     }
 
     const getUserData = async (uid) => {
-        const snap = await db.onceGetUserData(uid).then((snap) => {
-        
+        const snap = db.onceGetUserData(uid).then((snap) => {
         const data = snap.val()
         //console.log(data)
         //setUserData(data)
         return data
         })
     }
+
+    //const loadData = async (uid) => {
+
+    //}
     
     //run did mount
     useEffect(() => {
       console.log("use effect: " + props.authUser.uid)
-      //const usr = getUserData(props.authUser.uid).then(data => )
+      //const snap = await db.onceGetUserData(props.authUser.uid).then((res) => setUserData(res))
+      
       //console.log(usr)
-      //setUserData(usr)
-      },[userData])
+     // setUserData(usr)
+      },[userData]
+    )
       
       
     
@@ -262,7 +267,7 @@ function Home (props) {
                       screens={[
                           <Profile 
                               authUser={authUser}
-                              userData={userData}
+                              //userData={userData}
                           />,
                           <Swipes 
                               authUser={authUser}
