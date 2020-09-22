@@ -17,15 +17,11 @@ class WebScroller extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            //users: null,
-            //user: this.props.user,
             activeScreen: this.props.activeScreen
           };
     }
 
     render(){
-        //const {users} = this.state;
-        //const user = this.state.user;
         const {width, height} = Dimensions.get('window')
         const view = this.state.activeScreen;
         return (
@@ -45,16 +41,7 @@ class WebScroller extends Component {
         )
     }
 }
-/*
-const UserList = ({ users }) =>
-  <div>
-    <h2>List of First Names of Users</h2>
 
-    {Object.keys(users).map(key =>
-      <div key={key}>{users[key].first_name}</div>
-    )}
-  </div>
-*/
 const styles = StyleSheet.create({
     content: {
       display: 'flex',

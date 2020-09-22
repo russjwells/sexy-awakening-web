@@ -62,46 +62,44 @@ function Home (props) {
     }
 
     const getUserData = async (uid) => {
-        const snap = db.onceGetUserData(uid).then((snap) => {
-        const data = snap.val()
-        //console.log(data)
-        setUser(data)
-        //setUserData(data)
-        return data
+        const snap = await db.onceGetUserData(uid).then((snap) => {
+          const data = snap.val()
+          //console.log(data)
+          //setUser(data)
+          //setUserData(data)
+          //return data
         })
     }
     
     //run did mount
     useEffect(() => {
-      (async () => {
+      
+      /*(async () => {
         const snap = await db.onceGetUserData(props.authUser.uid).then((snap) => {
           const data = snap.val()
           console.log(data)
-          setUser(data)
-        })})
+          //setUser(data)
+          setUserData(data)
+        })})*/
       
       console.log("use effect: " + props.authUser.uid)
       getUserData(props.authUser.uid)
       
-      },[userData]
+      }, [userData]
     )
     
     return (
         <AuthUserContext.Consumer>
           {authUser => (
-            <UserDataContext.Consumer>
-              {userData => (
                 <div className={css(styles.container)}>
                   <Drawer 
                       //open={}
                       zIndex={10000}
                       //onChange={this.drawerChanged(this.state.drawer)}
                       authUser={authUser}
-                      userData={userData}
                   >
                       <Menu 
                         authUser={authUser}
-                        userData={userData}
                       />
                   </Drawer>
                   <NavBar 
@@ -111,29 +109,23 @@ function Home (props) {
                       matchesPress={matchesPress}
 
                       authUser={authUser}
-                      userData={userData}
                   />
                   <WebScroller 
                       screens={[
                           <Profile 
                               authUser={authUser}
-                              userData={{user}}
                           />,
                           <Swipes 
                               authUser={authUser}
-                              userData={userData}
                           />,
                           <Matches 
                               authUser={authUser}
-                              userData={userData}
                           />,
                       ]}
                       screen={activeScreen}
                   />
                   <Footer />
               </div>
-              )}
-            </UserDataContext.Consumer>
           )}
         </AuthUserContext.Consumer>
     )
