@@ -15,6 +15,7 @@ import {db} from '../firebase'
 
 function Profile (props) {
     const {userData, setUserData} = useContext(UserDataContext)
+    const pix = props.userData
     console.log("profile auth: " + props.authUser.uid)
     return(
         <View style={styles.container}>

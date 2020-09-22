@@ -21,7 +21,7 @@ import {db} from '../firebase'
 
 function Home (props) {
     const {userData, setUserData} = useContext(UserDataContext)
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(userData)
     
     const [profileIndex, setProfileIndex] = useState(0)
     const [profiles, setProfiles] = useState([])
@@ -65,6 +65,7 @@ function Home (props) {
         const snap = db.onceGetUserData(uid).then((snap) => {
         const data = snap.val()
         //console.log(data)
+        setUser(data)
         //setUserData(data)
         return data
         })
@@ -72,11 +73,16 @@ function Home (props) {
     
     //run did mount
     useEffect(() => {
-      console.log("use effect: " + props.authUser.uid)
-      //const snap = await db.onceGetUserData(props.authUser.uid).then((res) => setUserData(res))
+      (async () => {
+        const snap = await db.onceGetUserData(props.authUser.uid).then((snap) => {
+          const data = snap.val()
+          console.log(data)
+          setUser(data)
+        })})
       
-      //console.log(usr)
-     // setUserData(usr)
+      console.log("use effect: " + props.authUser.uid)
+      getUserData(props.authUser.uid)
+      
       },[userData]
     )
     
@@ -111,7 +117,7 @@ function Home (props) {
                       screens={[
                           <Profile 
                               authUser={authUser}
-                              //userData={userData}
+                              userData={{user}}
                           />,
                           <Swipes 
                               authUser={authUser}
