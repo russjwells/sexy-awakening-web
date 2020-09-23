@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-//import { StyleSheet, css } from 'aphrodite';
-//import { db } from '../firebase';
 import {Dimensions, Animated, View, Text, StyleSheet}  from 'react-primitives'
-//import Profile from '../screens/profile'
-//import Matches from '../screens/matches'
-//import Swipes from '../screens/swipes'
-
 const {width, height} = Dimensions.get('window')
 
 class WebScroller extends Component {

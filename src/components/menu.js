@@ -1,41 +1,56 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import * as routes from '../constants/routes';
-import SignOutButton from './SignOut';
-//import {Text} from 'react-primitives'
-import {View, Text, Image} from 'react-primitives'
-import phoenixred from './phoenix_red.svg';
-import { StyleSheet, css } from 'aphrodite';
 
-const Menu = () => 
-    <View className={css(styles.menu)}>
-        <div className={css(styles.top)}>
-            <img src={phoenixred} className={css(styles.logo)} alt="logo" />
-        </div>
-        <div className={css(styles.version)}>
-            <p className={css(styles.versionText)}>Sexy Awakening</p>
-        </div>
-        <div className={css(styles.menuItems)}>
-            <div className={css(styles.menuItem)}>
-                <Link to={routes.ABOUT} className={css(styles.link)}>About</Link>
-            </div>
-            <div className={css(styles.menuItem)}>
-                <Link to={routes.ACCOUNT} className={css(styles.link)}>Account</Link>
-            </div>
-        </div>
+import {View, Text, Image, StyleSheet} from 'react-primitives'
+import phoenixred from './phoenix_red.svg';
+
+import UserDataContext from './UserDataContext';
+
+
+const Menu = () => {
+
+    const {userData, setUserData} = useContext(UserDataContext)
+    return(
+    <View style={styles.container}>
+        <View style={styles.top}>
+            <img src={phoenixred} className={styles.logo} alt="logo" />
+        </View>
+        <View style={styles.version}>
+            <Text style={styles.versionText}>Sexy Awakening</Text>
+        </View>
+        <View style={styles.greeting}>
+            <Text style={styles.greetingText}>Hello, {userData.first_name}!</Text>
+        </View>
+        <View style={styles.menuItems}>
+            <Link to={routes.ABOUT}>
+            <View style={styles.menuItem}>
+                <Text>
+                    About
+                </Text>
+            </View>
+            </Link>
+            <View style={styles.menuItem}>
+                <Link to={routes.ACCOUNT} className={styles.link}>
+                    Account
+                </Link>
+            </View>
+        </View>
     </View>
+    )
+}
 
 const styles = StyleSheet.create({
-    menu: {
+    container: {
       display: 'flex',
-      flex: 1,
+      flex: '1 1 1',
       justifyContent: 'flex-start',
       flexDirection:'column',
-      backgroundColor: 'red',
+      backgroundColor: 'white',
     },
     logo:{
-        width: 80,
-        height: 80,
+        width: '80px',
+        height: '80px',
     },
     logoHolder:{
         display: 'flex',
@@ -77,6 +92,11 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
     },
     versionText:{
+        textAlign:'center',
+        fontWeight:'bold',
+        color:'#e54560',
+    },
+    greetingText:{
         textAlign:'center',
         fontWeight:'bold',
         color:'#e54560',
