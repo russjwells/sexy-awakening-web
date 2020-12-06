@@ -12,16 +12,11 @@ import AuthUserContext from '../components/AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
 import UserDataContext from '../components/UserDataContext';
 import {db} from '../firebase'
-
-//import filter from '../modules/filter'
-
-//import _ from 'lodash'
-//import * as firebase from 'firebase'
-//import GeoFire from 'geofire'
+import { onceGetUserData } from '../firebase/db';
 
 function Home (props) {
     const {userData, setUserData} = useContext(UserDataContext)
-    const [user, setUser] = useState(userData)
+    //const [user, setUser] = useState(userData)
     
     const [profileIndex, setProfileIndex] = useState(0)
     const [profiles, setProfiles] = useState([])
@@ -73,19 +68,22 @@ function Home (props) {
     
     //run did mount
     useEffect(() => {
-      
-      /*(async () => {
-        const snap = await db.onceGetUserData(props.authUser.uid).then((snap) => {
+      (async () => {
+        if (props.authUser.uid != null){
+          const snap = await db.onceGetUserData(props.authUser.uid)
           const data = snap.val()
-          console.log(data)
+          //console.log("settinf data:" + data)
           //setUser(data)
           setUserData(data)
-        })})*/
+        } else {
+          alert ("no")
+        }
+        })//()
       
       console.log("use effect: " + props.authUser.uid)
-      getUserData(props.authUser.uid)
+      //getUserData(props.authUser.uid)
       
-      }, [userData]
+      }, [props.authUser.uid]
     )
     
     return (

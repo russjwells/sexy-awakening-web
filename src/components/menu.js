@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     },
     link: {
-        textDecoration: 'none',
+        textDecorationLine: 'none',
         color: '#000',
         cursor: 'pointer'
     },

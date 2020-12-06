@@ -16,7 +16,6 @@ import About from './About';
 import * as routes from '../constants/routes';
 
 import withAuthentication from './withAuthentication'
-//import { firebase } from '../firebase'
 
 import UserDataContext from './UserDataContext'
 import userDataDefaults from '../constants/defaults'
@@ -26,7 +25,7 @@ function App (props) {
     //const [authUser, setAuthUser] = useState(null)
     const [userData, setUserData] = useState(userDataDefaults)
     const providerValue = useMemo(() => ({ userData, setUserData }), [userData, setUserData])
-    useEffect(()=>{
+    useEffect(() => {
       /*
       console.log("use effect app level " + JSON.stringify(authUser))
       firebase.auth.onAuthStateChanged(authUser => {
@@ -36,7 +35,7 @@ function App (props) {
       });
       console.log("use effect app level fin " + JSON.stringify(authUser))
       */
-    },[])
+    }, [])
 
     return (
       <Router>
