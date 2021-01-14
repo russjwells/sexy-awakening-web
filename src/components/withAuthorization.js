@@ -16,6 +16,7 @@ const withAuthorization = (authCondition) => (Component) => {
     }
 
     render() {
+      console.log('foobar: ', this.props)
       return (
         <AuthUserContext.Consumer>
           {authUser => authUser ? <Component authUser={authUser}/> : null}

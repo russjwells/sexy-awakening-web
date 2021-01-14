@@ -8,13 +8,15 @@ import * as routes from '../constants/routes';
 import { StyleSheet, css } from 'aphrodite';
 
 import Header from './header'
+import phoenixred from './phoenix_red.svg';
 
 const SignInPage = ({ history }) =>
 <div className={css(styles.container)}>
-    <Header />
     <div className={css(styles.content)}>
+        <img src={phoenixred} className={css(styles.logo)} alt="logo" />
         <h1>Sexy Awakening</h1>
-        <p>the best place to meet people online... for friends lovers and romances.</p>
+        <p>Explore sacred sexuality and conscious relationships in an intentional transformational space.<br/>
+        Sexy Awakening is the best place online to meet new romantic interests, lovers, and friends.</p>
         <SignInForm history={history} />
         <SignUpLink />
         <PasswordForgetLink />
@@ -73,6 +75,7 @@ class SignInForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
+        <label>Username: </label>
         <input
           value={email}
           onChange={event => this.setState(byPropKey('email', event.target.value))}
@@ -80,6 +83,7 @@ class SignInForm extends Component {
           placeholder="Email Address"
         />
         <br />
+        <label>Password: </label>
         <input
           value={password}
           onChange={event => this.setState(byPropKey('password', event.target.value))}
@@ -88,7 +92,7 @@ class SignInForm extends Component {
         />
         <br />
         <button disabled={isInvalid} type="submit">
-          Enter
+          Login
         </button>
 
         { error && <p>{error.message}</p> }

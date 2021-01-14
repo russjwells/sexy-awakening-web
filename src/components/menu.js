@@ -4,7 +4,7 @@ import * as routes from '../constants/routes';
 
 import {View, Text, Image, StyleSheet} from 'react-primitives'
 import phoenixred from './phoenix_red.svg';
-
+import SignOutButton from './SignOut';
 import UserDataContext from './UserDataContext';
 
 
@@ -14,7 +14,7 @@ const Menu = () => {
     return(
     <View style={styles.container}>
         <View style={styles.top}>
-            <img src={phoenixred} className={styles.logo} alt="logo" />
+            <img src={phoenixred} className={styles.logo} alt="logo" width="120px" height="120px"/>
         </View>
         <View style={styles.version}>
             <Text style={styles.versionText}>Sexy Awakening</Text>
@@ -30,10 +30,29 @@ const Menu = () => {
                 </Text>
             </View>
             </Link>
+            <Link to={routes.LANDING}>
+            <View style={styles.menuItem}>
+                <Text>
+                    Status
+                </Text>
+            </View>
+            </Link>
+            <Link to={routes.LANDING}>
+            <View style={styles.menuItem}>
+                <Text>
+                    Inventory
+                </Text>
+            </View>
+            </Link>
             <View style={styles.menuItem}>
                 <Link to={routes.ACCOUNT} className={styles.link}>
                     Account
                 </Link>
+            </View>
+            <View style={styles.menuItem}>
+                <View style={styles.menuItem}>
+                <SignOutButton />
+                </View>
             </View>
         </View>
     </View>
@@ -70,7 +89,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         flexDirection: 'column',
-        paddingTop: '10',
+        paddingTop: '10px',
     },
     menuItem:{
         height: 100,

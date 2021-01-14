@@ -15,8 +15,7 @@ import {db} from '../firebase'
 
 function Profile (props) {
     const {userData, setUserData} = useContext(UserDataContext)
-    const pix = props.userData
-    console.log("profile auth: " + props.authUser.uid)
+    //const pix = props.userData
     return(
         <View style={styles.container}>
             <View style={styles.profileDisplay}>
@@ -77,7 +76,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flex: 1,
         color: 'black',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontSize: '20px'
     },
     profileDisplay: {
         display: 'flex',

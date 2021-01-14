@@ -5,7 +5,7 @@ export default class Footer extends Component {
     render(){
         return(
             <div className={css(styles.footer)}>
-                <p>&copy; 2020 Sexy Awakening LLC</p>
+                <p>&copy; 2021 Sexy Awakening LLC</p>
             </div>
         )
     }

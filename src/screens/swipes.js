@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     swipes: {
       display: 'flex',
       flex: 1,
-      flexDirection: 'column',
+      flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
       backgroundColor: 'white'

@@ -21,7 +21,6 @@ import UserDataContext from './UserDataContext'
 import userDataDefaults from '../constants/defaults'
 
 function App (props) {
-    console.log("app begin")
     //const [authUser, setAuthUser] = useState(null)
     const [userData, setUserData] = useState(userDataDefaults)
     const providerValue = useMemo(() => ({ userData, setUserData }), [userData, setUserData])
@@ -43,7 +42,7 @@ function App (props) {
           <UserDataContext.Provider value={providerValue}>
             <Route
               exact path={routes.LANDING}
-              component={() => <Home />}
+              component={Home}
             />
             <Route
               exact path={routes.SIGN_UP}

@@ -5,12 +5,13 @@ import { auth, db } from '../firebase';
 import * as routes from '../constants/routes';
 import { StyleSheet, css } from 'aphrodite';
 import Header from './header'
+import phoenixred from './phoenix_red.svg';
 
 
 const SignUpPage = ({history}) =>
   <div className={css(styles.container)}>
-    <Header />
     <div className={css(styles.content)}>
+    <img src={phoenixred} className={css(styles.logo)} alt="logo" />
         <h1>Create your account...</h1>
         <SignUpForm history={history} />
         <p>Already have an account? <Link to={routes.SIGN_IN}>Sign In</Link></p>
@@ -123,9 +124,9 @@ class SignUpForm extends Component {
 
 const SignUpLink = () =>
   <p>
-    Are you new?
+    First time here?
     {' '}
-    <Link to={routes.SIGN_UP}>Join here</Link>
+    <Link to={routes.SIGN_UP}>Create your account.</Link>
   </p>
 
 const styles = StyleSheet.create({

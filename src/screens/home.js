@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext, useEffect } from 'react';
+import React, { Component, useState, useContext, useEffect, useCallback } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import NavBar from '../components/navBar';
 import Footer from '../components/footer'
@@ -15,18 +15,15 @@ import {db} from '../firebase'
 import { onceGetUserData } from '../firebase/db';
 
 function Home (props) {
+    const authUser = useContext(AuthUserContext)
     const {userData, setUserData} = useContext(UserDataContext)
-    //const [user, setUser] = useState(userData)
+    console.log(props)
+    const [loading, setLoading] = useState(true)
     
-    const [profileIndex, setProfileIndex] = useState(0)
-    const [profiles, setProfiles] = useState([])
     const [drawer, setDrawer] = useState(false)
     const [activeScreen, setActiveScreen] = useState("profile")
-    const [authUser, setAuthUser] = useState(props.authUser)
-    //const [userData, setUserData] = useState(UserData)
-    console.log("home auth: " + props.authUser.uid)
+    //const [authUser, setAuthUser] = useState(props.authUser)
     
-
     const toggleDrawer = () => {
       const bool = {drawer} ? false : true
       setDrawer(bool)
@@ -56,77 +53,83 @@ function Home (props) {
         setActiveScreen("matches")
     }
 
-    const getUserData = async (uid) => {
+    /*
+    const loadUserData = useCallback(async (uid) => {
         const snap = await db.onceGetUserData(uid).then((snap) => {
           const data = snap.val()
-          //console.log(data)
-          //setUser(data)
-          //setUserData(data)
-          //return data
+          console.log(data)
+          setLoading(false)
+          setUserData(data)
         })
-    }
-    
+    },[uid])
+    */
+
+   
     //run did mount
     useEffect(() => {
       (async () => {
-        if (props.authUser.uid != null){
-          const snap = await db.onceGetUserData(props.authUser.uid)
-          const data = snap.val()
-          //console.log("settinf data:" + data)
-          //setUser(data)
-          setUserData(data)
+        console.log("use effect: " + authUser.uid)
+        if (authUser.uid != null){
+          console.log('uid' + authUser.uid)
+          if (loading){
+            //loadUserData(props.authUser.uid)
+            const snap = await db.onceGetUserData(authUser.uid)
+            const data = snap.val()
+            console.log("setting data:" + data)
+            setLoading(() => false)
+            setUserData(() => data)
+          } else {
+            console.log("data already loaded")
+          }
+          
+          
         } else {
-          alert ("no")
+          console.log("no user id")
         }
-        })//()
-      
-      console.log("use effect: " + props.authUser.uid)
-      //getUserData(props.authUser.uid)
-      
-      }, [props.authUser.uid]
-    )
+      })()
+      console.log("use effect: " + authUser.uid)
+    }, [authUser.uid])
+
+    
     
     return (
-        <AuthUserContext.Consumer>
-          {authUser => (
-                <div className={css(styles.container)}>
-                  <Drawer 
-                      //open={}
-                      zIndex={10000}
-                      //onChange={this.drawerChanged(this.state.drawer)}
-                      authUser={authUser}
-                  >
-                      <Menu 
-                        authUser={authUser}
-                      />
-                  </Drawer>
-                  <NavBar 
-                      menuPress={menuPress}
-                      profilePress={profilePress}
-                      swipesPress={swipesPress}
-                      matchesPress={matchesPress}
+          <div className={css(styles.container)}>
+            <Drawer 
+                //open={}
+                zIndex={10000}
+                //onChange={this.drawerChanged(this.state.drawer)}
+                authUser={authUser}
+            >
+                <Menu 
+                  authUser={authUser}
+                />
+            </Drawer>
+            <NavBar 
+                menuPress={menuPress}
+                profilePress={profilePress}
+                swipesPress={swipesPress}
+                matchesPress={matchesPress}
 
-                      authUser={authUser}
-                  />
-                  <WebScroller 
-                      screens={[
-                          <Profile 
-                              authUser={authUser}
-                          />,
-                          <Swipes 
-                              authUser={authUser}
-                          />,
-                          <Matches 
-                              authUser={authUser}
-                          />,
-                      ]}
-                      screen={activeScreen}
-                  />
-                  <Footer />
-              </div>
-          )}
-        </AuthUserContext.Consumer>
+                authUser={authUser}
+            />
+            <WebScroller 
+                screens={[
+                    <Profile 
+                        authUser={authUser}
+                    />,
+                    <Swipes 
+                        authUser={authUser}
+                    />,
+                    <Matches 
+                        authUser={authUser}
+                    />,
+                ]}
+                screen={activeScreen}
+            />
+            <Footer />
+        </div>
     )
+    
 }
 //Home.contextType = AuthUserContext
 const styles = StyleSheet.create({
