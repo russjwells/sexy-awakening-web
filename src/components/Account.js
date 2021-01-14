@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, Text, Image} from 'react-primitives'
 import AuthUserContext from './AuthUserContext';
 import withAuthorization from './withAuthorization';
@@ -9,22 +9,28 @@ import { Link } from 'react-router-dom'
 import * as routes from '../constants/routes';
 import { StyleSheet, css } from 'aphrodite';
 
-
-
-const AccountPage = () =>
-  <AuthUserContext.Consumer>
-    {authUser =>
+const AccountPage = (props) => {
+const authUser = useContext(AuthUserContext)
+return(
+  
       <View>
-        <h1>Account: {authUser.email}</h1>
+        <Link to={routes.LANDING} className={css(styles.link)}>Back to the app</Link>
+        <h1>Account</h1>
+        <Text>This is for the Sexy Awakening user account associated with {authUser.email}.</Text>
+        <h2>Reset Password</h2>
         <PasswordChangeForm />
         <br />
+        <h2>Payment Information</h2>
+        <h2>Membership Level</h2>
+        <h2>Guide Status</h2>
+        <Text>Something new is opening soon.</Text>
+        <h2>Log Out</h2>
         <SignOutButton />
         <br />
-        <Link to={routes.LANDING} className={css(styles.link)}>Back to the app</Link>
+        <h2>Close Account</h2>
       </View>
-    }
-  </AuthUserContext.Consumer>
-
+)
+}
 
 const styles = StyleSheet.create({
   menu: {

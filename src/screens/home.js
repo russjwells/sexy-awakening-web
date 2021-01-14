@@ -115,13 +115,13 @@ function Home (props) {
             <WebScroller 
                 screens={[
                     <Profile 
-                        authUser={authUser}
+                        //authUser={authUser}
                     />,
                     <Swipes 
-                        authUser={authUser}
+                        //authUser={authUser}
                     />,
                     <Matches 
-                        authUser={authUser}
+                        //authUser={authUser}
                     />,
                 ]}
                 screen={activeScreen}

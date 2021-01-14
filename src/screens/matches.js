@@ -117,17 +117,18 @@ class Matches extends Component {
     render(){
         return(
             <View style={styles.container}>
-                <View style={[styles.relationtypefilter]}>
-                    {
-                        this.renderHeader()
-                    }
-                </View>
+                
                 <View style={styles.list}>
                     <ReactList
                         itemRenderer={this.renderItem}
                         length={this.state.accounts.length}
                         type='uniform'
                     />
+                </View>
+                <View style={[styles.relationtypefilter]}>
+                    {
+                        this.renderHeader()
+                    }
                 </View>
             </View>
         );

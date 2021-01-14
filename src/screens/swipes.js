@@ -5,7 +5,7 @@ function Swipes (props) {
     return(
         <View style={styles.swipes}>
             <Text style={styles.text}>
-                There's no one here (o:)
+                You'll be able to swipe here soon enough. <br />For now swipe on our mobile app.
             </Text>
         </View>
     )
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         flex: 1,
         color: 'grey',
         alignSelf: 'center',
+        textAlign: 'center',
         justifyContent: 'space-around',
     }
 });

@@ -5,7 +5,7 @@ export default class Footer extends Component {
     render(){
         return(
             <div className={css(styles.footer)}>
-                <p>&copy; 2021 Sexy Awakening LLC</p>
+            <p><a href="https://www.sexyawakening.com/terms-of-service/">Terms of Service</a></p> <p><a href="https://www.sexyawakening.com/privacy-policy/">Privacy Policy</a></p><p>Contact Us</p><p>&copy; 2021 Sexy Awakening LLC</p>
             </div>
         )
     }
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flex: 0,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
     },
 })

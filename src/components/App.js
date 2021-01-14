@@ -12,6 +12,9 @@ import PasswordForgetPage from './PasswordForget';
 import Home from '../screens/home';
 import Account from './Account';
 import About from './About';
+import EditProfile from '../screens/editProfile';
+import Settings from '../screens/settings';
+import YourProfile from '../screens/yourProfile';
 
 import * as routes from '../constants/routes';
 
@@ -58,11 +61,23 @@ function App (props) {
             />
             <Route
               exact path={routes.ACCOUNT}
-              component={() => <Account />}
+              component={Account}
             />
             <Route
               exact path={routes.ABOUT}
-              component={() => <About />}
+              component={About}
+            />
+            <Route
+              exact path={routes.EDITPROFILE}
+              component={EditProfile}
+            />
+            <Route
+              exact path={routes.SETTINGS}
+              component={Settings}
+            />
+            <Route
+              exact path={routes.YOURPROFILE}
+              component={YourProfile}
             />
           </UserDataContext.Provider>
         </View>

@@ -6,10 +6,11 @@ import {View, Text, Image, StyleSheet} from 'react-primitives'
 import phoenixred from './phoenix_red.svg';
 import SignOutButton from './SignOut';
 import UserDataContext from './UserDataContext';
+import CircleAvatar from '../components/circleAvatar'
 
 
 const Menu = () => {
-
+    
     const {userData, setUserData} = useContext(UserDataContext)
     return(
     <View style={styles.container}>
@@ -20,16 +21,15 @@ const Menu = () => {
             <Text style={styles.versionText}>Sexy Awakening</Text>
         </View>
         <View style={styles.greeting}>
-            <Text style={styles.greetingText}>Hello, {userData.first_name}!</Text>
+            <Text style={styles.greetingText}>Hello, {userData.first_name}!<br/></Text>
+        </View>
+        <View style={styles.logoHolder}>
+            <CircleAvatar size={80} 
+                uid={userData.uid} 
+                pic={userData.picture} 
+            />
         </View>
         <View style={styles.menuItems}>
-            <Link to={routes.ABOUT}>
-            <View style={styles.menuItem}>
-                <Text>
-                    About
-                </Text>
-            </View>
-            </Link>
             <Link to={routes.LANDING}>
             <View style={styles.menuItem}>
                 <Text>
@@ -44,16 +44,20 @@ const Menu = () => {
                 </Text>
             </View>
             </Link>
-            <View style={styles.menuItem}>
-                <Link to={routes.ACCOUNT} className={styles.link}>
-                    Account
-                </Link>
-            </View>
-            <View style={styles.menuItem}>
+            <Link to={routes.ACCOUNT}>
                 <View style={styles.menuItem}>
-                <SignOutButton />
+                    <Text>
+                        Account
+                    </Text>
                 </View>
+            </Link>
+            <Link to={routes.ABOUT}>
+            <View style={styles.menuItem}>
+                <Text>
+                    About
+                </Text>
             </View>
+            </Link>
         </View>
     </View>
     )
@@ -76,6 +80,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-around',
         flexDirection:'row',
+        alignItems: 'center',
+        padding: '10px 10px'
     },
     link: {
         textDecorationLine: 'none',
