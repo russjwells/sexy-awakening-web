@@ -30,6 +30,14 @@ const Menu = () => {
             />
         </View>
         <View style={styles.menuItems}>
+        <Link to={routes.ACCOUNT}>
+                <View style={styles.menuItem}>
+                    <Text>
+                        Account
+                    </Text>
+                </View>
+            </Link>
+            {/*
             <Link to={routes.LANDING}>
             <View style={styles.menuItem}>
                 <Text>
@@ -44,13 +52,8 @@ const Menu = () => {
                 </Text>
             </View>
             </Link>
-            <Link to={routes.ACCOUNT}>
-                <View style={styles.menuItem}>
-                    <Text>
-                        Account
-                    </Text>
-                </View>
-            </Link>
+            */}
+            
             <Link to={routes.ABOUT}>
             <View style={styles.menuItem}>
                 <Text>

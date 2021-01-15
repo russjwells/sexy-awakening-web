@@ -7,8 +7,6 @@ import AuthUserContext from './AuthUserContext';
 import withAuthorization from '../components/withAuthorization';
 
 const About = () =>
-  <AuthUserContext.Consumer>
-    {authUser =>
       <View style={styles.contain}>
         <Text style={{fontSize:20, margin:20, fontWeight:'bold', color:'#e54560'}}>Welcome to Sexy Awakening</Text>
         <Text style={{fontSize:15, color: 'black', margin:20}}>This is a transformational space. </Text>
@@ -19,8 +17,6 @@ const About = () =>
         <Text style={{fontSize:15, color: 'black', margin:20}}>Thank you for coming. Enjoy your self!</Text>
         <Link to={routes.LANDING} className={css(styles.link)}>Back to the app</Link>
       </View>
-    }
-  </AuthUserContext.Consumer>
 
 const styles = StyleSheet.create({
   menu: {

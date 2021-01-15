@@ -19,6 +19,7 @@ import {db} from '../firebase'
 function YourProfile (props) {
     const {userData, setUserData} = useContext(UserDataContext)
     const {width, height} = Dimensions.get('window')
+    const {first_name, work, id} = userData
     return(
         <View style={styles.container}>
             <View style={styles.navbar}>
@@ -56,9 +57,13 @@ const styles = StyleSheet.create({
       backgroundColor: 'white'
     },
     content: {
+        flex:1,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-end',
+    },
+    filters: {
+        flex: 1,
     },
     navbar: {
         display: 'flex',
@@ -70,9 +75,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'space-around',
         height: '100px',
+        width: '100px',
+        alignItems: 'center'
     },
     navright: {
         display: 'flex',
+        height: '100px',
+        width: '100px',
     },
     navlocation: {
         display: 'flex',
