@@ -39,3 +39,7 @@
 .App-intro {
   font-size: large;
 }
+
+a:link {
+  text-decoration: none;
+}

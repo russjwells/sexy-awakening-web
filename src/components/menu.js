@@ -56,7 +56,7 @@ const Menu = () => {
             
             <Link to={routes.ABOUT}>
             <View style={styles.menuItem}>
-                <Text>
+                <Text style={styles.menuText}>
                     About
                 </Text>
             </View>
@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         flexDirection:'row',
         alignItems: 'center',
-        padding: '10px 10px'
+        padding: '10px 10px',
+        marginTop: '10px'
     },
     link: {
         textDecorationLine: 'none',
@@ -99,6 +100,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         flexDirection: 'column',
         paddingTop: '10px',
+    },
+    menuText: {
+        textDecorationLine: 'none'
     },
     menuItem:{
         height: 100,

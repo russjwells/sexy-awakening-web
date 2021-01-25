@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { StyleSheet, css } from 'aphrodite';
+import './Footer.css'
 
 export default class Footer extends Component {
     render(){
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
         height: 30,
         color: 'white',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-evenly'
     },
     flex:{
         display: 'flex',
