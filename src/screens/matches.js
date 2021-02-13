@@ -204,7 +204,7 @@ function Matches (props) {
                     itemRenderer={renderItem}
                     length={matches.length}
                     type='uniform'
-                    key={r}
+                    //key={r}
                 />
                 <Text>{matchType}</Text>
             </View>
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     relationshipFilter:{
-        flex:1,
+        flex:-1,
         flexDirection:'row',
     },
     filterButton:{
