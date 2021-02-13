@@ -20,6 +20,7 @@ import UserDataContext from '../components/UserDataContext';
 
 
 import ReactList from 'react-list'
+import FlatList from 'flatlist-react'
 
 function Matches (props) {
 
@@ -157,7 +158,22 @@ function Matches (props) {
         return firebase.database().ref('users').child(uid).once('value')
             .then(snap => snap.val())
     }
-
+    const getData = (matchType) => {
+        let matchData
+        if (matchType == "sex") {
+            matchData = sex
+        }
+        if (matchType == "romance") {
+            matchData = romance
+        }
+        if (matchType == "friendship") {
+            matchData = friendship
+        }
+        if (matchType == "pass") {
+            matchData = pass
+        }
+        return matchData
+    }
     const getOverlap = (liked, likedBack) => {
         const likedTrue = _.pickBy(liked, value => value)
         const likedBackTrue = _.pickBy(likedBack, value => value)
@@ -197,16 +213,44 @@ function Matches (props) {
         );
     }
 
+    const renderPerson = (person, idx) => {
+        const {uid, picture, first_name, bio} = person
+        return (
+            <li key={idx}>
+                <View style={styles.matchRow}>
+                    <b>{first_name}</b>
+                    <CircleAvatar 
+                        uid={uid} 
+                        pic={picture} 
+                        size={(80, 80)}
+                    />
+                    <Text>
+                        {bio}
+                    </Text>
+                </View>
+              
+            </li>
+        );
+    }
+
+    const renderEmpty = () => {
+        return(
+            <View style={styles.emptyList}>
+                <Text>No one here, yet!</Text>
+            </View>
+        )
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.list}>
-                <ReactList
-                    itemRenderer={renderItem}
-                    length={matches.length}
-                    type='uniform'
-                    //key={r}
-                />
-                <Text>{matchType}</Text>
+                <ul>
+                    <FlatList 
+                        list={getData(matchType)}
+                        renderItem={renderPerson}
+                        renderWhenEmpty={renderEmpty}
+                    />
+                </ul>
             </View>
             <View style={styles.relationshipFilter}>
                 <View style={styles.filterButton} 
@@ -247,6 +291,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
+    matchRow: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
     relationtypefilter:{
         flex: -1,
         alignContent: 'space-between',
@@ -277,9 +325,10 @@ const styles = StyleSheet.create({
         flex: 9,
     },
     list: {
-        flex: 2,
+        flex: 1,
         backgroundColor: 'white',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        overflow: 'scroll'
     },
     emptyList: {
         flex: 1,
