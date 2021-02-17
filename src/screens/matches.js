@@ -186,10 +186,7 @@ function Matches (props) {
     }
     const renderItem = (index, key) => {
         const {uid, picture, first_name} = accounts[index]
-        //const bio = (work && work[0] && work[0].position) ? work[0].position.name : null
-        //const bio = item.bio ? item.bio : null
         const matchType = "unsure"
-
         return (
             <Link to={routes.YOURPROFILE}
                 //onPress={() => this.props.navigation.navigate('Chat', {user: this.props.user, profile: item})}
@@ -216,29 +213,26 @@ function Matches (props) {
     const renderPerson = (person, idx) => {
         const {uid, picture, first_name, bio} = person
         return (
-            
-                <View style={styles.matchRow}>
-                    <View>
-                        <Text>{first_name}</Text>
+                
+                    <View style={styles.matchRow} key={idx} onClick={()=>console.log("goto chat w " + first_name)}>
+                        <View style={styles.nameColumn}>
+                            <Text style={styles.nameColumn}>{first_name}</Text>
+                        </View>
+                        <View style={styles.avatarColumn}>
+                            <CircleAvatar 
+                                uid={uid} 
+                                pic={picture} 
+                                size={(80, 80)}
+                            />
+                        </View>
+                        <View style={styles.matchColumn}>
+                            <Text style={styles.matchColumn}>
+                                {bio.split('\n')[0]}
+                            </Text>
+                        </View>
                     </View>
-                    <View>
-                        <CircleAvatar 
-                            uid={uid} 
-                            pic={picture} 
-                            size={(80, 80)}
-                        />
-                    </View>
-                    <View>
-
-                    </View>
-                    
-                    <Text>
-                        {bio}
-                    </Text>
-                </View>
-              
-            
-        );
+                
+        )
     }
 
     const renderEmpty = () => {
@@ -252,13 +246,11 @@ function Matches (props) {
     return(
         <View style={styles.container}>
             <View style={styles.list}>
-                
-                    <FlatList 
-                        list={getData(matchType)}
-                        renderItem={renderPerson}
-                        renderWhenEmpty={renderEmpty}
-                    />
-                
+                <FlatList 
+                    list={getData(matchType)}
+                    renderItem={renderPerson}
+                    renderWhenEmpty={renderEmpty}
+                />
             </View>
             <View style={styles.relationshipFilter}>
                 <View style={styles.filterButton} 
@@ -299,10 +291,34 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
+    matchColumn: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginRight: '20px',
+        color:'darkgrey',
+    },
+    nameColumn:{
+        display: 'flex',
+        flex: -1,
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginRight: '10px',
+        fontSize: '16px',
+        width: '200px'
+        
+    },
+    avatarColumn: {
+        display: 'flex',
+        flex: -1,
+        width: '200px',
+        marginRight: '10px',
+    },
     matchRow: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: "space-around"
+        //justifyContent: "flex-start",
+        //margin: '20px 20px'
     },
     relationtypefilter:{
         flex: -1,
@@ -338,7 +354,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
         overflow: 'scroll',
-        maxHeight: ''
+        maxHeight: '',
+        paddingLeft: '50px'
+    },
+    listStyle: {
+        listStyleType: 'none'
     },
     emptyList: {
         flex: 1,

@@ -49,100 +49,110 @@ function Settings (props) {
                 </View>
             </View>
             <View style={styles.content}>
-                
-                    <View style={styles.sectionTitle}>
-                        <Text style={styles.sectionTitleText}>Where</Text>
-                    </View>
-                    <View style={styles.label}>
-                        <Text>Distance</Text>
-                        <Text style={{color: 'darkgrey'}}>{userData.distanceValue} km</Text>
-                    </View>
-                    <View style={styles.slider}>
-                        <MultiSlider 
-                            min={1}
-                            max={200}
-                            values={userData.distanceValue}
-                            onValuesChange={val => this.setState({distanceValue: val})}
-                            onValuesChangeFinish={val => this.updateUser('distance', val[0])}
-                        />
-                    </View>
-                    <View style={styles.label}>
-                        <Text>Location</Text>
-                        <Text style={{color: 'darkgrey'}}>{userData.distanceValue} km from here.</Text>
-                    </View>
-                    <View style={styles.sectionTitle}>
-                        <Text style={styles.sectionTitleText}>Who</Text>
-                    </View>
-                    <View style={styles.label}>
-                        <Text>Age Range</Text>
-                        <Text style={{color: 'darkgrey'}}>{userData.ageRangeValues}</Text>
+                <View style={styles.sectionTitle}>
+                    <Text style={styles.sectionTitleText}>Age</Text>
+                </View>
+                <View style={styles.label}>
+                    <Text>You will only encounter people aged </Text>
+                        <Text style={{color: 'darkgrey'}}>{userData.ageRange[0]}</Text>
+                        <Text style={{color: 'darkgrey'}}> – </Text>
+                        <Text style={{color: 'darkgrey'}}>{userData.ageRange[1]}</Text>
+                        <Text> on Sexy Awakening.</Text>
                     </View>
                     <View style={styles.slider}>
                         <MultiSlider 
                             min={18}
                             max={144}
                             values={userData.ageRangeValues}
-                            onValuesChange={val => this.setState({ageRangeValues: val})}
-                            onValuesChangeFinish={val => this.updateUser('ageRange', val)}
+                            //onValuesChange={val => this.setState({ageRangeValues: val})}
+                            //onValuesChangeFinish={val => this.updateUser('ageRange', val)}
+                            onSlide={val => val}
                         />
+                    </View>
+                    <View style={styles.sectionTitle}>
+                        <Text style={styles.sectionTitleText}>Where</Text>
+                    </View>
+                    <View style={styles.label}>
+                        <Text>You are swiping near </Text>
+                        <Text style={{color: 'darkgrey'}}>your current locaiton.</Text>
+                    </View>
+                    <br />
+                    <View style={styles.label}>
+                        <Text>Finding connections up to </Text>
+                        <Text style={{color: 'darkgrey'}}>{userData.distance} km</Text>
+                        <Text> away.</Text>
+                    </View>
+                    <View style={styles.slider}>
+                        <MultiSlider 
+                            min={1}
+                            max={200}
+                            values={userData.distanceValue}
+                            //onValuesChange={val => this.setState({distanceValue: val})}
+                            //onValuesChangeFinish={val => this.updateUser('distance', val[0])}
+                            onSlide={val => val}
+                        />
+                    </View>
+                    
+                    <View style={styles.sectionTitle}>
+                        <Text style={styles.sectionTitleText}>Who</Text>
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Men</Text>
                         <Switch 
-                            value={showMen}
-                            onValueChange={val => {
-                                this.setState({showMen:val})
-                                this.updateUser('showMen', val)
+                            checked={showMen}
+                            onChange={val => {
+                                //setShowMen(val)
+                                //this.updateUser('showMen', val)
                             }}
                         />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Women</Text>
                         <Switch 
-                            value={showWomen}
-                            onValueChange={val => {
-                                this.setState({showWomen:val})
-                                this.updateUser('showWomen', val)
+                            checked={showWomen}
+                            onChange={val => {
+                                setShowWomen(val)
+                                //this.updateUser('showWomen', val)
                             }}
                         />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Nonbinary</Text>
                         <Switch 
-                            value={showNonbinary}
-                            onValueChange={val => {
-                                this.setState({showNonbinary:val})
-                                this.updateUser('showNonbinary', val)
+                            checked={showNonbinary}
+                            onChange={val => {
+                                setShowNonbinary(val)
+                                //this.updateUser('showNonbinary', val)
                             }}
                         />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Transmen</Text>
                         <Switch 
-                            value={showTransmen}
-                            onValueChange={val => {
-                                this.setState({showTransmen:val})
-                                this.updateUser('showTransmen', val)
+                        checked={showTransmen}
+                            onChange={val => {
+                                setShowTransmen(val)
+                                //this.updateUser('showTransmen', val)
                             }}
                         />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Transwomen</Text>
                         <Switch 
-                            value={showTranswomen}
-                            onValueChange={val => {
-                                this.setState({showTranswomen:val})
-                                this.updateUser('showTranswomen', val)
+                        checked={showTranswomen}
+                            onChange={val => {
+                                setShowTranswomen(val)
+                                //this.updateUser('showTranswomen', val)
                             }}
                         />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Groups</Text>
                         <Switch 
-                            value={showGroups}
-                            onValueChange={val => {
-                                this.setState({showGroups:val})
-                                this.updateUser('showGroups', val)
+                        checked={showGroups}
+                            onChange={val => {
+                                setShowGroups(val)
+                                //this.updateUser('showGroups', val)
                             }}
                         />
                     </View>

@@ -59,9 +59,12 @@ function EditProfile (props) {
                 <Text style={{fontSize:20}}>
                     {userData.first_name}
                 </Text>
-                <textarea style={{fontSize:15, width:400, height:400}}>
+                <textarea style={{fontSize:15, width:400, minHeight:400, resize:false}}>
                     {userData.bio}
                 </textarea>
+                <button>
+                    Save Changes
+                </button>
             </View>
         </View>
     )
