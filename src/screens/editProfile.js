@@ -17,16 +17,36 @@ import UserDataContext from '../components/UserDataContext';
 import UserDataHelpers from '../utils/UserDataHelpers'
 import {db} from '../firebase'
 
+
 import ImageUploader from 'react-images-upload'
 
 function EditProfile (props) {
     const {userData, setUserData} = useContext(UserDataContext)
+    const [bio, setBio] = useState(userData.bio)
     const {width, height} = Dimensions.get('window')
     const [pictures, setPictures] = useState([])
 
     const onDrop = (picture) => {
-    //    setPictures(picture)
+        console.log("up", picture)
+        setPictures(picture)
+        console.log(pictures)
     }
+
+    const updateUser = (key, value) => {
+        const {uid} = userData
+        firebase.database().ref('users').child(uid)
+        .update({[key]:value})
+    }
+
+    const save = (bio) => {
+        console.log("save")
+        updateUser('bio', bio)
+    }
+
+    const txtChange = (event) => {
+        //console.log(event.target.value)
+        setBio(event.target.value)
+    } 
     
     return(
         <View style={styles.container}>
@@ -49,20 +69,24 @@ function EditProfile (props) {
                     uid={userData.uid} 
                     pic={userData.picture}
                 />
+                <Text style={{fontSize:20}}>
+                    {userData.first_name}
+                </Text>
                 <ImageUploader
-                    withIcon={true}
-                    buttonText='Choose images'
+                    withIcon={false}
+                    buttonText='Choose image'
                     onChange={onDrop}
                     imgExtension={['.jpg', '.gif', '.png', '.gif']}
                     maxFileSize={5242880}
                 />
-                <Text style={{fontSize:20}}>
-                    {userData.first_name}
+                <Text>
+                    {bio}
                 </Text>
-                <textarea style={{fontSize:15, width:400, minHeight:400, resize:false}}>
-                    {userData.bio}
+                
+                <textarea style={{fontSize:15, width:400, minHeight:400, resize:false}} onChange={txtChange}>
+                    {bio}
                 </textarea>
-                <button>
+                <button onClick={save(bio)}>
                     Save Changes
                 </button>
             </View>
