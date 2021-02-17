@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect, useContext}  from 'react'
-import {View, Text, StyleSheet, Image} from 'react-primitives'
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-primitives'
 import { Link } from 'react-router-dom';
 import sexSymbol from '../img/sex.png'
 import romanceSymbol from '../img/romance.png'
@@ -23,7 +23,7 @@ import ReactList from 'react-list'
 import FlatList from 'flatlist-react'
 
 function Matches (props) {
-
+    const {width, height} = Dimensions.get('window')
     const demoProfiles = [
     {
         id: '259389830744794',
@@ -216,27 +216,35 @@ function Matches (props) {
     const renderPerson = (person, idx) => {
         const {uid, picture, first_name, bio} = person
         return (
-            <li key={idx}>
+            
                 <View style={styles.matchRow}>
-                    <b>{first_name}</b>
-                    <CircleAvatar 
-                        uid={uid} 
-                        pic={picture} 
-                        size={(80, 80)}
-                    />
+                    <View>
+                        <Text>{first_name}</Text>
+                    </View>
+                    <View>
+                        <CircleAvatar 
+                            uid={uid} 
+                            pic={picture} 
+                            size={(80, 80)}
+                        />
+                    </View>
+                    <View>
+
+                    </View>
+                    
                     <Text>
                         {bio}
                     </Text>
                 </View>
               
-            </li>
+            
         );
     }
 
     const renderEmpty = () => {
         return(
             <View style={styles.emptyList}>
-                <Text>No one here, yet!</Text>
+                <Text style={styles.emptyText}>No one here, yet!</Text>
             </View>
         )
     }
@@ -244,13 +252,13 @@ function Matches (props) {
     return(
         <View style={styles.container}>
             <View style={styles.list}>
-                <ul>
+                
                     <FlatList 
                         list={getData(matchType)}
                         renderItem={renderPerson}
                         renderWhenEmpty={renderEmpty}
                     />
-                </ul>
+                
             </View>
             <View style={styles.relationshipFilter}>
                 <View style={styles.filterButton} 
@@ -294,6 +302,7 @@ const styles = StyleSheet.create({
     matchRow: {
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: "space-around"
     },
     relationtypefilter:{
         flex: -1,
@@ -328,7 +337,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         flexDirection: 'column',
-        overflow: 'scroll'
+        overflow: 'scroll',
+        maxHeight: ''
     },
     emptyList: {
         flex: 1,
@@ -337,6 +347,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         height: 100,
 
+    },
+    emptyText: {
+        color: 'darkgrey'
     }
 })
 

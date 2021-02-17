@@ -1,4 +1,4 @@
-import React, {Component, useContext} from 'react'
+import React, {Component, useContext, useState} from 'react'
 import * as firebase from 'firebase'
 import { Link } from 'react-router-dom';
 import * as routes from '../constants/routes';
@@ -17,9 +17,16 @@ import UserDataContext from '../components/UserDataContext';
 import UserDataHelpers from '../utils/UserDataHelpers'
 import {db} from '../firebase'
 
+import ImageUploader from 'react-images-upload'
+
 function EditProfile (props) {
     const {userData, setUserData} = useContext(UserDataContext)
     const {width, height} = Dimensions.get('window')
+    const [pictures, setPictures] = useState([])
+
+    const onDrop = (picture) => {
+    //    setPictures(picture)
+    }
     
     return(
         <View style={styles.container}>
@@ -38,12 +45,23 @@ function EditProfile (props) {
             </View>
             <View style={styles.content}>
                 <SquareAvatar
-                    size={(width,width/2)} 
+                    size={(400,400)} 
                     uid={userData.uid} 
                     pic={userData.picture}
                 />
-                <Text style={{fontSize:20}}>{userData.first_name}</Text>
-                <textarea style={{fontSize:15, color: 'darkgray'}} value={userData.bio}/>
+                <ImageUploader
+                    withIcon={true}
+                    buttonText='Choose images'
+                    onChange={onDrop}
+                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                    maxFileSize={5242880}
+                />
+                <Text style={{fontSize:20}}>
+                    {userData.first_name}
+                </Text>
+                <textarea style={{fontSize:15, width:400, height:400}}>
+                    {userData.bio}
+                </textarea>
             </View>
         </View>
     )
@@ -59,8 +77,10 @@ const styles = StyleSheet.create({
     },
     content: {
         display: 'flex',
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        flexDirection: 'column'
     },
     navbar: {
         display: 'flex',

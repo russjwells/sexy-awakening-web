@@ -37,7 +37,7 @@ function YourProfile (props) {
             </View>
             <View style={styles.content}>
                 <SquareAvatar
-                    size={(width,width/2)} 
+                    size={(400, 400)} 
                     uid={userData.uid} 
                     pic={userData.picture}
                 />
@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
       backgroundColor: 'white'
     },
     content: {
-        flex:1,
         display: 'flex',
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-end',
-    },
+        justifyContent: 'flex-start',
+        flexDirection: 'column',},
     filters: {
         flex: 1,
     },

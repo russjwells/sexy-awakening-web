@@ -21,14 +21,17 @@ import Switch from "react-switch";
 import MultiSlider, { Progress } from 'react-multi-bar-slider';
 
 function Settings (props) {
-    const {width, height} = Dimensions.get('window')
+    //const {width, height} = Dimensions.get('window')
     const {userData, setUserData} = useContext(UserDataContext)
+    console.log("dta", userData)
+    ///*
     const {showMen, setShowMen} = useState(userData.showMen)
-    const {showWomen} = useState(userData.showWomen)
-    const {showNonbinary} = useState(userData.showNonbinary)
-    const {showTransmen} = useState(userData.showTransmen)
-    const {showTranswomen} = useState(userData.showTranswomen)
-    const {showGroups} = useState(userData.showGroups)
+    const {showWomen, setShowWomen} = useState(userData.showWomen)
+    const {showNonbinary, setShowNonbinary} = useState(userData.showNonbinary)
+    const {showTransmen, setShowTransmen} = useState(userData.showTransmen)
+    const {showTranswomen, setShowTranswomen} = useState(userData.showTranswomen)
+    const {showGroups, setShowGroups} = useState(userData.showGroups)
+    //*/
     
     return(
         <View style={styles.container}>
@@ -214,11 +217,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     label: {
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         marginLeft: 20,
         marginRight: 20,
+        textAlign: 'center',
     },
     slider: {
         marginLeft: 20,
