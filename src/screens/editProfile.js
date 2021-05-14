@@ -17,6 +17,9 @@ import UserDataContext from '../components/UserDataContext';
 import UserDataHelpers from '../utils/UserDataHelpers'
 import {db} from '../firebase'
 
+import FileBase64 from 'react-file-base64'
+import axios from 'axios'
+
 
 import ImageUploader from 'react-images-upload'
 
@@ -25,6 +28,7 @@ function EditProfile (props) {
     const [bio, setBio] = useState(userData.bio)
     const {width, height} = Dimensions.get('window')
     const [pictures, setPictures] = useState([])
+    const [newPic, setNewPic] = useState(null)
 
     const onDrop = (picture) => {
         console.log("up", picture)
@@ -36,6 +40,10 @@ function EditProfile (props) {
         const {uid} = userData
         firebase.database().ref('users').child(uid)
         .update({[key]:value})
+    }
+
+    const newpic = async () => {
+
     }
 
     const save = (bio) => {
@@ -72,17 +80,11 @@ function EditProfile (props) {
                 <Text style={{fontSize:20}}>
                     {userData.first_name}
                 </Text>
-                <ImageUploader
-                    withIcon={false}
-                    buttonText='Choose image'
-                    onChange={onDrop}
-                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                    maxFileSize={5242880}
-                />
-                <Text>
-                    {bio}
-                </Text>
                 
+                <FileBase64 
+                    multiple={true}
+                    onDone={newpic}
+                />
                 <textarea style={{fontSize:15, width:400, minHeight:400, resize:false}} onChange={txtChange}>
                     {bio}
                 </textarea>

@@ -213,25 +213,28 @@ function Matches (props) {
     const renderPerson = (person, idx) => {
         const {uid, picture, first_name, bio} = person
         return (
-                
-                    <View style={styles.matchRow} key={idx} onClick={()=>console.log("goto chat w " + first_name)}>
-                        <View style={styles.nameColumn}>
-                            <Text style={styles.nameColumn}>{first_name}</Text>
-                        </View>
-                        <View style={styles.avatarColumn}>
-                            <CircleAvatar 
-                                uid={uid} 
-                                pic={picture} 
-                                size={(80, 80)}
-                            />
-                        </View>
-                        <View style={styles.matchColumn}>
-                            <Text style={styles.matchColumn}>
-                                {bio.split('\n')[0]}
-                            </Text>
-                        </View>
+                <View style={styles.matchRow} key={idx} onClick={()=>console.log("goto chat w " + first_name)}>
+                    <View style={styles.avatarColumn}>
+                        <CircleAvatar 
+                            uid={uid} 
+                            pic={picture} 
+                            size={(80, 80)}
+                        />
                     </View>
-                
+                    <View style={styles.matchColumn}>
+                        <Text style={styles.nameText}>
+                            {first_name}
+                        </Text>
+                        <Text style={styles.bioText}>
+                            {bio.split('\n')[0]}
+                        </Text>
+                    </View>
+                    <View style={styles.messageColumn}>
+                        <Text style={styles.messageText}>
+                            Message
+                        </Text>
+                    </View>
+                </View>
         )
     }
 
@@ -293,8 +296,8 @@ const styles = StyleSheet.create({
     },
     matchColumn: {
         display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'row',
+        alignItems: 'left',
+        flexDirection: 'column',
         marginRight: '20px',
         color:'darkgrey',
     },
@@ -305,20 +308,38 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginRight: '10px',
         fontSize: '16px',
-        width: '200px'
+        width: '200px',
+        marginLeft: 'auto'
         
+    },
+    nameText:{
+        fontSize: '16px',
+        fontWeight: '400'
+    },
+    bioText:{
+        color: 'grey'
     },
     avatarColumn: {
         display: 'flex',
         flex: -1,
-        width: '200px',
+        width: '100px',
         marginRight: '10px',
+    },
+    messageColumn: {
+        display: 'flex',
+        flex: -1,
+        width: '100px',
+        alignItems: 'right',
+        marginLeft: 'auto'
     },
     matchRow: {
         display: 'flex',
         flexDirection: 'row',
-        //justifyContent: "flex-start",
-        //margin: '20px 20px'
+        height: '120px',
+        //borderBottomWidth: '1px',
+        //borderBottomColor: 'grey',
+        //marginTop: '10px',
+        //marginBottom: '10px',
     },
     relationtypefilter:{
         flex: -1,
