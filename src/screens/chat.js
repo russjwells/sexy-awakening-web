@@ -2,7 +2,7 @@ import React, {Component, useState, useEffect, useContext}  from 'react'
 import {View, Text, StyleSheet, Image, Dimensions} from 'react-primitives'
 import { Link } from 'react-router-dom';
 
-function chat (props) => {
+function Chat (props) {
 
     return (
         <View>
@@ -11,4 +11,4 @@ function chat (props) => {
     )
 }
 
-export default chat 
+export default Chat 

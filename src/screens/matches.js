@@ -231,7 +231,11 @@ function Matches (props) {
                     </View>
                     <View style={styles.messageColumn}>
                         <Text style={styles.messageText}>
-                            Message
+                            <Link to={routes.CHAT}>
+                                <button >
+                                    Message
+                                </button>
+                            </Link>
                         </Text>
                     </View>
                 </View>

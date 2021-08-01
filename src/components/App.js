@@ -15,6 +15,7 @@ import About from './About';
 import EditProfile from '../screens/editProfile';
 import Settings from '../screens/settings';
 import YourProfile from '../screens/yourProfile';
+import Chat from '../screens/chat';
 
 import * as routes from '../constants/routes';
 
@@ -78,6 +79,10 @@ function App (props) {
             <Route
               exact path={routes.YOURPROFILE}
               component={YourProfile}
+            />
+            <Route
+              exact path={routes.CHAT}
+              component={Chat}
             />
           </UserDataContext.Provider>
         </View>
