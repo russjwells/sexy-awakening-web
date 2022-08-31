@@ -11,8 +11,8 @@ export default class Chat extends Component {
 
     state = {
         messages: [],
-        user: [],
-        profile: [],
+        user: this.props.location.state.user,
+        profile: this.props.location.state.chat,
       };
       componentWillMount() {
         console.log('what chat: ' + this.props.location.state.chat.first_name)
@@ -33,11 +33,11 @@ export default class Chat extends Component {
           ],
         });
         */
-        this.setState({profile: this.props.location.state.chat})
-        this.setState({user: this.props.location.state.user})
-        //const {user, profile} = this.state
-        const user = this.props.location.state.user
-        const profile = this.props.location.state.chat
+        //this.setState({profile: this.props.location.state.chat})
+        //this.setState({user: this.props.location.state.user})
+        const {user, profile} = this.state
+        //const user = this.props.location.state.user
+        //const profile = this.props.location.state.chat
         this.chatID = user.uid > profile.uid ? user.uid + '-' + profile.uid : profile.uid + '-' + user.uid
         console.log("chat_id:", this.chatID)
         this.watchChat()
@@ -53,12 +53,20 @@ export default class Chat extends Component {
           this.setState({messages})
         })
       }
-
+      /*
       onSend(messages = []) {
         this.setState((previousState) => ({
           messages: GiftedChat.append(previousState.messages, messages),
         }));
       }
+      */
+      onSend = (message) => {
+        firebase.database().ref('messages').child(this.chatID)
+        .push({
+          ...message[0],
+          createdAt: new Date().getTime(),
+        })
+    }
 
     
       render() {
@@ -81,9 +89,7 @@ export default class Chat extends Component {
                 <GiftedChat
                     messages={this.state.messages}
                     onSend={(messages) => this.onSend(messages)}
-                    user={{
-                        _id: 1,
-                }} />
+                    user={{_id:this.state.user.uid}} />
             </div>
                 
             
