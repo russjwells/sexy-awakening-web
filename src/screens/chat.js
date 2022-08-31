@@ -5,6 +5,7 @@ import { GiftedChat } from 'react-gifted-chat'
 import * as firebase from 'firebase'
 import * as routes from '../constants/routes';
 import { ArrowLeft } from 'react-feather';
+import CircleAvatar from '../components/circleAvatar'
 //import styles from 'react-motion-drawer/styles';
 
 export default class Chat extends Component {
@@ -15,8 +16,8 @@ export default class Chat extends Component {
         profile: this.props.location.state.chat,
       };
       componentWillMount() {
-        console.log('what chat: ' + this.props.location.state.chat.first_name)
-        console.log(this.props.location.state.user.first_name)
+        //console.log('what chat: ' + this.props.location.state.chat.first_name)
+        //console.log(this.props.location.state.user.first_name)
         /*
         this.setState({
           messages: [
@@ -80,7 +81,14 @@ export default class Chat extends Component {
                         </View>
                     </Link>
                     <View style={styles.navlocation}>
-                        <Text style={styles.navtext}>{this.state.profile.first_name}</Text>
+                        <View style={styles.chatnavlink}>
+                            <CircleAvatar 
+                                uid={this.state.profile.uid} 
+                                pic={this.state.profile.picture} 
+                                size={(40, 40)}
+                            />
+                            <Text style={styles.navtext}>{this.state.profile.first_name}</Text>
+                        </View>
                     </View>
                     <View style={styles.navright}>
                         
@@ -136,9 +144,16 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'space-around'
     },
+    chatnavlink:{
+        flex:1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
     navtext: {
         display: 'flex',
         fontSize: '20px',
+        marginLeft: '6px'
     },
     text: {
         display: 'flex',
