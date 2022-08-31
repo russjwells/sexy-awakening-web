@@ -231,7 +231,10 @@ function Matches (props) {
                     </View>
                     <View style={styles.messageColumn}>
                         <Text style={styles.messageText}>
-                            <Link to={routes.CHAT}>
+                            <Link to={{
+                                pathname: routes.CHAT,
+                                state: {chat: person, user: userData}
+                                }}>
                                 <button >
                                     Message
                                 </button>
