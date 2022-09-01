@@ -20,17 +20,23 @@ import {db} from '../firebase'
 import Switch from "react-switch";
 import MultiSlider, { Progress } from 'react-multi-bar-slider';
 
-function Settings (props) {
+const Settings = (props) => {
     //const {width, height} = Dimensions.get('window')
     const {userData, setUserData} = useContext(UserDataContext)
     console.log("dta", userData)
     ///*
-    const {showMen, setShowMen} = useState(userData.showMen)
-    const {showWomen, setShowWomen} = useState(userData.showWomen)
-    const {showNonbinary, setShowNonbinary} = useState(userData.showNonbinary)
-    const {showTransmen, setShowTransmen} = useState(userData.showTransmen)
-    const {showTranswomen, setShowTranswomen} = useState(userData.showTranswomen)
-    const {showGroups, setShowGroups} = useState(userData.showGroups)
+    const [showMen, setShowMen] = useState(userData.showMen)
+    const [showWomen, setShowWomen] = useState(userData.showWomen)
+    const [showNonbinary, setShowNonbinary] = useState(userData.showNonbinary)
+    const [showTransmen, setShowTransmen] = useState(userData.showTransmen)
+    const [showTranswomen, setShowTranswomen] = useState(userData.showTranswomen)
+    const [showGroups, setShowGroups] = useState(userData.showGroups)
+
+    const handleMen = nextMen => {
+        setShowMen(nextMen)
+        //this.updateUser('showMen', val)
+    }
+
     //*/
     
     return(
@@ -54,9 +60,9 @@ function Settings (props) {
                 </View>
                 <View style={styles.label}>
                     <Text>You will only encounter people aged </Text>
-                        <Text style={{color: 'darkgrey'}}>{userData.ageRange[0]}</Text>
-                        <Text style={{color: 'darkgrey'}}> – </Text>
-                        <Text style={{color: 'darkgrey'}}>{userData.ageRange[1]}</Text>
+                        <Text style={{color: '#e54560'}}>{userData.ageRange[0]}</Text>
+                        <Text style={{color: '#e54560'}}> – </Text>
+                        <Text style={{color: '#e54560'}}>{userData.ageRange[1]}</Text>
                         <Text> on Sexy Awakening.</Text>
                     </View>
                     <View style={styles.slider}>
@@ -74,12 +80,12 @@ function Settings (props) {
                     </View>
                     <View style={styles.label}>
                         <Text>You are swiping near </Text>
-                        <Text style={{color: 'darkgrey'}}>your current locaiton.</Text>
+                        <Text style={{color: '#e54560'}}>your current locaiton.</Text>
                     </View>
                     <br />
                     <View style={styles.label}>
                         <Text>Finding connections up to </Text>
-                        <Text style={{color: 'darkgrey'}}>{userData.distance} km</Text>
+                        <Text style={{color: '#e54560'}}>{userData.distance} km</Text>
                         <Text> away.</Text>
                     </View>
                     <View style={styles.slider}>
@@ -100,10 +106,7 @@ function Settings (props) {
                         <Text style={styles.label}>Men</Text>
                         <Switch 
                             checked={showMen}
-                            onChange={val => {
-                                //setShowMen(val)
-                                //this.updateUser('showMen', val)
-                            }}
+                            onChange={handleMen}
                         />
                     </View>
                     <View style={styles.switch}>
