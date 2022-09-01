@@ -18,7 +18,7 @@ import UserDataHelpers from '../utils/UserDataHelpers'
 import {db} from '../firebase'
 
 import Switch from "react-switch";
-import MultiSlider, { Progress } from 'react-multi-bar-slider';
+import MultiSlider, { Progress, Dot } from 'react-multi-bar-slider';
 
 const Settings = (props) => {
     //const {width, height} = Dimensions.get('window')
@@ -32,13 +32,23 @@ const Settings = (props) => {
     const [showTranswomen, setShowTranswomen] = useState(userData.showTranswomen)
     const [showGroups, setShowGroups] = useState(userData.showGroups)
 
+    const updateUser = (key, value) => {
+        const {uid} = userData
+        console.log("update user uid: " + uid)
+        //alert("update user uid: " + uid)
+        firebase.database().ref('users').child(uid)
+        .update({[key]:value})
+    }
+
     const handleMen = nextMen => {
         setShowMen(nextMen)
-        //this.updateUser('showMen', val)
+        updateUser('showMen', nextMen)
     }
 
     //*/
     
+    
+
     return(
         <View style={styles.container}>
             <View style={styles.navbar}>
@@ -73,8 +83,18 @@ const Settings = (props) => {
                             //onValuesChange={val => this.setState({ageRangeValues: val})}
                             //onValuesChangeFinish={val => this.updateUser('ageRange', val)}
                             onSlide={val => val}
-                        />
+                            width={'30%'}
+                            readOnly={false}
+                        >
+                            <Progress color="#e5460" height={10} progress={userData.ageRange[0]}>
+                                <Dot color="darkgrey"></Dot>
+                            </Progress>
+                            <Progress color="#e5460" height={10} progress={userData.ageRange[1]}>
+                                <Dot color="darkgrey"></Dot>
+                            </Progress>
+                        </MultiSlider>
                     </View>
+                    
                     <View style={styles.sectionTitle}>
                         <Text style={styles.sectionTitleText}>Where</Text>
                     </View>
@@ -91,12 +111,18 @@ const Settings = (props) => {
                     <View style={styles.slider}>
                         <MultiSlider 
                             min={1}
-                            max={200}
+                            max={1000}
                             values={userData.distanceValue}
+                            readOnly={false}
                             //onValuesChange={val => this.setState({distanceValue: val})}
                             //onValuesChangeFinish={val => this.updateUser('distance', val[0])}
                             onSlide={val => val}
-                        />
+                            width={'30%'}
+                        >
+                            <Progress color="#e5460" progress={userData.distance}>
+                                <Dot color="darkgrey"></Dot>
+                            </Progress>
+                        </MultiSlider>
                     </View>
                     
                     <View style={styles.sectionTitle}>
@@ -115,7 +141,7 @@ const Settings = (props) => {
                             checked={showWomen}
                             onChange={val => {
                                 setShowWomen(val)
-                                //this.updateUser('showWomen', val)
+                                updateUser('showWomen', val)
                             }}
                         />
                     </View>
@@ -125,7 +151,7 @@ const Settings = (props) => {
                             checked={showNonbinary}
                             onChange={val => {
                                 setShowNonbinary(val)
-                                //this.updateUser('showNonbinary', val)
+                                updateUser('showNonbinary', val)
                             }}
                         />
                     </View>
@@ -135,7 +161,7 @@ const Settings = (props) => {
                         checked={showTransmen}
                             onChange={val => {
                                 setShowTransmen(val)
-                                //this.updateUser('showTransmen', val)
+                                updateUser('showTransmen', val)
                             }}
                         />
                     </View>
@@ -145,7 +171,7 @@ const Settings = (props) => {
                         checked={showTranswomen}
                             onChange={val => {
                                 setShowTranswomen(val)
-                                //this.updateUser('showTranswomen', val)
+                                updateUser('showTranswomen', val)
                             }}
                         />
                     </View>
@@ -155,7 +181,7 @@ const Settings = (props) => {
                         checked={showGroups}
                             onChange={val => {
                                 setShowGroups(val)
-                                //this.updateUser('showGroups', val)
+                                updateUser('showGroups', val)
                             }}
                         />
                     </View>
@@ -239,9 +265,17 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     slider: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         marginLeft: 20,
         marginRight: 20,
         marginTop: 10,
+        width: '100%',
+        marginTop:'20px',
+        marginBottom:'20px'
+        //backgroundColor: 'green'
+
     },
     switch: {
         flexDirection: 'row',
