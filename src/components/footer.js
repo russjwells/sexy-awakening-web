@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         height: 30,
         color: 'white',
         alignItems: 'center',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        //marginBottom: '20px'
     },
     flex:{
         display: 'flex',
