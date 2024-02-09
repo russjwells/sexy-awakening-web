@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {View, Text, StyleSheet, Image} from 'react-primitives'
 import seedBlk from '../img/seedoflife_black.png'
+import axios from 'axios'
 
 const Card = () => {
     return(

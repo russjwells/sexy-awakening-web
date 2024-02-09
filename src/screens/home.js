@@ -68,9 +68,9 @@ function Home (props) {
     //run did mount
     useEffect(() => {
       (async () => {
-        console.log("use effect: " + authUser.uid)
+        //console.log("use effect: " + authUser.uid)
         if (authUser.uid != null){
-          console.log('uid' + authUser.uid)
+          //console.log('uid' + authUser.uid)
           if (loading){
             //loadUserData(props.authUser.uid)
             const snap = await db.onceGetUserData(authUser.uid)
@@ -87,7 +87,7 @@ function Home (props) {
           console.log("no user id")
         }
       })()
-      console.log("use effect: " + authUser.uid)
+      //console.log("use effect: " + authUser.uid)
     }, [authUser.uid])
 
     
@@ -119,6 +119,7 @@ function Home (props) {
                     />,
                     <Swipes 
                         authUser={authUser}
+                        user={userData}
                     />,
                     <Matches 
                         authUser={authUser}

@@ -14,8 +14,9 @@
     "feather-icons": "^4.25.0",
     "firebase": "^5.4.0",
     "flatlist-react": "^1.5.0",
-    "geofire": "^5.0.1",
-    "lodash": "^4.17.15",
+    "geofire": "^4.1.2",
+    "lodash": "^4.17.5",
+    "moment": "^2.29.4",
     "react": "^16.12.0",
     "react-art": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -32,7 +33,8 @@
     "react-router-dom": "^4.3.1",
     "react-switch": "^7.0.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3"
+    "semantic-ui-react": "^2.0.3",
+    "use-position": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
