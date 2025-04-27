@@ -14,7 +14,7 @@ const SignInPage = ({ history }) =>
 <div className={css(styles.container)}>
     <div className={css(styles.content)}>
         <img src={phoenixred} className={css(styles.logo)} alt="logo" />
-        <h1>Sexy Awakening</h1>
+        <h1 className={css(styles.logotype)}>Sexy Awakening</h1>
         <p>Explore sacred sexuality and conscious relationships in an intentional transformational space.<br/>
         Sexy Awakening is the best place online to meet new romantic interests, lovers, and friends.</p>
         <SignInForm history={history} />
@@ -122,6 +122,9 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
     },
+    logotype:{
+      color: '#e54560',
+    }
   });
 
 export default withRouter(SignInPage);
