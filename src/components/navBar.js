@@ -36,18 +36,19 @@ export default class NavBar extends Component {
     }
 
     render(){
+        const activeScreen = this.props.activeScreen || this.state.activeScreen
         return(
             <div className={css(styles.nav)}>
                 <div className={css(styles.left)}>
                     {
-                        this.state.activeScreen==="profile" && (
+                        activeScreen==="profile" && (
                             <div className={css(styles.clickable)}>
                                 <Menu color="#000000" size={36} onClick={() => this.menuClick()} />
                             </div>
                         )
                     }
                     {
-                        this.state.activeScreen!=="profile" && (
+                        activeScreen!=="profile" && (
                             <div className={css(styles.clickable)}>
                                 <FontAwesomeIcon icon={faUserCircle} size="2x" color="#000000" onClick={() => this.profileClick()} />
                             </div>
@@ -58,14 +59,14 @@ export default class NavBar extends Component {
                     <div className={css(styles.titleHolder)}>
                         <div className={css(styles.flex)}>
                             {
-                                this.state.activeScreen==="swipes" && (
+                                activeScreen==="swipes" && (
                                     <div className={css(styles.clickable)}>
-                                        <img src={redphoenix} onClick={() => this.clicked('swipes')} className={css(styles.logo)} alt="logo" width="100%" height="100%" />
+                                        <img src={redphoenix} onClick={() => this.swipesClick()} className={css(styles.logo)} alt="logo" width="100%" height="100%" />
                                     </div>
                                 )
                             }
                             {
-                                this.state.activeScreen!=="swipes" && (
+                                activeScreen!=="swipes" && (
                                     <div className={css(styles.clickable)}>
                                         <img src={phoenix} onClick={() => this.swipesClick()} className={css(styles.logo)} alt="logo" width="70%" height="70%" />
                                     </div>
@@ -76,14 +77,14 @@ export default class NavBar extends Component {
                 </div>
                 <div className={css(styles.right)}>
                     {
-                        this.state.activeScreen==="matches" && (
+                        activeScreen==="matches" && (
                             <div className={css(styles.clickable)}>
-                                <Users color="#e54560" size={36} onClick={() => this.clicked('matches')} />
+                                <Users color="#e54560" size={36} onClick={() => this.matchesClick()} />
                             </div>
                         )
                     }
                     {
-                        this.state.activeScreen!=="matches" && (
+                        activeScreen!=="matches" && (
                             <div className={css(styles.clickable)}>
                                 <Users color="#000000" size={36} onClick={() => this.matchesClick()} />
                             </div>

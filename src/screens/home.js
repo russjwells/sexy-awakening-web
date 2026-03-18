@@ -25,21 +25,28 @@ function Home (props) {
     //const [authUser, setAuthUser] = useState(props.authUser)
     
     const toggleDrawer = () => {
-      const bool = {drawer} ? false : true
-      setDrawer(bool)
-      console.log('drawer toggle:', {drawer})
+        setDrawer(d => !d)
     }
-    const drawerChanged = () => {
-        //const bool = !this.state.drawer
-        console.log('drawerChanged')
-    }
-    const drawerChange = (isOpen) => {
-        console.log('drawer changed: its '+isOpen)
-    }  
     const menuPress = () => {
-        console.log('menu pressed home')
-        setActiveScreen("profile")
+        toggleDrawer()
     }
+
+    const screens = ['profile', 'swipes', 'matches']
+
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            if (e.key === 'Escape') toggleDrawer()
+            if (e.key === 'Tab') {
+                e.preventDefault()
+                setActiveScreen(current => {
+                    const idx = screens.indexOf(current)
+                    return screens[(idx + 1) % screens.length]
+                })
+            }
+        }
+        window.addEventListener('keydown', onKeyDown)
+        return () => window.removeEventListener('keydown', onKeyDown)
+    }, [])
     const profilePress = () => {
         console.log('profile pressed home')
         setActiveScreen("profile")
@@ -94,22 +101,21 @@ function Home (props) {
     
     return (
           <div className={css(styles.container)}>
-            <Drawer 
-                //open={}
+            <Drawer
+                open={drawer}
+                onChange={setDrawer}
                 zIndex={10000}
-                //onChange={this.drawerChanged(this.state.drawer)}
-                authUser={authUser}
             >
                 <Menu 
                   authUser={authUser}
                 />
             </Drawer>
-            <NavBar 
+            <NavBar
                 menuPress={menuPress}
                 profilePress={profilePress}
                 swipesPress={swipesPress}
                 matchesPress={matchesPress}
-
+                activeScreen={activeScreen}
                 authUser={authUser}
             />
             <WebScroller 
@@ -137,8 +143,7 @@ const styles = StyleSheet.create({
     container: {
       display: 'flex',
       flex: 1,
-      justifyContent: 'space-around',
-      flexDirection:'column',
+      flexDirection: 'column',
     },
   });
   

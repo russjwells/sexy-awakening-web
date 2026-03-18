@@ -1,9 +1,13 @@
-import React, {Component, useContext, useState, useEffect} from 'react'
+import React, {Component, useContext, useState, useEffect, useRef} from 'react'
 import {View, Text, StyleSheet, Image} from 'react-primitives'
 import sexSymbol from '../img/sex.png'
 import romanceSymbol from '../img/romance.png'
 import friendshipSymbol from '../img/friendship.png'
 import passSymbol from '../img/pass.png'
+import sexSymbolRed from '../img/sex_red.png'
+import romanceSymbolRed from '../img/romance_red.png'
+import friendshipSymbolRed from '../img/friendship_red.png'
+import passSymbolRed from '../img/pass_red.png'
 import Card from '../components/card'
 import { usePosition } from 'use-position'
 import * as firebase from 'firebase'
@@ -13,15 +17,66 @@ import filter from '../modules/filter'
 
 import UserDataContext from '../components/UserDataContext';
 
+const demoProfiles = [
+    { uid: 'demo1', first_name: 'Aria',    picture: 'new', bio: 'Adventure seeker' },
+    { uid: 'demo2', first_name: 'Luna',    picture: 'new', bio: 'Coffee & good vibes' },
+    { uid: 'demo3', first_name: 'Sage',    picture: 'new', bio: 'Free spirit' },
+    { uid: 'demo4', first_name: 'River',   picture: 'new', bio: 'Outdoors enthusiast' },
+    { uid: 'demo5', first_name: 'Phoenix', picture: 'new', bio: 'Creative soul' },
+]
+
 function Swipes (props) {
 
     const {userData} = useContext(UserDataContext)
     
     const [profiles, setProfiles] = useState([])
-    const [profileIndex, setProfileindex] = useState([])
+    const profilesRef = useRef([])
+    const [profileIndex, setProfileindex] = useState(0)
+    const [loading, setLoading] = useState(false)
+    const [locationName, setLocationName] = useState(null)
+    const [nearbyCount, setNearbyCount] = useState(0)
+    const [activeDirection, setActiveDirection] = useState(null)
+    const cardRef = useRef(null)
+    const userDataRef = useRef(userData)
+    const getProfilesRef = useRef(null)
+    useEffect(() => { userDataRef.current = userData })
+
+    const iconSwipe = (direction) => {
+        if (cardRef.current) cardRef.current.swipe(direction)
+    }
+
+    useEffect(() => {
+        const keyMap = {
+            ArrowRight: 'right',
+            ArrowLeft:  'left',
+            ArrowUp:    'up',
+            ArrowDown:  'down',
+        }
+        const onKeyDown = (e) => {
+            const dir = keyMap[e.key]
+            if (dir) {
+                e.preventDefault()
+                iconSwipe(dir)
+            }
+        }
+        window.addEventListener('keydown', onKeyDown)
+        return () => window.removeEventListener('keydown', onKeyDown)
+    }, [])
     //const [user, setUser] = useState(userData)
     const {latitude, longitude, error} = usePosition()
     //console.log("position: "+latitude+", "+longitude + ", " + error)
+
+    useEffect(() => {
+        if (typeof latitude !== 'number' || typeof longitude !== 'number') return
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+            .then(r => r.json())
+            .then(data => {
+                const a = data.address
+                const name = a.city || a.town || a.village || a.county || a.state
+                setLocationName(name || null)
+            })
+            .catch(() => {})
+    }, [latitude, longitude])
 
     useEffect(()=>{
         (async()=>{
@@ -29,50 +84,29 @@ function Swipes (props) {
             //console.log("swipes user: " + uid)
             //updateUserLocation(latitude, longitude)
             
-        if (latitude!=null) {
+        if (latitude != null && userData.uid !== 'new') {
             const {uid} = userData
             updateUserLocation(uid)
             firebase.database().ref('users').child(uid).on('value', snap => {
                 const user = snap.val()
-                /*
-                this.setState({
-                user,
-                profiles:[],
-                profileIndex:0,
-                })
-                */
-                //setUser(user)
+                if (!user) return
                 setProfiles([])
                 setProfileindex(0)
-                console.log("profiles query: " + user.uid + "," + user.distance)
-                
-                //getProfiles(user.uid, user.distance)
-                console.log("profiles query: " + userData.uid + "," + userData.distance)
-                getProfiles(userData.uid, userData.distance)
-                //console.log('profile: '+profiles)
-                
+                getProfiles(user.uid, user.distance)
             })
-        } else {
-        //    alert(profiles)
         }
         })()
-        return ()=>{
-                
-        }
-    }, [latitude])
+        return ()=>{}
+    }, [latitude, userData.uid])
 
     const updateUserLocation = async (uid) =>{
-        const status = 'granted'
-            if (status === 'granted') {
-            //const location = await Location.getCurrentPositionAsync({enableHighAccuracy: false})
-            // const {latitude, longitude} = location.coords
-            const geoFireRef = new GeoFire(firebase.database().ref('geoData'))
-            geoFireRef.set(uid, [latitude, longitude])
-            console.log("location updated")
-            //console.log('Location: ', location)
-            } else {
-            console.log('Permission Denied')
-            }
+        if (typeof latitude !== 'number' || typeof longitude !== 'number') {
+            console.log('location not ready yet')
+            return
+        }
+        const geoFireRef = new GeoFire(firebase.database().ref('geoData'))
+        geoFireRef.set(uid, [latitude, longitude])
+        console.log("location updated")
     }
 
     const getUser = (uid) => {
@@ -102,62 +136,71 @@ function Swipes (props) {
 
     const getProfiles = async (uid, distance) => {
         console.log("getProfiles")
+        setLoading(true)
         const geoFireRef = new GeoFire(firebase.database().ref('geoData'))
         const userLocation = await geoFireRef.get(uid)
-        //console.log('userLocation', userLocation)
+        if (userLocation == null) {
+            console.log("no location saved for user yet")
+            setLoading(false)
+            return
+        }
         const swipedSex = await getSwipedSex(uid)
-        //console.log("swipedSex:", swipedSex)
         const swipedRomance = await getSwipedRomance(uid)
-        //console.log("swipedRomance:", swipedRomance)
         const swipedFriendship = await getSwipedFriendship(uid)
-        //console.log("swipedFriendship:", swipedFriendship)
         const swipedPass = await getSwipedPass(uid)
-        //console.log("swipedPass:", swipedPass)
         const swipedProfiles = _.merge(swipedSex, swipedRomance, swipedFriendship, swipedPass)
-        //console.log("swipedProfiles:", swipedProfiles)
+        const radius = Array.isArray(distance) ? distance[0] : distance
         const geoQuery = geoFireRef.query({
             center: userLocation,
-            radius: distance, //km
+            radius: radius,
         })
-        const arrayofpeople = geoQuery.on('key_entered', async (uid, location, distance) => {
-            console.log(uid + ' at ' + location + ' is ' + distance + 'km from the center')
+        profilesRef.current = []
+        setNearbyCount(0)
+        geoQuery.on('key_entered', async (uid, location, distance) => {
+            setNearbyCount(c => c + 1)
             const user = await getUser(uid)
-            //console.log('querying for ' + user.val().first_name)
-            console.log("query of: ", profiles)
-            console.log(profiles.length)
-            const lprofiles = [...profiles, user.val()]
-            //console.log('qprofiles', lprofiles)
+            if (!user.val()) return
+            const lprofiles = [...profilesRef.current, user.val()]
             const filtered = filter(lprofiles, userData, swipedProfiles)
-            if (filtered.length>0){
+            if (filtered.length > 0) {
+                profilesRef.current = filtered
                 setProfiles(filtered)
-                console.log('profiles set')
-            } 
-            //setProfiles(filtered)
-            console.log("filtered:")
-            console.log(filtered)
-            //console.log("profiles", profiles)
-            //this.setState({profiles: profiles})
-            return filtered
+            }
         })
-        //alert(arrayofpeople.values())
-        setProfiles(...arrayofpeople)
+        geoQuery.on('ready', () => setLoading(false))
     }
+    getProfilesRef.current = getProfiles
+
+    useEffect(() => {
+        const onRefresh = () => {
+            const ud = userDataRef.current
+            if (!ud || ud.uid === 'new') return
+            setProfiles([])
+            setProfileindex(0)
+            getProfilesRef.current(ud.uid, ud.distance)
+        }
+        window.addEventListener('refreshSwipes', onRefresh)
+        return () => window.removeEventListener('refreshSwipes', onRefresh)
+    }, [])
+
     const cardStack = () => {
-        //console.log("position: "+latitude+", "+longitude + ", " + "error: " + error)
+        if (loading) {
+            return <View style={styles.emptyCard}><Text style={styles.emptyText}>Loading...</Text></View>
+        }
+        const stack = profiles.length > 0 ? profiles : demoProfiles
+        const current = stack.slice(profileIndex, profileIndex + 1)
         return(
             <View style={{flex: 1}}>
-                {//profiles.slice(profileIndex, profileIndex + 1).reverse().map((profile, i) => {
-                    //return(
-                        <Card 
-                            //key = {profile.id}
-                            //profile = {profile}
-                            onSwipeOff ={nextCard}
-                            //i = {i}
-                        />
-                    //)
-                //})
-                }
-                
+                {current.map((profile, i) => (
+                    <Card
+                        key={profile.uid}
+                        ref={cardRef}
+                        profile={profile}
+                        onSwipeOff={nextCard}
+                        onDragDirection={setActiveDirection}
+                        i={i}
+                    />
+                ))}
             </View>
         )
     }
@@ -183,7 +226,7 @@ function Swipes (props) {
         updateUserLocation(uid)
         firebase.database().ref('users').child(uid).on('value', snap => {
           const user = snap.val()
-          //setUser(user)
+          if (!user) return
           setProfiles([])
           setProfileindex(0)
           getProfiles(user.uid, user.distance)
@@ -233,22 +276,28 @@ function Swipes (props) {
 
     return(
         <View style={styles.swipes}>
-            <View>
-                <Image source={romanceSymbol} style={{width:30, height:30}} />
+            <View onClick={() => iconSwipe('up')} style={styles.iconBtn}>
+                <Image source={activeDirection === 'up' ? romanceSymbolRed : romanceSymbol} style={{width:30, height:30}} />
             </View>
             <View style={styles.swipesMiddle}>
-                <View>
-                    <Image source={friendshipSymbol} style={{width:30, height:30}} />
+                <View onClick={() => iconSwipe('left')} style={styles.iconBtn}>
+                    <Image source={activeDirection === 'left' ? friendshipSymbolRed : friendshipSymbol} style={{width:30, height:30}} />
                 </View>
                 <View>
                     {cardStack()}
                 </View>
-                <View>
-                    <Image source={sexSymbol} style={{width:60, height:60}} />
+                <View onClick={() => iconSwipe('right')} style={styles.iconBtn}>
+                    <Image source={activeDirection === 'right' ? sexSymbolRed : sexSymbol} style={{width:60, height:60}} />
                 </View>
             </View>
-            <View><Image source={passSymbol} style={{width:30, height:30}} /></View>
-            
+            {locationName && (
+                <Text style={styles.locationText}>
+                    {nearbyCount} {nearbyCount === 1 ? 'person' : 'people'} near {locationName}
+                </Text>
+            )}
+            <View onClick={() => iconSwipe('down')} style={styles.iconBtn}>
+                <Image source={activeDirection === 'down' ? passSymbolRed : passSymbol} style={{width:30, height:30}} />
+            </View>
         </View>
     )
 }
@@ -281,6 +330,31 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textAlign: 'center',
         justifyContent: 'space-around',
+    },
+    emptyCard: {
+        width: '300px',
+        height: '300px',
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: 'lightgrey',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    emptyText: {
+        color: 'darkgrey',
+        fontSize: '16px',
+    },
+    iconBtn: {
+        cursor: 'pointer',
+        padding: '10px',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    locationText: {
+        fontSize: '13px',
+        color: 'darkgrey',
+        textAlign: 'center',
     }
 });
 

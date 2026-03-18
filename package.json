@@ -36,6 +36,7 @@
     "semantic-ui-react": "^2.0.3",
     "use-position": "^1.0.0"
   },
+  "proxy": "https://qpfa7ske9k.execute-api.us-west-1.amazonaws.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

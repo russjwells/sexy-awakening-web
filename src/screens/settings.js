@@ -1,4 +1,4 @@
-import React, {Component, useContext, useState} from 'react'
+import React, {Component, useContext, useState, useRef} from 'react'
 import * as firebase from 'firebase'
 import { Link } from 'react-router-dom';
 import * as routes from '../constants/routes';
@@ -18,34 +18,47 @@ import UserDataHelpers from '../utils/UserDataHelpers'
 import {db} from '../firebase'
 
 import Switch from "react-switch";
-import MultiSlider, { Progress, Dot } from 'react-multi-bar-slider';
+
+const sliderStyle = {
+    width: '100%',
+    accentColor: '#e54560',
+    cursor: 'pointer',
+    marginTop: 8,
+    marginBottom: 8,
+}
 
 const Settings = (props) => {
-    //const {width, height} = Dimensions.get('window')
     const {userData, setUserData} = useContext(UserDataContext)
-    console.log("dta", userData)
-    ///*
-    const [showMen, setShowMen] = useState(userData.showMen)
-    const [showWomen, setShowWomen] = useState(userData.showWomen)
+
+    const [showMen,       setShowMen]       = useState(userData.showMen)
+    const [showWomen,     setShowWomen]     = useState(userData.showWomen)
     const [showNonbinary, setShowNonbinary] = useState(userData.showNonbinary)
-    const [showTransmen, setShowTransmen] = useState(userData.showTransmen)
-    const [showTranswomen, setShowTranswomen] = useState(userData.showTranswomen)
-    const [showGroups, setShowGroups] = useState(userData.showGroups)
+    const [showTransmen,  setShowTransmen]  = useState(userData.showTransmen)
+    const [showTranswomen,setShowTranswomen]= useState(userData.showTranswomen)
+    const [showGroups,    setShowGroups]    = useState(userData.showGroups)
+
+    const toNumArray = (val, fallback) => {
+        if (!val) return fallback
+        const arr = Array.isArray(val) ? val : Object.values(val)
+        const nums = arr.map(Number).filter(n => !isNaN(n))
+        return nums.length ? nums : fallback
+    }
+
+    const ageRangeInit = toNumArray(userData.ageRange, [18, 60])
+    const distanceInit = toNumArray(userData.distance, [200])
+    const [ageRange, setAgeRange] = useState(ageRangeInit)
+    const [distance, setDistance] = useState(distanceInit)
+    const ageRangeRef = useRef(ageRangeInit)
+    const distanceRef = useRef(distanceInit)
 
     const updateUser = (key, value) => {
         const {uid} = userData
-        console.log("update user uid: " + uid)
-        //alert("update user uid: " + uid)
-        firebase.database().ref('users').child(uid)
-        .update({[key]:value})
+        firebase.database().ref('users').child(uid).update({[key]: value})
+        setUserData(prev => ({...prev, [key]: value}))
     }
 
-    const handleMen = nextMen => {
-        setShowMen(nextMen)
-        updateUser('showMen', nextMen)
-    }
-
-    //*/
+    const saveAgeRange  = () => updateUser('ageRange', ageRangeRef.current)
+    const saveDistance  = () => updateUser('distance', distanceRef.current)
     
     
 
@@ -70,30 +83,39 @@ const Settings = (props) => {
                 </View>
                 <View style={styles.label}>
                     <Text>You will only encounter people aged </Text>
-                        <Text style={{color: '#e54560'}}>{userData.ageRange[0]}</Text>
-                        <Text style={{color: '#e54560'}}> – </Text>
-                        <Text style={{color: '#e54560'}}>{userData.ageRange[1]}</Text>
-                        <Text> on Sexy Awakening.</Text>
-                    </View>
-                    <View style={styles.slider}>
-                        <MultiSlider 
-                            min={18}
-                            max={144}
-                            values={userData.ageRangeValues}
-                            //onValuesChange={val => this.setState({ageRangeValues: val})}
-                            //onValuesChangeFinish={val => this.updateUser('ageRange', val)}
-                            onSlide={val => val}
-                            width={'30%'}
-                            readOnly={false}
-                        >
-                            <Progress color="#e5460" height={10} progress={userData.ageRange[0]}>
-                                <Dot color="darkgrey"></Dot>
-                            </Progress>
-                            <Progress color="#e5460" height={10} progress={userData.ageRange[1]}>
-                                <Dot color="darkgrey"></Dot>
-                            </Progress>
-                        </MultiSlider>
-                    </View>
+                    <Text style={{color: '#e54560'}}>{ageRange[0]}</Text>
+                    <Text style={{color: '#e54560'}}> – </Text>
+                    <Text style={{color: '#e54560'}}>{ageRange[1]}</Text>
+                    <Text> on Sexy Awakening.</Text>
+                </View>
+                <View style={styles.slider}>
+                    <Text style={styles.sliderLabel}>Min: {ageRange[0]}</Text>
+                    <input type="range" min={18} max={144}
+                        value={ageRange[0]}
+                        style={sliderStyle}
+                        onChange={e => {
+                            const val = Math.min(parseInt(e.target.value), ageRangeRef.current[1] - 1)
+                            const next = [val, ageRangeRef.current[1]]
+                            ageRangeRef.current = next
+                            setAgeRange(next)
+                        }}
+                        onMouseUp={saveAgeRange}
+                        onTouchEnd={saveAgeRange}
+                    />
+                    <Text style={styles.sliderLabel}>Max: {ageRange[1]}</Text>
+                    <input type="range" min={18} max={144}
+                        value={ageRange[1]}
+                        style={sliderStyle}
+                        onChange={e => {
+                            const val = Math.max(parseInt(e.target.value), ageRangeRef.current[0] + 1)
+                            const next = [ageRangeRef.current[0], val]
+                            ageRangeRef.current = next
+                            setAgeRange(next)
+                        }}
+                        onMouseUp={saveAgeRange}
+                        onTouchEnd={saveAgeRange}
+                    />
+                </View>
                     
                     <View style={styles.sectionTitle}>
                         <Text style={styles.sectionTitleText}>Where</Text>
@@ -105,24 +127,21 @@ const Settings = (props) => {
                     <br />
                     <View style={styles.label}>
                         <Text>Finding connections up to </Text>
-                        <Text style={{color: '#e54560'}}>{userData.distance} km</Text>
+                        <Text style={{color: '#e54560'}}>{distance[0]} km</Text>
                         <Text> away.</Text>
                     </View>
                     <View style={styles.slider}>
-                        <MultiSlider 
-                            min={1}
-                            max={1000}
-                            values={userData.distanceValue}
-                            readOnly={false}
-                            //onValuesChange={val => this.setState({distanceValue: val})}
-                            //onValuesChangeFinish={val => this.updateUser('distance', val[0])}
-                            onSlide={val => val}
-                            width={'30%'}
-                        >
-                            <Progress color="#e5460" progress={userData.distance}>
-                                <Dot color="darkgrey"></Dot>
-                            </Progress>
-                        </MultiSlider>
+                        <input type="range" min={1} max={1000}
+                            value={distance[0]}
+                            style={sliderStyle}
+                            onChange={e => {
+                                const next = [parseInt(e.target.value)]
+                                distanceRef.current = next
+                                setDistance(next)
+                            }}
+                            onMouseUp={saveDistance}
+                            onTouchEnd={saveDistance}
+                        />
                     </View>
                     
                     <View style={styles.sectionTitle}>
@@ -130,60 +149,27 @@ const Settings = (props) => {
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Men</Text>
-                        <Switch 
-                            checked={showMen}
-                            onChange={handleMen}
-                        />
+                        <Switch checked={showMen} onChange={val => { setShowMen(val); updateUser('showMen', val) }} />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Women</Text>
-                        <Switch 
-                            checked={showWomen}
-                            onChange={val => {
-                                setShowWomen(val)
-                                updateUser('showWomen', val)
-                            }}
-                        />
+                        <Switch checked={showWomen} onChange={val => { setShowWomen(val); updateUser('showWomen', val) }} />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Nonbinary</Text>
-                        <Switch 
-                            checked={showNonbinary}
-                            onChange={val => {
-                                setShowNonbinary(val)
-                                updateUser('showNonbinary', val)
-                            }}
-                        />
+                        <Switch checked={showNonbinary} onChange={val => { setShowNonbinary(val); updateUser('showNonbinary', val) }} />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Transmen</Text>
-                        <Switch 
-                        checked={showTransmen}
-                            onChange={val => {
-                                setShowTransmen(val)
-                                updateUser('showTransmen', val)
-                            }}
-                        />
+                        <Switch checked={showTransmen} onChange={val => { setShowTransmen(val); updateUser('showTransmen', val) }} />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Transwomen</Text>
-                        <Switch 
-                        checked={showTranswomen}
-                            onChange={val => {
-                                setShowTranswomen(val)
-                                updateUser('showTranswomen', val)
-                            }}
-                        />
+                        <Switch checked={showTranswomen} onChange={val => { setShowTranswomen(val); updateUser('showTranswomen', val) }} />
                     </View>
                     <View style={styles.switch}>
                         <Text style={styles.label}>Groups</Text>
-                        <Switch 
-                        checked={showGroups}
-                            onChange={val => {
-                                setShowGroups(val)
-                                updateUser('showGroups', val)
-                            }}
-                        />
+                        <Switch checked={showGroups} onChange={val => { setShowGroups(val); updateUser('showGroups', val) }} />
                     </View>
                 
             </View>
@@ -266,16 +252,17 @@ const styles = StyleSheet.create({
     },
     slider: {
         display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        flexDirection: 'column',
         marginLeft: 20,
         marginRight: 20,
         marginTop: 10,
-        width: '100%',
-        marginTop:'20px',
-        marginBottom:'20px'
-        //backgroundColor: 'green'
-
+        marginBottom: 20,
+        width: '90%',
+    },
+    sliderLabel: {
+        fontSize: '13px',
+        color: 'darkgrey',
+        marginTop: 4,
     },
     switch: {
         flexDirection: 'row',

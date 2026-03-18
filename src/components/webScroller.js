@@ -40,14 +40,16 @@ const styles = StyleSheet.create({
     content: {
       display: 'flex',
       flex: 1,
-      justifyContent: 'space-around',
-      flexDiretion: 'column'
+      minHeight: 0,
+      overflow: 'hidden',
+      flexDirection: 'column',
     },
     flex: {
         display: 'flex',
         flex: 1,
-        justifyContent: 'space-around',
-        flexDiretion: 'row'
+        minHeight: 0,
+        overflow: 'hidden',
+        flexDirection: 'column',
     }
 });
   

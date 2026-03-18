@@ -96,7 +96,22 @@ function Matches (props) {
     const [pass, setPass] = useState([])
 
     const {userData} = useContext(UserDataContext)
-    //useEffect()
+
+    const matchTypes = ['sex', 'romance', 'friendship', 'pass']
+
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                setMatchType(current => {
+                    const idx = matchTypes.indexOf(current)
+                    if (e.key === 'ArrowLeft') return matchTypes[(idx - 1 + matchTypes.length) % matchTypes.length]
+                    return matchTypes[(idx + 1) % matchTypes.length]
+                })
+            }
+        }
+        window.addEventListener('keydown', onKeyDown)
+        return () => window.removeEventListener('keydown', onKeyDown)
+    }, [])
 
     //run did mount
     useEffect(() => {
@@ -142,6 +157,13 @@ function Matches (props) {
                     return foundProfile ? foundProfile : getUser(profileUid)
                 })
                 Promise.all(promisesFriendship).then(data => setFriendship(data))
+
+                // pass data — one-directional, just who you swiped down on
+                const allPass = relations.pass
+                    ? _.keys(_.pickBy(relations.pass, value => value))
+                    : []
+                const promisesPass = allPass.map(profileUid => getUser(profileUid))
+                Promise.all(promisesPass).then(data => setPass(data.filter(Boolean)))
 
                 const allMatches = allSex.concat(allRomance.concat(allFriendship))
                 const promises = allMatches.map(profileUid => {
@@ -211,13 +233,14 @@ function Matches (props) {
     }
 
     const renderPerson = (person, idx) => {
+        if (!person) return null
         const {uid, picture, first_name, bio} = person
         return (
                 <View style={styles.matchRow} key={idx} onClick={()=>console.log("goto chat w " + first_name)}>
                     <View style={styles.avatarColumn}>
-                        <CircleAvatar 
-                            uid={uid} 
-                            pic={picture} 
+                        <CircleAvatar
+                            uid={uid}
+                            pic={picture}
                             size={(80, 80)}
                         />
                     </View>
@@ -226,7 +249,7 @@ function Matches (props) {
                             {first_name}
                         </Text>
                         <Text style={styles.bioText}>
-                            {bio.split('\n')[0]}
+                            {bio ? bio.split('\n')[0] : ''}
                         </Text>
                     </View>
                     <View style={styles.messageColumn}>
@@ -245,6 +268,35 @@ function Matches (props) {
         )
     }
 
+    const unpass = async (profileUid) => {
+        const {uid} = userData
+        await Promise.all([
+            firebase.database().ref('relationships').child(uid).child('pass').child(profileUid).remove(),
+            firebase.database().ref('relationships').child(profileUid).child('passBack').child(uid).remove(),
+        ])
+        setPass(prev => prev.filter(p => p.uid !== profileUid))
+        window.dispatchEvent(new CustomEvent('refreshSwipes'))
+    }
+
+    const renderPassPerson = (person, idx) => {
+        if (!person) return null
+        const {uid, picture, first_name, bio} = person
+        return (
+            <View style={styles.matchRow} key={idx}>
+                <View style={styles.avatarColumn}>
+                    <CircleAvatar uid={uid} pic={picture} size={(80, 80)} />
+                </View>
+                <View style={styles.matchColumn}>
+                    <Text style={styles.nameText}>{first_name}</Text>
+                    <Text style={styles.bioText}>{bio ? bio.split('\n')[0] : ''}</Text>
+                </View>
+                <View style={styles.messageColumn}>
+                    <button onClick={() => unpass(uid)}>Undo</button>
+                </View>
+            </View>
+        )
+    }
+
     const renderEmpty = () => {
         return(
             <View style={styles.emptyList}>
@@ -254,52 +306,48 @@ function Matches (props) {
     }
 
     return(
-        <View style={styles.container}>
-            <View style={styles.list}>
-                <FlatList 
+        <div style={{position:'relative', flex:1, backgroundColor:'white'}}>
+            <div style={{position:'absolute', top:0, left:0, right:0, bottom:FILTER_HEIGHT, overflowY:'auto', paddingLeft:50}}>
+                <FlatList
                     list={getData(matchType)}
-                    renderItem={renderPerson}
+                    renderItem={matchType === 'pass' ? renderPassPerson : renderPerson}
                     renderWhenEmpty={renderEmpty}
                 />
-            </View>
-            <View style={styles.relationshipFilter}>
-                <View style={styles.filterButton} 
-                    onClick={() => {setMatchType('sex')}}
-                >
-                    <View style={[styles.filterButton, styles.sexFilter]}>
-                        <Image source={matchType === 'sex' ? sexSymbolRed : sexSymbol} style={{width:70, height:70}} />
-                    </View>
+            </div>
+            <div style={{position:'absolute', bottom:0, left:0, right:0, height:FILTER_HEIGHT, display:'flex', flexDirection:'row', backgroundColor:'white', borderTop:'1px solid #eee'}}>
+                <View style={styles.filterButton} onClick={() => setMatchType('sex')}>
+                    <Image source={matchType === 'sex' ? sexSymbolRed : sexSymbol} style={{width:70, height:70}} />
                 </View>
-                <View style={styles.filterButton} 
-                    onClick={()=>{setMatchType('romance')}}
-                >
-                    <View style={styles.filterButton}>
-                        <Image source={matchType === 'romance' ? romanceSymbolRed : romanceSymbol} style={{width:40, height:40}} />
-                    </View>
+                <View style={styles.filterButton} onClick={() => setMatchType('romance')}>
+                    <Image source={matchType === 'romance' ? romanceSymbolRed : romanceSymbol} style={{width:40, height:40}} />
                 </View>
-                <View style={styles.filterButton} 
-                    onClick={() => {setMatchType('friendship')}}
-                >
-                    <View style={styles.filterButton}>
-                        <Image source={matchType === 'friendship' ? friendshipSymbolRed : friendshipSymbol} style={{width:40, height:40}} />
-                    </View>
+                <View style={styles.filterButton} onClick={() => setMatchType('friendship')}>
+                    <Image source={matchType === 'friendship' ? friendshipSymbolRed : friendshipSymbol} style={{width:40, height:40}} />
                 </View>
-                <View style={styles.filterButton} 
-                    onClick={() => {setMatchType('pass')}}
-                >
-                    <View style={styles.filterButton}>
-                        <Image source={matchType === 'pass' ? passSymbolRed : passSymbol} style={{width:40, height:40}} />
-                    </View>
+                <View style={styles.filterButton} onClick={() => setMatchType('pass')}>
+                    <Image source={matchType === 'pass' ? passSymbolRed : passSymbol} style={{width:40, height:40}} />
                 </View>
-            </View>
-        </View>
+            </div>
+        </div>
     )
     }
 
+const FILTER_HEIGHT = 70
+
 const styles = StyleSheet.create({
     container: {
+        position: 'relative',
         flex: 1,
         backgroundColor: 'white',
+    },
+    list: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: FILTER_HEIGHT,
+        overflowY: 'auto',
+        paddingLeft: '50px',
     },
     matchColumn: {
         display: 'flex',
@@ -354,16 +402,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     relationshipFilter:{
-        flex:-1,
-        flexDirection:'row',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: FILTER_HEIGHT,
+        display: 'flex',
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        borderTopWidth: 1,
+        borderTopColor: '#eee',
     },
     filterButton:{
-        flex:1,
-        height:60,
+        flex: 1,
+        height: FILTER_HEIGHT,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        pointer:'pointer',
+        cursor: 'pointer',
     },
     sexFilter:{
         flex:1,
@@ -376,14 +432,6 @@ const styles = StyleSheet.create({
     },
     chats: {
         flex: 9,
-    },
-    list: {
-        flex: 1,
-        backgroundColor: 'white',
-        flexDirection: 'column',
-        overflow: 'scroll',
-        maxHeight: '',
-        paddingLeft: '50px'
     },
     listStyle: {
         listStyleType: 'none'

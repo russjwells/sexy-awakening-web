@@ -69,10 +69,10 @@ const Menu = () => {
 const styles = StyleSheet.create({
     container: {
       display: 'flex',
-      flex: '1 1 1',
+      flexDirection: 'column',
       justifyContent: 'flex-start',
-      flexDirection:'column',
       backgroundColor: 'white',
+      minHeight: '100vh',
     },
     logo:{
         width: '80px',
@@ -80,12 +80,11 @@ const styles = StyleSheet.create({
     },
     logoHolder:{
         display: 'flex',
-        flex: 1,
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         flexDirection:'row',
         alignItems: 'center',
-        padding: '10px 10px',
-        marginTop: '10px'
+        padding: '10px',
+        marginTop: '10px',
     },
     link: {
         textDecorationLine: 'none',
@@ -94,10 +93,9 @@ const styles = StyleSheet.create({
     },
     top:{
         display: 'flex',
-        flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
         flexDirection: 'column',
         paddingTop: '10px',
     },
@@ -105,20 +103,18 @@ const styles = StyleSheet.create({
         textDecorationLine: 'none'
     },
     menuItem:{
-        height: 100,
+        paddingTop: 16,
+        paddingBottom: 16,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignSelf: 'center',
     },
     menuItems:{
         display: 'flex',
-        flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-around',
-        alignSelf: 'center',
-        backgroundColor: 'light-blue',
-        flexDirection: 'column'
+        justifyContent: 'flex-start',
+        flexDirection: 'column',
     },
     version:{
         backgroundColor:'white',
